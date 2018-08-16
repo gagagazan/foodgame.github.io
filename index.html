@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="css/style.min.css?v=3" />
     <script type="text/javascript" src="js/script.min.js?v=7"></script>
     <script type="text/javascript" src="js/common.min.js?v=17"></script>
-    <link rel="stylesheet" type="text/css" href="css/food.min.css?v=21" />
+    <link rel="stylesheet" type="text/css" href="css/food.css?v=21" />
     <script type="text/javascript" src="js/food.js?v=79"></script>
 </head>
 
@@ -53,6 +53,11 @@
                             <input type="checkbox" id="chk-recipe-show-id" class="chk-recipe-show">
                             <i class="fa fa-check glyphicon glyphicon-ok"></i>
                             编号
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="checkbox" id="chk-recipe-show-icon" class="chk-recipe-show" checked>
+                            <i class="fa fa-check glyphicon glyphicon-ok"></i>
+                            图
                         </label>
                         <label class="btn btn-default">
                             <input type="checkbox" id="chk-recipe-show-rarity" class="chk-recipe-show" checked>
@@ -295,7 +300,7 @@
                     <table id="recipe-table-header" class="hidden">
                         <thead>
                             <tr>
-                                <th>编号</th>
+                                <th>No.</th>
                                 <th></th>
                                 <th>菜名</th>
                                 <th>星</th>
@@ -336,6 +341,11 @@
                             <input type="checkbox" id="chk-chef-show-id" class="chk-chef-show">
                             <i class="fa fa-check glyphicon glyphicon-ok"></i>
                             编号
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="checkbox" id="chk-chef-show-icon" class="chk-chef-show" checked>
+                            <i class="fa fa-check glyphicon glyphicon-ok"></i>
+                            图
                         </label>
                         <label class="btn btn-default">
                             <input type="checkbox" id="chk-chef-show-rarity" class="chk-chef-show" checked>
@@ -513,7 +523,8 @@
                     <table id="chef-table-header" class="hidden">
                         <thead>
                             <tr>
-                                <th>编号</th>
+                                <th>No.</th>
+                                <th></th>
                                 <th>名字</th>
                                 <th>星</th>
                                 <th>炒</th>
@@ -550,6 +561,11 @@
                             <input type="checkbox" id="chk-equip-show-id" class="chk-equip-show">
                             <i class="fa fa-check glyphicon glyphicon-ok"></i>
                             编号
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="checkbox" id="chk-equip-show-icon" class="chk-equip-show">
+                            <i class="fa fa-check glyphicon glyphicon-ok"></i>
+                            图
                         </label>
                         <label class="btn btn-default">
                             <input type="checkbox" id="chk-equip-show-rarity" class="chk-equip-show">
@@ -718,7 +734,8 @@
                     <table id="equip-table" class="table table-hover table-bordered" width="100%">
                         <thead>
                             <tr>
-                                <th>编号</th>
+                                <th>No.</th>
+                                <th></th>
                                 <th>名字</th>
                                 <th>星</th>
                                 <th>技能</th>
@@ -739,7 +756,7 @@
                     <table id="quest-table" class="table table-hover table-bordered" width="100%">
                         <thead>
                             <tr>
-                                <th>编号</th>
+                                <th>No.</th>
                                 <th>任务</th>
                                 <th>奖励</th>
                             </tr>
@@ -990,7 +1007,7 @@
                                     <thead>
                                         <tr>
                                             <th></th>
-                                            <th>编号</th>
+                                            <th>No.</th>
                                             <th>菜名</th>
                                             <th>星</th>
                                             <th>炒</th>
@@ -1099,7 +1116,7 @@
                                     <thead>
                                         <tr>
                                             <th></th>
-                                            <th>编号</th>
+                                            <th>No.</th>
                                             <th>名字</th>
                                             <th>星</th>
                                             <th>炒</th>
@@ -1176,7 +1193,7 @@
                                     <thead>
                                         <tr>
                                             <th></th>
-                                            <th>编号</th>
+                                            <th>No.</th>
                                             <th>名字</th>
                                             <th>星</th>
                                             <th>技能</th>
@@ -1263,7 +1280,7 @@
                                     <thead>
                                         <tr>
                                             <th></th>
-                                            <th>编号</th>
+                                            <th>No.</th>
                                             <th>名字</th>
                                             <th>星</th>
                                             <th>来源</th>
