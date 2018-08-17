@@ -60,6 +60,10 @@ function initFunction() {
     if (c && lcode(c) == "519526da9fa86daa1536b8e280527306eda91dec4a0c56e2c9f64444") {
         cal = true;
     }
+
+    if (private) {
+        $('head').append('<link rel="stylesheet" type="text/css" href="private/css/image.css">');
+    }
 }
 
 function initTables(data, person) {
@@ -3465,9 +3469,9 @@ function generateData(json, json2, person) {
         equip["effect"] = skillInfo.skillEffect;
 
         if (json.equips[i].origin) {
-            equip["icon"] = "<img src='images/equip/equip_" + json.equips[i].equipId + ".png' />";
+            equip["icon"] = "<div class='icon-equip equip_" + json.equips[i].equipId + "'></div>";
         } else {
-            equip["icon"] = "<img src='private/images/equip/equip_" + json.equips[i].equipId + ".png' />";
+            equip["icon"] = "<div class='icon-equip2 equip_" + json.equips[i].equipId + "'></div>";
         }
 
         equipsData.push(equip);
@@ -3524,9 +3528,9 @@ function generateData(json, json2, person) {
         chefData["rarityDisp"] = getRarityDisp(json.chefs[i].rarity);
 
         if (json.chefs[i].origin) {
-            chefData["icon"] = "<img src='images/chef/chef_" + json.chefs[i].chefId + ".png' />";
+            chefData["icon"] = "<div class='icon-chef chef_" + json.chefs[i].chefId + "'></div>";
         } else {
-            chefData["icon"] = "<img src='private/images/chef/chef_" + json.chefs[i].chefId + ".png' />";
+            chefData["icon"] = "<div class='icon-chef2 chef_" + json.chefs[i].chefId + "'></div>";
         }
 
         var skillInfo = getSkillInfo(json.skills, json.chefs[i].skill);
@@ -3627,9 +3631,9 @@ function generateData(json, json2, person) {
         recipeData["rarityDisp"] = getRarityDisp(json.recipes[i].rarity);
 
         if (json.recipes[i].origin) {
-            recipeData["icon"] = "<img src='images/recipe/recipe_" + json.recipes[i].recipeId + ".png' />";
+            recipeData["icon"] = "<div class='icon-recipe recipe_" + json.recipes[i].recipeId + "'></div>";
         } else {
-            recipeData["icon"] = "<img src='private/images/recipe/recipe_" + json.recipes[i].recipeId + ".png' />";
+            recipeData["icon"] = "<div class='icon-recipe2 recipe_" + json.recipes[i].recipeId + "'></div>";
         }
 
         recipeData["tags"] = [];
