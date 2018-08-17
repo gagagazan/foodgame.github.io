@@ -367,3 +367,12 @@ table.dataTable tbody>tr>.selected {
     width: 35px;
     height: 35px;
 }
+
+table.history-table tr td {
+    border: 0px;
+}
+
+table.history-table tr td.history-dt {
+    width: 80px;
+    padding-left: 0px;
+}

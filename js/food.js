@@ -4396,10 +4396,11 @@ function initInfo(data) {
 }
 
 function historyTemplate(data) {
-    var html = '';
+    var html = '<table class="table table-condensed history-table">';
     $.each(data, function (index, item) {
-        html += '<p>' + item + '</p>';
+        html += '<tr><td class="history-dt">' + item.date + '</td><td>' + item.content + '<td></tr>';
     });
+    html += "</table>"
     return html;
 }
 
