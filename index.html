@@ -7,8 +7,9 @@
     <link rel="stylesheet" type="text/css" href="css/style.min.css?v=3" />
     <script type="text/javascript" src="js/script.min.js?v=7"></script>
     <script type="text/javascript" src="js/common.min.js?v=17"></script>
-    <link rel="stylesheet" type="text/css" href="css/food.min.css?v=21" />
-    <script type="text/javascript" src="js/food.min.js?v=79"></script>
+    <link rel="stylesheet" type="text/css" href="css/food.min.css?v=22" />
+    <script type="text/javascript" src="js/food.min.js?v=80"></script>
+    <link rel="stylesheet" type="text/css" href="css/image.css?v=1" />
 </head>
 
 <body>
@@ -53,6 +54,11 @@
                             <input type="checkbox" id="chk-recipe-show-id" class="chk-recipe-show">
                             <i class="fa fa-check glyphicon glyphicon-ok"></i>
                             编号
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="checkbox" id="chk-recipe-show-icon" class="chk-recipe-show" checked>
+                            <i class="fa fa-check glyphicon glyphicon-ok"></i>
+                            图
                         </label>
                         <label class="btn btn-default">
                             <input type="checkbox" id="chk-recipe-show-rarity" class="chk-recipe-show" checked>
@@ -295,7 +301,8 @@
                     <table id="recipe-table-header" class="hidden">
                         <thead>
                             <tr>
-                                <th>编号</th>
+                                <th>No.</th>
+                                <th></th>
                                 <th>菜名</th>
                                 <th>星</th>
                                 <th>炒</th>
@@ -335,6 +342,11 @@
                             <input type="checkbox" id="chk-chef-show-id" class="chk-chef-show">
                             <i class="fa fa-check glyphicon glyphicon-ok"></i>
                             编号
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="checkbox" id="chk-chef-show-icon" class="chk-chef-show" checked>
+                            <i class="fa fa-check glyphicon glyphicon-ok"></i>
+                            图
                         </label>
                         <label class="btn btn-default">
                             <input type="checkbox" id="chk-chef-show-rarity" class="chk-chef-show" checked>
@@ -512,7 +524,8 @@
                     <table id="chef-table-header" class="hidden">
                         <thead>
                             <tr>
-                                <th>编号</th>
+                                <th>No.</th>
+                                <th></th>
                                 <th>名字</th>
                                 <th>星</th>
                                 <th>炒</th>
@@ -549,6 +562,11 @@
                             <input type="checkbox" id="chk-equip-show-id" class="chk-equip-show">
                             <i class="fa fa-check glyphicon glyphicon-ok"></i>
                             编号
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="checkbox" id="chk-equip-show-icon" class="chk-equip-show">
+                            <i class="fa fa-check glyphicon glyphicon-ok"></i>
+                            图
                         </label>
                         <label class="btn btn-default">
                             <input type="checkbox" id="chk-equip-show-rarity" class="chk-equip-show">
@@ -717,7 +735,8 @@
                     <table id="equip-table" class="table table-hover table-bordered" width="100%">
                         <thead>
                             <tr>
-                                <th>编号</th>
+                                <th>No.</th>
+                                <th></th>
                                 <th>名字</th>
                                 <th>星</th>
                                 <th>技能</th>
@@ -738,7 +757,7 @@
                     <table id="quest-table" class="table table-hover table-bordered" width="100%">
                         <thead>
                             <tr>
-                                <th>编号</th>
+                                <th>No.</th>
                                 <th>任务</th>
                                 <th>奖励</th>
                             </tr>
@@ -989,7 +1008,7 @@
                                     <thead>
                                         <tr>
                                             <th></th>
-                                            <th>编号</th>
+                                            <th>No.</th>
                                             <th>菜名</th>
                                             <th>星</th>
                                             <th>炒</th>
@@ -1098,7 +1117,7 @@
                                     <thead>
                                         <tr>
                                             <th></th>
-                                            <th>编号</th>
+                                            <th>No.</th>
                                             <th>名字</th>
                                             <th>星</th>
                                             <th>炒</th>
@@ -1175,7 +1194,7 @@
                                     <thead>
                                         <tr>
                                             <th></th>
-                                            <th>编号</th>
+                                            <th>No.</th>
                                             <th>名字</th>
                                             <th>星</th>
                                             <th>技能</th>
@@ -1262,7 +1281,7 @@
                                     <thead>
                                         <tr>
                                             <th></th>
-                                            <th>编号</th>
+                                            <th>No.</th>
                                             <th>名字</th>
                                             <th>星</th>
                                             <th>来源</th>
@@ -1441,10 +1460,10 @@
                     <span class="label label-info">菜谱图鉴</span>
                 </h4>
                 <p>耗材效率 - 可以看食材的消耗效率.</p>
-                <p>选择厨师 - 可以看厨师可做的品阶以及效率. (如果厨师图签中的修炼技能和厨具技能开关为开, 则会使用相应的数据加成)</p>
-                <p>神级能力差 - 显示所选厨师做神级菜的技能差, 方便选择修炼菜谱. (如果厨师图签中的修炼技能和厨具技能开关为开, 则会使用相应的数据加成)</p>
+                <p>选择厨师 - 可以看厨师可做的品阶以及效率. (如果厨师图鉴中的修炼技能和厨具技能开关为开, 则会使用相应的数据加成)</p>
+                <p>神级能力差 - 显示所选厨师做神级菜的技能差, 方便选择修炼菜谱. (如果厨师图鉴中的修炼技能和厨具技能开关为开, 则会使用相应的数据加成)</p>
                 <p>升阶贵客 - 第一次菜品升阶(升优-升特-升神)必来的贵客, 该列默认不显示.</p>
-                <p>神级符文 - 第一次做神级菜品时贵客送的符文（升优, 升特时贵客一般只给食材, 升神会送符文或菜谱）, 该列默认不显示.</p>
+                <p>神级符文 - 第一次做神级菜品时贵客送的符文(升优, 升特时贵客一般只给食材, 升神会送符文或菜谱), 该列默认不显示.</p>
                 <p>升阶贵客、神级符文搜索框 - 仅搜索升阶贵客和神级符文这两列, 该搜索主要用于做贵客的碰瓷任务.</p>
                 <p>右侧搜索框 - 可搜索菜名, 材料, 贵客, 符文.贵客和符文搜索的是贵客列, 不同于升阶贵客和神级符文.</p>
                 <p>列 品阶 - 个人数据, 该列点击可编辑, 用来记录你当前做到的品阶.</p>
