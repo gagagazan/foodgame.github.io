@@ -497,7 +497,7 @@ function reInitRecipeTable(data) {
     var order = [];
 
     if ($.fn.DataTable.isDataTable('#recipe-table')) {
-        pageLength = $("#pane-recipes #recipe-table_length select").val();
+        // pageLength = $("#pane-recipes #recipe-table_length select").val();
         searchValue = $("#pane-recipes .search-box input").val();
         order = getTableOrder($('#recipe-table').DataTable(), recipeColumns.length);
         $('#recipe-table').DataTable().MakeCellsEditable("destroy");
@@ -1060,7 +1060,7 @@ function reInitChefTable(data) {
     var order = [];
 
     if ($.fn.DataTable.isDataTable('#chef-table')) {
-        pageLength = $("#pane-chefs #chef-table_length select").val();
+        // pageLength = $("#pane-chefs #chef-table_length select").val();
         searchValue = $("#pane-chefs .search-box input").val();
         order = getTableOrder($('#chef-table').DataTable(), chefColumns.length);
         $('#chef-table').DataTable().MakeCellsEditable("destroy");
