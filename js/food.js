@@ -1351,6 +1351,11 @@ function initEquipTable(data) {
 }
 
 function initQuestTable(data) {
+
+    for (var i in data.activities) {
+        $('#select-quest-type').append("<option>" + data.activities[i].name + "</option>");
+    }
+
     var questColumns = [
         {
             "data": "questId",
@@ -2116,11 +2121,13 @@ function loadRule(data, rule) {
             }
         }
 
-        if (allRecipes[i].rarity > rule.CookbookRarityLimit) {
-            continue;
+        if (rule.hasOwnProperty("CookbookRarityLimit")) {
+            if (allRecipes[i].rarity > rule.CookbookRarityLimit) {
+                continue;
+            }
         }
 
-        if (rule.RecipesTagsEffect.length > 0) {
+        if (rule.hasOwnProperty("RecipesTagsEffect") && rule.RecipesTagsEffect.length > 0) {
             for (var j in allRecipes[i].tags) {
                 for (var k in rule.RecipesTagsEffect) {
                     if (allRecipes[i].tags[j] == rule.RecipesTagsEffect[k].TagID) {
@@ -2130,24 +2137,20 @@ function loadRule(data, rule) {
             }
         }
 
-        if (rule.RecipesEffect.length > 0) {
-            for (var k in rule.RecipesEffect) {
-                if (allRecipes[i].recipeId == rule.RecipesEffect[k].RecipeID) {
-                    allRecipes[i].addition = Number(allRecipes[i].addition).add(rule.RecipesEffect[k].Effect);
-                }
+        for (var k in rule.RecipesEffect) {
+            if (allRecipes[i].recipeId == rule.RecipesEffect[k].RecipeID) {
+                allRecipes[i].addition = Number(allRecipes[i].addition).add(rule.RecipesEffect[k].Effect);
             }
         }
 
-        if (rule.hasOwnProperty("RecipesSkillsEffect") && rule.RecipesSkillsEffect.length > 0) {
-            for (var k in rule.RecipesSkillsEffect) {
-                if (rule.RecipesSkillsEffect[k].Skill == "stirfry" && allRecipes[i].stirfry > 0
-                    || rule.RecipesSkillsEffect[k].Skill == "boil" && allRecipes[i].boil > 0
-                    || rule.RecipesSkillsEffect[k].Skill == "knife" && allRecipes[i].knife > 0
-                    || rule.RecipesSkillsEffect[k].Skill == "fry" && allRecipes[i].fry > 0
-                    || rule.RecipesSkillsEffect[k].Skill == "bake" && allRecipes[i].bake > 0
-                    || rule.RecipesSkillsEffect[k].Skill == "steam" && allRecipes[i].steam > 0) {
-                    allRecipes[i].addition = Number(allRecipes[i].addition).add(rule.RecipesSkillsEffect[k].Effect);
-                }
+        for (var k in rule.RecipesSkillsEffect) {
+            if (rule.RecipesSkillsEffect[k].Skill == "stirfry" && allRecipes[i].stirfry > 0
+                || rule.RecipesSkillsEffect[k].Skill == "boil" && allRecipes[i].boil > 0
+                || rule.RecipesSkillsEffect[k].Skill == "knife" && allRecipes[i].knife > 0
+                || rule.RecipesSkillsEffect[k].Skill == "fry" && allRecipes[i].fry > 0
+                || rule.RecipesSkillsEffect[k].Skill == "bake" && allRecipes[i].bake > 0
+                || rule.RecipesSkillsEffect[k].Skill == "steam" && allRecipes[i].steam > 0) {
+                allRecipes[i].addition = Number(allRecipes[i].addition).add(rule.RecipesSkillsEffect[k].Effect);
             }
         }
 
@@ -2160,13 +2163,15 @@ function loadRule(data, rule) {
             continue;
         }
 
-        if (allChefs[i].rarity > rule.ChefRarityLimit) {
-            continue;
+        if (rule.hasOwnProperty("ChefRarityLimit")) {
+            if (allChefs[i].rarity > rule.ChefRarityLimit) {
+                continue;
+            }
         }
 
         var valid = false;
 
-        if (rule.EnableChefTags.length > 0) {
+        if (rule.hasOwnProperty("EnableChefTags") && rule.EnableChefTags.length > 0) {
             for (var j in rule.EnableChefTags) {
                 if (allChefs[i].tags.indexOf(rule.EnableChefTags[j]) >= 0) {
                     valid = true;
@@ -2181,7 +2186,7 @@ function loadRule(data, rule) {
             continue;
         }
 
-        if (rule.ChefsTagsEffect.length > 0) {
+        if (rule.hasOwnProperty("ChefsTagsEffect") && rule.ChefsTagsEffect.length > 0) {
             for (var j in allChefs[i].tags) {
                 for (var k in rule.ChefsTagsEffect) {
                     if (allChefs[i].tags[j] == rule.ChefsTagsEffect[k].TagID) {
@@ -2289,8 +2294,23 @@ function initCalCustomOptions(rule, data) {
             var group = row.data().group;
 
             if ($(cell.node()).hasClass("cal-td-chef-name")) {
+                var chefName = cell.data();
+                var equipName = "";
+                if ($("#chk-cal-use-equip").prop("checked")) {
+                    if (chefName) {
+                        for (var j in rule.chefs) {
+                            if (rule.chefs[j].name == chefName) {
+                                equipName = rule.chefs[j].equipName;
+                                break;
+                            }
+                        }
+                    }
+                }
                 for (var k = 0; k < 3; k++) {
-                    table.data()[3 * group + k].chef.name = cell.data();
+                    table.data()[3 * group + k].chef.name = chefName;
+                    if ($("#chk-cal-use-equip").prop("checked")) {
+                        table.data()[3 * group + k].equip.name = equipName;
+                    }
                 }
             } else if ($(cell.node()).hasClass("cal-td-equip-name")) {
                 for (var k = 0; k < 3; k++) {
@@ -3429,7 +3449,10 @@ function generateData(json, json2, person) {
         json.skills = json.skills.concat(json2.skills);
         json.ultimateGoals = json.ultimateGoals.concat(json2.ultimateGoals);
         json.rules = json.rules.concat(json2.rules);
+        json.activities = json.rules.concat(json2.activities);
     }
+
+    retData["activities"] = json.activities;
 
     retData["guests"] = json.guests;
 

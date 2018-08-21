@@ -156,7 +156,7 @@ function getAdditionDisp(addition) {
 
 function getRecipeQuantity(recipe, materials, rule) {
     var quantity = 1;
-    if (rule.DisableMultiCookbook == false) {
+    if (!rule.hasOwnProperty("DisableMultiCookbook") || rule.DisableMultiCookbook == false) {
         quantity = recipe.limitVal;
     }
 
@@ -211,14 +211,14 @@ function getRecipeResult(chef, equip, recipe, quantity, maxQuantity, materials, 
             return resultData;
         }
 
-        if (!rule || rule.DisableCookbookRank == false) {
+        if (!rule || !rule.hasOwnProperty("DisableCookbookRank") || rule.DisableCookbookRank == false) {
             rankAddition = rankData.rankAddition;
         }
 
         resultData["rankAddition"] = rankAddition;
         resultData["rankAdditionDisp"] = getAdditionDisp(rankAddition);
 
-        if (!rule || rule.DisableChefSkillEffect == false) {
+        if (!rule || !rule.hasOwnProperty("DisableChefSkillEffect") || rule.DisableChefSkillEffect == false) {
             chefSkillAddition = getSkillAddition(recipe, chef.specialSkillEffect);
             timeAddition = timeAddition.add(getTimeAddition(chef.specialSkillEffect));
         }
@@ -226,7 +226,7 @@ function getRecipeResult(chef, equip, recipe, quantity, maxQuantity, materials, 
         resultData["chefSkillAddition"] = chefSkillAddition;
         resultData["chefSkillAdditionDisp"] = getAdditionDisp(chefSkillAddition);
 
-        if (!rule || rule.DisableEquipSkillEffect == false) {
+        if (!rule || !rule.hasOwnProperty("DisableEquipSkillEffect") || rule.DisableEquipSkillEffect == false) {
             if (equip) {
                 equipSkillAddition = getSkillAddition(recipe, equip.effect);
                 timeAddition = timeAddition.add(getTimeAddition(equip.effect));
@@ -239,7 +239,7 @@ function getRecipeResult(chef, equip, recipe, quantity, maxQuantity, materials, 
         otherAddition = otherAddition.add(Number(chef.addition));
     }
 
-    if (!rule || rule.DisableDecorationEffect == false) {
+    if (!rule || !rule.hasOwnProperty("DisableDecorationEffect") || rule.DisableDecorationEffect == false) {
         if (decoration) {
             decorationAddition = decoration;
         }
