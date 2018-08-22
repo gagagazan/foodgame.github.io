@@ -1498,8 +1498,12 @@ function importData(data, input) {
             }
         }
 
-        if (person.tags) {
-            data.chefs[i].tagsDisp = getTagsDisp(data.chefs[i].tags, person.tags);
+        for (var j in person.chefsTags) {
+            if (data.chefs[i].chefId == person.chefsTags[j].chefId) {
+                data.chefs[i].tags = person.chefsTags[j].tags;
+                data.chefs[i].tagsDisp = getTagsDisp(person.chefsTags[j].tags, person.tags);
+                break;
+            }
         }
     }
 
@@ -3449,7 +3453,7 @@ function generateData(json, json2, person) {
         json.skills = json.skills.concat(json2.skills);
         json.ultimateGoals = json.ultimateGoals.concat(json2.ultimateGoals);
         json.rules = json.rules.concat(json2.rules);
-        json.activities = json.rules.concat(json2.activities);
+        json.activities = json.activities.concat(json2.activities);
     }
 
     retData["activities"] = json.activities;
@@ -3540,8 +3544,6 @@ function generateData(json, json2, person) {
 
         var chefData = json.chefs[i];
 
-        chefData["gender"] = getGender(json.chefs[i]);
-
         chefData["meat"] = json.chefs[i].meat || "";
         chefData["creation"] = json.chefs[i].creation || "";
         chefData["veg"] = json.chefs[i].veg || "";
@@ -3560,8 +3562,16 @@ function generateData(json, json2, person) {
         chefData["specialSkillDisp"] = skillInfo.skillDisp;
         chefData["specialSkillEffect"] = skillInfo.skillEffect;
 
+        chefData["tags"] = [];
+        chefData["tagsDisp"] = "";
         if (json2) {
-            chefData["tagsDisp"] = getTagsDisp(json.chefs[i].tags, json2.tags);
+            for (var j in json2.chefsTags) {
+                if (json2.chefsTags[j].chefId == json.chefs[i].chefId) {
+                    chefData.tags = json2.chefsTags[j].tags;
+                    chefData.tagsDisp = getTagsDisp(json2.chefsTags[j].tags, json2.tags);
+                    break;
+                }
+            }
         }
 
         var ultimateGoal = "";
@@ -3979,7 +3989,7 @@ function setDataForChef(chefData, ultimateData, useEquip) {
             fryAddition += ultimateData[i].addition;
             knifeAddition += ultimateData[i].addition;
         } else if (ultimateData[i].type.indexOf("全体男厨师全技法") >= 0) {
-            if (chefData.tags.indexOf(340001) >= 0) {
+            if (chefData.gender == "男") {
                 stirfryAddition += ultimateData[i].addition;
                 bakeAddition += ultimateData[i].addition;
                 steamAddition += ultimateData[i].addition;
@@ -3988,7 +3998,7 @@ function setDataForChef(chefData, ultimateData, useEquip) {
                 knifeAddition += ultimateData[i].addition;
             }
         } else if (ultimateData[i].type.indexOf("全体女厨师全技法") >= 0) {
-            if (chefData.tags.indexOf(340002) >= 0) {
+            if (chefData.gender == "女") {
                 stirfryAddition += ultimateData[i].addition;
                 bakeAddition += ultimateData[i].addition;
                 steamAddition += ultimateData[i].addition;
@@ -4198,16 +4208,6 @@ function getSkillDisp(recipe) {
         disp += "蒸" + recipe.steam;
     }
     return disp;
-}
-
-function getGender(chef) {
-    if (chef.tags.indexOf(340001) >= 0) {
-        return "男"
-    } else if (chef.tags.indexOf(340002) >= 0) {
-        return "女"
-    } else {
-        return "";
-    }
 }
 
 function initRecipeShow() {
