@@ -62,7 +62,7 @@ function getSkillAddition(recipe, skill) {
         var hasSkill = false;
         if (skill[k].type.indexOf("水产料理售价") >= 0) {
             for (var m in recipe.materials) {
-                if (recipe.materials[m].origin == "鱼塘") {
+                if (recipe.materials[m].origin == "池塘") {
                     hasSkill = true;
                     break;
                 }

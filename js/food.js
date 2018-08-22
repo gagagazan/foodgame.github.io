@@ -2991,12 +2991,6 @@ function initCalMaterialsTable(data) {
             "data": "name"
         },
         {
-            "data": {
-                "_": "rarity",
-                "display": "rarityDisp"
-            }
-        },
-        {
             "data": "origin"
         },
         {
@@ -3039,7 +3033,7 @@ function initCalMaterialsTable(data) {
             style: 'multi',
             selector: 'td.select-checkbox'
         },
-        order: [[4, "desc"]],  //origin
+        order: [[3, "desc"]],  //origin
         autoWidth: false,
         createdRow: function (row, data, index) {
             $(row).addClass('origin-' + data.originVal);
@@ -3054,7 +3048,7 @@ function initCalMaterialsTable(data) {
         }
 
         var value = $.trim($("#pane-cal-materials .search-box input").val());
-        var searchCols = [2, 4];   //name, origin
+        var searchCols = [2, 3];   //name, origin
 
         for (var i = 0, len = searchCols.length; i < len; i++) {
             if (data[searchCols[i]].indexOf(value) !== -1) {
@@ -3066,7 +3060,7 @@ function initCalMaterialsTable(data) {
     });
 
     calMaterialsTable.MakeCellsEditable({
-        "columns": [5, 6]  // addition, quantity
+        "columns": [4, 5]  // addition, quantity
     });
 
     $('.chk-cal-materials-show').click(function () {
@@ -3470,10 +3464,13 @@ function generateData(json, json2, person) {
         retData.decorationEffect = person.decorationEffect;
     }
 
+    json.materials.sort(function (a, b) {
+        return a.origin.localeCompare(b.origin);
+    });
+
     var materialsData = new Array();
     for (var i in json.materials) {
         var materialData = json.materials[i];
-        materialData["rarityDisp"] = getRarityDisp(json.materials[i].rarity);
         materialData["originVal"] = getOriginVal(json.materials[i].origin);
         materialData["addition"] = "";
         materialData["quantity"] = "";
@@ -3797,7 +3794,7 @@ function getMaterialsInfo(recipe, materials) {
                     meat = true;
                 } else if (materials[m].origin == "作坊") {
                     creation = true;
-                } else if (materials[m].origin == "鱼塘") {
+                } else if (materials[m].origin == "池塘") {
                     fish = true;
                 }
                 break;
@@ -3851,8 +3848,10 @@ function getOriginVal(origin) {
         originVal = 6;
     } else if (origin == "作坊") {
         originVal = 7;
-    } else if (origin == "鱼塘") {
+    } else if (origin == "池塘") {
         originVal = 8;
+    } else {
+        console.log("cannot find origin: " + originVal);
     }
     return originVal;
 }
@@ -4336,8 +4335,7 @@ function initCalEquipsShow(calEquipsTable) {
 
 function initCalMaterialsShow(calMaterialsTable) {
     calMaterialsTable.column(1).visible($('#chk-cal-materials-show-id').prop("checked"), false);
-    calMaterialsTable.column(3).visible($('#chk-cal-materials-show-rarity').prop("checked"), false);
-    calMaterialsTable.column(4).visible($('#chk-cal-materials-show-origin').prop("checked"), false);
+    calMaterialsTable.column(3).visible($('#chk-cal-materials-show-origin').prop("checked"), false);
 
     calMaterialsTable.columns.adjust().draw(false);
 }
