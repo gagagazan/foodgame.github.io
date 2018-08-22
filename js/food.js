@@ -1189,7 +1189,11 @@ function initEquipTable(data) {
             }
         },
         {
-            "data": "skillDisp"
+            "data": {
+                "_": "skillDisp",
+                "filter": "skillFilter",
+                "display": "skillDisp"
+            }
         },
         {
             "data": "origin"
@@ -1224,34 +1228,39 @@ function initEquipTable(data) {
             return true;
         }
 
-        var skill = data[4];    // skill
+        var skill = data[4];    // skill filter
 
-        if ($('#chk-equip-skill-stirfry-price').prop("checked") && skill.indexOf("炒类料理售价") >= 0
-            || $('#chk-equip-skill-boil-price').prop("checked") && skill.indexOf("煮类料理售价") >= 0
-            || $('#chk-equip-skill-knife-price').prop("checked") && skill.indexOf("切类料理售价") >= 0
-            || $('#chk-equip-skill-fry-price').prop("checked") && skill.indexOf("炸类料理售价") >= 0
-            || $('#chk-equip-skill-bake-price').prop("checked") && skill.indexOf("烤类料理售价") >= 0
-            || $('#chk-equip-skill-steam-price').prop("checked") && skill.indexOf("蒸类料理售价") >= 0
-            || $('#chk-equip-skill-meat-price').prop("checked") && skill.indexOf("肉类料理售价") >= 0
-            || $('#chk-equip-skill-creation-price').prop("checked") && skill.indexOf("面类料理售价") >= 0
-            || $('#chk-equip-skill-veg-price').prop("checked") && skill.indexOf("蔬菜料理售价") >= 0
-            || $('#chk-equip-skill-fish-price').prop("checked") && skill.indexOf("水产料理售价") >= 0
-            || $('#chk-equip-skill-sell-price').prop("checked") && (skill.indexOf("金币获得") >= 0 || skill.indexOf("营业收入") >= 0)
-            || $('#chk-equip-skill-stirfry-skill').prop("checked") && skill.indexOf("炒技法") >= 0
-            || $('#chk-equip-skill-boil-skill').prop("checked") && skill.indexOf("煮技法") >= 0
-            || $('#chk-equip-skill-knife-skill').prop("checked") && skill.indexOf("切技法") >= 0
-            || $('#chk-equip-skill-fry-skill').prop("checked") && skill.indexOf("炸技法") >= 0
-            || $('#chk-equip-skill-bake-skill').prop("checked") && skill.indexOf("烤技法") >= 0
-            || $('#chk-equip-skill-steam-skill').prop("checked") && skill.indexOf("蒸技法") >= 0
-            || $('#chk-equip-skill-all-skill').prop("checked") && skill.indexOf("全技法") >= 0
-            || $('#chk-equip-skill-guest').prop("checked") && skill.indexOf("稀有客人") >= 0
-            || $('#chk-equip-skill-time').prop("checked") && skill.indexOf("开业时间") >= 0
-            || $('#chk-equip-skill-material-get').prop("checked") && skill.indexOf("素材获得") >= 0
-            || $('#chk-equip-skill-meat-skill').prop("checked") && skill.indexOf("肉类采集") >= 0
-            || $('#chk-equip-skill-creation-skill').prop("checked") && skill.indexOf("面类采集") >= 0
-            || $('#chk-equip-skill-veg-skill').prop("checked") && skill.indexOf("蔬菜采集") >= 0
-            || $('#chk-equip-skill-fish-skill').prop("checked") && skill.indexOf("水产采集") >= 0
-            || $('#chk-equip-skill-material-skill').prop("checked") && skill.indexOf("全采集") >= 0
+        if ($('#chk-equip-skill-stirfry-price').prop("checked") && skill.indexOf("UseStirfry") >= 0
+            || $('#chk-equip-skill-boil-price').prop("checked") && skill.indexOf("UseBoil") >= 0
+            || $('#chk-equip-skill-knife-price').prop("checked") && skill.indexOf("UseKnife") >= 0
+            || $('#chk-equip-skill-fry-price').prop("checked") && skill.indexOf("UseFry") >= 0
+            || $('#chk-equip-skill-bake-price').prop("checked") && skill.indexOf("UseBake") >= 0
+            || $('#chk-equip-skill-steam-price').prop("checked") && skill.indexOf("UseSteam") >= 0
+            || $('#chk-equip-skill-meat-price').prop("checked") && skill.indexOf("UseMeat") >= 0
+            || $('#chk-equip-skill-creation-price').prop("checked") && skill.indexOf("UseCreation") >= 0
+            || $('#chk-equip-skill-veg-price').prop("checked") && skill.indexOf("UseVegetable") >= 0
+            || $('#chk-equip-skill-fish-price').prop("checked") && skill.indexOf("UseFish") >= 0
+            || $('#chk-equip-skill-sell-price').prop("checked") && (skill.indexOf("Gold_Gain") >= 0)
+            || $('#chk-equip-skill-stirfry-skill').prop("checked") && skill.indexOf("Stirfry") >= 0
+            || $('#chk-equip-skill-boil-skill').prop("checked") && skill.indexOf("Boil") >= 0
+            || $('#chk-equip-skill-knife-skill').prop("checked") && skill.indexOf("Knife") >= 0
+            || $('#chk-equip-skill-fry-skill').prop("checked") && skill.indexOf("Fry") >= 0
+            || $('#chk-equip-skill-bake-skill').prop("checked") && skill.indexOf("Bake") >= 0
+            || $('#chk-equip-skill-steam-skill').prop("checked") && skill.indexOf("Steam") >= 0
+            || $('#chk-equip-skill-all-skill').prop("checked") &&
+            skill.indexOf("Stirfry") >= 0 && skill.indexOf("Boil") >= 0 &&
+            skill.indexOf("Knife") >= 0 && skill.indexOf("Fry") >= 0 &&
+            skill.indexOf("Bake") >= 0 && skill.indexOf("Steam") >= 0
+            || $('#chk-equip-skill-guest').prop("checked") && skill.indexOf("GuestApearRate") >= 0
+            || $('#chk-equip-skill-time').prop("checked") && skill.indexOf("OpenTime") >= 0
+            || $('#chk-equip-skill-material-get').prop("checked") && skill.indexOf("Material_Gain") >= 0
+            || $('#chk-equip-skill-meat-skill').prop("checked") && skill.indexOf("Meat") >= 0
+            || $('#chk-equip-skill-creation-skill').prop("checked") && skill.indexOf("Creation") >= 0
+            || $('#chk-equip-skill-veg-skill').prop("checked") && skill.indexOf("Vegetable") >= 0
+            || $('#chk-equip-skill-fish-skill').prop("checked") && skill.indexOf("Fish") >= 0
+            || $('#chk-equip-skill-material-skill').prop("checked") &&
+            skill.indexOf("Meat") >= 0 && skill.indexOf("Creation") >= 0 &&
+            skill.indexOf("Vegetable") >= 0 && skill.indexOf("Fish") >= 0
         ) {
             return true;
         }
@@ -1935,44 +1944,41 @@ function loadUltimate(data, usePerson) {
 
     var ultimateData = getUltimateData(data.chefs, person, data.skills, true, usePerson);
     for (var i in ultimateData) {
-        if (ultimateData[i].type == "全体厨师炒技法") {
-            $("#input-cal-ultimate-stirfry").val(ultimateData[i].addition);
+        if (ultimateData[i].type == "Stirfry") {
+            $("#input-cal-ultimate-stirfry").val(ultimateData[i].value);
             continue;
-        } else if (ultimateData[i].type == "全体厨师煮技法") {
-            $("#input-cal-ultimate-boil").val(ultimateData[i].addition);
+        } else if (ultimateData[i].type == "Boil") {
+            $("#input-cal-ultimate-boil").val(ultimateData[i].value);
             continue;
-        } else if (ultimateData[i].type == "全体厨师切技法") {
-            $("#input-cal-ultimate-knife").val(ultimateData[i].addition);
+        } else if (ultimateData[i].type == "Knife") {
+            $("#input-cal-ultimate-knife").val(ultimateData[i].value);
             continue;
-        } else if (ultimateData[i].type == "全体厨师炸技法") {
-            $("#input-cal-ultimate-fry").val(ultimateData[i].addition);
+        } else if (ultimateData[i].type == "Fry") {
+            $("#input-cal-ultimate-fry").val(ultimateData[i].value);
             continue;
-        } else if (ultimateData[i].type == "全体厨师烤技法") {
-            $("#input-cal-ultimate-bake").val(ultimateData[i].addition);
+        } else if (ultimateData[i].type == "Bake") {
+            $("#input-cal-ultimate-bake").val(ultimateData[i].value);
             continue;
-        } else if (ultimateData[i].type == "全体厨师蒸技法") {
-            $("#input-cal-ultimate-steam").val(ultimateData[i].addition);
-            continue;
-        } else if (ultimateData[i].type == "全体厨师全技法") {
-            $("#input-cal-ultimate-all-skill").val(ultimateData[i].addition);
+        } else if (ultimateData[i].type == "Steam") {
+            $("#input-cal-ultimate-steam").val(ultimateData[i].value);
             continue;
         } else if (ultimateData[i].type == "全体男厨师全技法") {
-            $("#input-cal-ultimate-male-skill").val(ultimateData[i].addition);
+            $("#input-cal-ultimate-male-skill").val(ultimateData[i].value);
             continue;
         } else if (ultimateData[i].type == "全体女厨师全技法") {
-            $("#input-cal-ultimate-female-skill").val(ultimateData[i].addition);
+            $("#input-cal-ultimate-female-skill").val(ultimateData[i].value);
             continue;
         } else if (ultimateData[i].type == "2星菜谱上限") {
-            $("#input-cal-ultimate-2-limit").val(ultimateData[i].addition);
+            $("#input-cal-ultimate-2-limit").val(ultimateData[i].value);
             continue;
         } else if (ultimateData[i].type == "3星菜谱上限") {
-            $("#input-cal-ultimate-3-limit").val(ultimateData[i].addition);
+            $("#input-cal-ultimate-3-limit").val(ultimateData[i].value);
             continue;
         } else if (ultimateData[i].type == "3星菜谱售价") {
-            $("#input-cal-ultimate-3-price").val(ultimateData[i].addition.mul(100));
+            $("#input-cal-ultimate-3-price").val(ultimateData[i].value.mul(100));
             continue;
         } else if (ultimateData[i].type == "4星菜谱售价") {
-            $("#input-cal-ultimate-4-price").val(ultimateData[i].addition.mul(100));
+            $("#input-cal-ultimate-4-price").val(ultimateData[i].value.mul(100));
             continue;
         } else if (ultimateData[i].type.indexOf("探索") > -1) {
             continue
@@ -3490,6 +3496,11 @@ function generateData(json, json2, person) {
         var skillInfo = getSkillInfo(json.skills, json.equips[i].skill);
         equip["skillDisp"] = skillInfo.skillDisp;
         equip["effect"] = skillInfo.skillEffect;
+        var skillFilter = [];
+        for (var j in skillInfo.skillEffect) {
+            skillFilter.push(skillInfo.skillEffect[j].type);
+        }
+        equip["skillFilter"] = skillFilter;
 
         if (json.equips[i].origin) {
             equip["icon"] = "<div class='icon-equip equip_" + json.equips[i].equipId + "'></div>";
@@ -3919,16 +3930,22 @@ function getUltimateData(chefs, person, skills, useUltimate, usePerson) {
                             for (var m in skills[k].effect) {
                                 var found = false;
                                 for (var n in ultimateData) {
-                                    if (ultimateData[n].type == skills[k].effect[m].type) {
-                                        ultimateData[n].addition = ultimateData[n].addition.add(skills[k].effect[m].addition);
+                                    if (ultimateData[n].type == skills[k].effect[m].type
+                                        && ultimateData[n].cal == skills[k].effect[m].cal
+                                        && ultimateData[n].gender == skills[k].effect[m].gender
+                                        && ultimateData[n].rarity == skills[k].effect[m].rarity) {
+                                        ultimateData[n].value = ultimateData[n].value.add(skills[k].effect[m].value);
                                         found = true;
                                         break;
                                     }
                                 }
                                 if (!found) {
                                     var ultimateItem = new Object();
+                                    ultimateItem["gender"] = skills[k].gender || "";
+                                    ultimateItem["cal"] = skills[k].effect[m].cal;
                                     ultimateItem["type"] = skills[k].effect[m].type;
-                                    ultimateItem["addition"] = skills[k].effect[m].addition;
+                                    ultimateItem["rarity"] = skills[k].effect[m].rarity || 0;
+                                    ultimateItem["value"] = skills[k].effect[m].value;
                                     ultimateData.push(ultimateItem);
                                 }
                             }
@@ -4012,19 +4029,12 @@ function setDataForRecipe(recipeData, ultimateData) {
     recipeData["ultimateAddition"] = 0;
 
     for (var i in ultimateData) {
-        if (ultimateData[i].type.indexOf("1星菜谱上限") >= 0 && recipeData.rarity == 1
-            || ultimateData[i].type.indexOf("2星菜谱上限") >= 0 && recipeData.rarity == 2
-            || ultimateData[i].type.indexOf("3星菜谱上限") >= 0 && recipeData.rarity == 3
-            || ultimateData[i].type.indexOf("4星菜谱上限") >= 0 && recipeData.rarity == 4
-            || ultimateData[i].type.indexOf("5星菜谱上限") >= 0 && recipeData.rarity == 5) {
-            recipeData.limitVal += ultimateData[i].addition;
+        if (ultimateData[i].type == "MaxEquipLimit" && ultimateData[i].rarity == recipeData.rarity) {
+            recipeData.limitVal += ultimateData[i].value;
         }
-        if (ultimateData[i].type.indexOf("1星菜谱售价") >= 0 && recipeData.rarity == 1
-            || ultimateData[i].type.indexOf("2星菜谱售价") >= 0 && recipeData.rarity == 2
-            || ultimateData[i].type.indexOf("3星菜谱售价") >= 0 && recipeData.rarity == 3
-            || ultimateData[i].type.indexOf("4星菜谱售价") >= 0 && recipeData.rarity == 4
-            || ultimateData[i].type.indexOf("5星菜谱售价") >= 0 && recipeData.rarity == 5) {
-            recipeData.ultimateAddition = recipeData.ultimateAddition.add(ultimateData[i].addition);
+
+        if (ultimateData[i].type == "UseAll" && ultimateData[i].rarity == recipeData.rarity) {
+            recipeData.ultimateAddition = recipeData.ultimateAddition.add(ultimateData[i].value);
         }
     }
 
@@ -4126,38 +4136,8 @@ function getSkillInfo(skills, skillId) {
         var found = false;
         for (var k in skills) {
             if (skills[k].skillId == skillIds[j]) {
-                for (var m in skills[k].effect) {
-                    var type = skills[k].effect[m].type;
-                    var addition = skills[k].effect[m].addition;
-
-                    skillDisp += type;
-
-                    if (type.indexOf("稀有客人出现概率") >= 0) {
-                        if (addition > 0) {
-                            skillDisp += "+";
-                        }
-                        skillDisp += getAdditionDisp(addition) + "<br>";
-                    } else {
-                        if (isNaN(addition)) {
-                            skillDisp += addition;
-                        }
-                        else {
-                            if (addition) {
-                                if (addition > 0) {
-                                    skillDisp += "+";
-                                }
-                                if (isInt(addition)) {
-                                    skillDisp += addition;
-                                } else {
-                                    skillDisp += getAdditionDisp(addition);
-                                }
-                            }
-                        }
-                        skillDisp += "<br>";
-                    }
-
-                    skillEffect.push(skills[k].effect[m]);
-                }
+                skillDisp += skills[k].desc + "<br>";
+                skillEffect = skillEffect.concat(skills[k].effect);
                 found = true;
                 break;
             }

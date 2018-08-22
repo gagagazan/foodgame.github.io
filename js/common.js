@@ -60,21 +60,21 @@ function getSkillAddition(recipe, skill) {
     var skillAddition = 0;
     for (var k in skill) {
         var hasSkill = false;
-        if (skill[k].type.indexOf("水产料理售价") >= 0) {
+        if (skill[k].type == "UseFish") {
             for (var m in recipe.materials) {
                 if (recipe.materials[m].origin == "池塘") {
                     hasSkill = true;
                     break;
                 }
             }
-        } else if (skill[k].type.indexOf("面类料理售价") >= 0) {
+        } else if (skill[k].type == "UseCreation") {
             for (var m in recipe.materials) {
                 if (recipe.materials[m].origin == "作坊") {
                     hasSkill = true;
                     break;
                 }
             }
-        } else if (skill[k].type.indexOf("肉类料理售价") >= 0) {
+        } else if (skill[k].type == "UseMeat") {
             for (var m in recipe.materials) {
                 if (recipe.materials[m].origin == "牧场"
                     || recipe.materials[m].origin == "鸡舍"
@@ -83,7 +83,7 @@ function getSkillAddition(recipe, skill) {
                     break;
                 }
             }
-        } else if (skill[k].type.indexOf("蔬菜料理售价") >= 0) {
+        } else if (skill[k].type == "UseVegetable") {
             for (var m in recipe.materials) {
                 if (recipe.materials[m].origin == "菜棚"
                     || recipe.materials[m].origin == "菜地"
@@ -92,38 +92,36 @@ function getSkillAddition(recipe, skill) {
                     break;
                 }
             }
-        } else if (skill[k].type.indexOf("炒类料理售价") >= 0) {
+        } else if (skill[k].type == "UseStirfry") {
             if (recipe.stirfry > 0) {
                 hasSkill = true;
             }
-        } else if (skill[k].type.indexOf("煮类料理售价") >= 0) {
+        } else if (skill[k].type == "UseBoil") {
             if (recipe.boil > 0) {
                 hasSkill = true;
             }
-        } else if (skill[k].type.indexOf("炸类料理售价") >= 0) {
+        } else if (skill[k].type == "UseFry") {
             if (recipe.fry > 0) {
                 hasSkill = true;
             }
-        } else if (skill[k].type.indexOf("切类料理售价") >= 0) {
+        } else if (skill[k].type == "UseKnife") {
             if (recipe.knife > 0) {
                 hasSkill = true;
             }
-        } else if (skill[k].type.indexOf("烤类料理售价") >= 0) {
+        } else if (skill[k].type == "UseBake") {
             if (recipe.bake > 0) {
                 hasSkill = true;
             }
-        } else if (skill[k].type.indexOf("蒸类料理售价") >= 0) {
+        } else if (skill[k].type == "UseSteam") {
             if (recipe.steam > 0) {
                 hasSkill = true;
             }
-        } else if (skill[k].type.indexOf("金币获得") >= 0) {
-            hasSkill = true;
-        } else if (skill[k].type.indexOf("营业收入") >= 0) {
+        } else if (skill[k].type == "Gold_Gain") {
             hasSkill = true;
         }
 
         if (hasSkill) {
-            skillAddition = skillAddition.add(skill[k].addition);
+            skillAddition = skillAddition.add(skill[k].value);
         }
     }
 
@@ -358,54 +356,23 @@ function setDataForChef2(chef, equip) {
         var effect = equip.effect;
         for (var i in effect) {
             var type = effect[i].type;
-            var addition = effect[i].addition;
-            if (type.indexOf("炒技法") >= 0
-                || type.indexOf("全技法") >= 0) {
-                if (isInt(addition)) {
-                    stirfryAddition += addition;
-                } else {
-                    stirfryAddition += chef.stirfry * addition;
-                }
+            if (type == "Stirfry") {
+                stirfryAddition += calEffectValue(chef.stirfry, effect);
             }
-            if (type.indexOf("煮技法") >= 0
-                || type.indexOf("全技法") >= 0) {
-                if (isInt(addition)) {
-                    boilAddition += addition;
-                } else {
-                    boilAddition += chef.boil * addition;
-                }
+            if (type == "Boil") {
+                boilAddition += calEffectValue(chef.boil, effect);
             }
-            if (type.indexOf("切技法") >= 0
-                || type.indexOf("全技法") >= 0) {
-                if (isInt(addition)) {
-                    knifeAddition += addition;
-                } else {
-                    knifeAddition += chef.knife * addition;
-                }
+            if (type == "Knife") {
+                knifeAddition += calEffectValue(chef.knife, effect);
             }
-            if (type.indexOf("炸技法") >= 0
-                || type.indexOf("全技法") >= 0) {
-                if (isInt(addition)) {
-                    fryAddition += addition;
-                } else {
-                    fryAddition += chef.fry * addition;
-                }
+            if (type == "Fry") {
+                fryAddition += calEffectValue(chef.fry, effect);
             }
-            if (type.indexOf("烤技法") >= 0
-                || type.indexOf("全技法") >= 0) {
-                if (isInt(addition)) {
-                    bakeAddition += addition;
-                } else {
-                    bakeAddition += chef.bake * addition;
-                }
+            if (type == "Bake") {
+                bakeAddition += calEffectValue(chef.bake, effect);
             }
-            if (type.indexOf("蒸技法") >= 0
-                || type.indexOf("全技法") >= 0) {
-                if (isInt(addition)) {
-                    steamAddition += addition;
-                } else {
-                    steamAddition += chef.steam * addition;
-                }
+            if (type == "Steam") {
+                steamAddition += calEffectValue(chef.steam, effect);
             }
         }
     }
@@ -511,8 +478,14 @@ function setDataForChef2(chef, equip) {
     chef.disp += "</small>"
 }
 
-function isInt(n) {
-    return n % 1 === 0;
+function calEffectValue(oldValue, effect) {
+    if (effect.cal == "Abs") {
+        return oldValue.add(effect.value);
+    } else if (effect.cal == "Percent") {
+        return oldValue.mul(Number(1).add(effect.value));
+    } else {
+        console.log("cannot find cal: " + effect.cal);
+    }
 }
 
 function isNumeric(n) {
