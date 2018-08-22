@@ -1933,7 +1933,7 @@ function loadUltimate(data, usePerson) {
         person = JSON.parse(localData);
     } catch (e) { }
 
-    var ultimateData = getUltimateData(data.chefs, person, data.skills, true, usePerson, false);
+    var ultimateData = getUltimateData(data.chefs, person, data.skills, true, usePerson);
     for (var i in ultimateData) {
         if (ultimateData[i].type == "全体厨师炒技法") {
             $("#input-cal-ultimate-stirfry").val(ultimateData[i].addition);
@@ -3451,7 +3451,6 @@ function generateData(json, json2, person) {
         json.recipes = json.recipes.concat(json2.recipes);
         json.chefs = json.chefs.concat(json2.chefs);
         json.skills = json.skills.concat(json2.skills);
-        json.ultimateGoals = json.ultimateGoals.concat(json2.ultimateGoals);
         json.rules = json.rules.concat(json2.rules);
         json.activities = json.activities.concat(json2.activities);
     }
@@ -3533,7 +3532,7 @@ function generateData(json, json2, person) {
     var useEquip = $("#chk-chef-apply-equips").prop("checked");
     var useUltimate = $("#chk-chef-apply-ultimate").prop("checked");
     var usePerson = $("#chk-chef-apply-ultimate-person").prop("checked");
-    var ultimateData = getUltimateData(json.chefs, person, json.skills, useUltimate, usePerson, true);
+    var ultimateData = getUltimateData(json.chefs, person, json.skills, useUltimate, usePerson);
 
     var chefsData = new Array();
     for (var i in json.chefs) {
@@ -3575,25 +3574,11 @@ function generateData(json, json2, person) {
         }
 
         var ultimateGoal = "";
-        var ultimateSkillDisp = "";
-
-        if (json.chefs[i].rarity < 5 || private) {
-            for (var j in json.chefs[i].ultimateGoal) {
-                var found = false;
-                for (var k in json.ultimateGoals) {
-                    if (json.chefs[i].ultimateGoal[j] == json.ultimateGoals[k].goalId) {
-                        ultimateGoal += json.ultimateGoals[k].goal + "<br>";
-                        found = true;
-                        break;
-                    }
-                }
-                if (!found) {
-                    console.log(json.chefs[i].ultimateGoal[j]);
-                }
-            }
-            var ultimateSkillInfo = getSkillInfo(json.skills, json.chefs[i].ultimateSkill);
-            ultimateSkillDisp = ultimateSkillInfo.skillDisp;
+        for (var j in json.chefs[i].ultimateGoal) {
+            ultimateGoal += json.chefs[i].ultimateGoal[j] + "<br>";
         }
+        var ultimateSkillInfo = getSkillInfo(json.skills, json.chefs[i].ultimateSkill);
+        var ultimateSkillDisp = ultimateSkillInfo.skillDisp;
 
         chefData["ultimateGoal"] = ultimateGoal;
         chefData["ultimateSkillDisp"] = ultimateSkillDisp;
@@ -3763,7 +3748,7 @@ function getUpdateData(data) {
     var useEquip = $("#chk-chef-apply-equips").prop("checked");
     var useUltimate = $("#chk-chef-apply-ultimate").prop("checked");
     var usePerson = $("#chk-chef-apply-ultimate-person").prop("checked");
-    var ultimateData = getUltimateData(data.chefs, person, data.skills, useUltimate, usePerson, true);
+    var ultimateData = getUltimateData(data.chefs, person, data.skills, useUltimate, usePerson);
 
     for (var i in data.chefs) {
         setDataForChef(data.chefs[i], ultimateData, useEquip);
@@ -3906,7 +3891,7 @@ function getRankGuestInfo(recipe, rank) {
     return retData;
 }
 
-function getUltimateData(chefs, person, skills, useUltimate, usePerson, useUnknow) {
+function getUltimateData(chefs, person, skills, useUltimate, usePerson) {
     var ultimateData = new Array();
     if (useUltimate) {
         for (var i in chefs) {
@@ -3924,7 +3909,7 @@ function getUltimateData(chefs, person, skills, useUltimate, usePerson, useUnkno
                         }
                     }
                 } else {
-                    if (useUnknow || chefs[i].origin && chefs[i].rarity < 5) {
+                    if (chefs[i].origin) {
                         valid = true;
                     }
                 }
