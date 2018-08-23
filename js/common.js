@@ -1,6 +1,4 @@
-function getRankInfo(recipe, chef, equip) {
-
-    setDataForChef2(chef, equip);
+function getRankInfo(recipe, chef) {
 
     var times = Number.MAX_VALUE;
 
@@ -56,25 +54,25 @@ function getRankInfo(recipe, chef, equip) {
     return rankInfo;
 }
 
-function getSkillAddition(recipe, skill) {
-    var skillAddition = 0;
-    for (var k in skill) {
+function setSkillAddition(addition, effects, recipe) {
+    for (var k in effects) {
+        var type = effects[k].type;
         var hasSkill = false;
-        if (skill[k].type == "UseFish") {
+        if (type == "UseFish") {
             for (var m in recipe.materials) {
                 if (recipe.materials[m].origin == "池塘") {
                     hasSkill = true;
                     break;
                 }
             }
-        } else if (skill[k].type == "UseCreation") {
+        } else if (type == "UseCreation") {
             for (var m in recipe.materials) {
                 if (recipe.materials[m].origin == "作坊") {
                     hasSkill = true;
                     break;
                 }
             }
-        } else if (skill[k].type == "UseMeat") {
+        } else if (type == "UseMeat") {
             for (var m in recipe.materials) {
                 if (recipe.materials[m].origin == "牧场"
                     || recipe.materials[m].origin == "鸡舍"
@@ -83,7 +81,7 @@ function getSkillAddition(recipe, skill) {
                     break;
                 }
             }
-        } else if (skill[k].type == "UseVegetable") {
+        } else if (type == "UseVegetable") {
             for (var m in recipe.materials) {
                 if (recipe.materials[m].origin == "菜棚"
                     || recipe.materials[m].origin == "菜地"
@@ -92,40 +90,38 @@ function getSkillAddition(recipe, skill) {
                     break;
                 }
             }
-        } else if (skill[k].type == "UseStirfry") {
+        } else if (type == "UseStirfry") {
             if (recipe.stirfry > 0) {
                 hasSkill = true;
             }
-        } else if (skill[k].type == "UseBoil") {
+        } else if (type == "UseBoil") {
             if (recipe.boil > 0) {
                 hasSkill = true;
             }
-        } else if (skill[k].type == "UseFry") {
+        } else if (type == "UseFry") {
             if (recipe.fry > 0) {
                 hasSkill = true;
             }
-        } else if (skill[k].type == "UseKnife") {
+        } else if (type == "UseKnife") {
             if (recipe.knife > 0) {
                 hasSkill = true;
             }
-        } else if (skill[k].type == "UseBake") {
+        } else if (type == "UseBake") {
             if (recipe.bake > 0) {
                 hasSkill = true;
             }
-        } else if (skill[k].type == "UseSteam") {
+        } else if (type == "UseSteam") {
             if (recipe.steam > 0) {
                 hasSkill = true;
             }
-        } else if (skill[k].type == "Gold_Gain") {
+        } else if (type == "Gold_Gain") {
             hasSkill = true;
         }
 
         if (hasSkill) {
-            skillAddition = skillAddition.add(skill[k].value);
+            setAddition(addition, effects[k]);
         }
     }
-
-    return skillAddition;
 }
 
 function getMaterialsAddition(recipe, materials) {
@@ -144,12 +140,26 @@ function getMaterialsAddition(recipe, materials) {
     return addition;
 }
 
-function getAdditionDisp(addition) {
-    if (addition) {
-        return addition.mul(100) + "%";
+function getPercentDisp(percent) {
+    if (percent) {
+        return percent.mul(100) + "%";
     } else {
         return "";
     }
+}
+
+function getAdditionDisp(addition) {
+    var disp = "";
+    if (addition.percent) {
+        disp += addition.percent + "%";
+    }
+    if (addition.abs) {
+        if (addition.abs > 0) {
+            disp += "+";
+        }
+        disp += addition.abs;
+    }
+    return disp;
 }
 
 function getRecipeQuantity(recipe, materials, rule) {
@@ -187,7 +197,7 @@ function getRecipeQuantity(recipe, materials, rule) {
 }
 
 function getRecipeResult(chef, equip, recipe, quantity, maxQuantity, materials, rule, decoration) {
-
+    
     var resultData = new Object();
 
     var rankAddition = 0;
@@ -201,7 +211,7 @@ function getRecipeResult(chef, equip, recipe, quantity, maxQuantity, materials, 
     resultData["disp"] = recipe.name;
 
     if (chef) {
-        var rankData = getRankInfo(recipe, chef, equip);
+        var rankData = getRankInfo(recipe, chef);
         resultData["rankVal"] = rankData.rankVal;
         resultData["rankDisp"] = rankData.rankDisp;
 
@@ -213,81 +223,104 @@ function getRecipeResult(chef, equip, recipe, quantity, maxQuantity, materials, 
             rankAddition = rankData.rankAddition;
         }
 
-        resultData["rankAddition"] = rankAddition;
-        resultData["rankAdditionDisp"] = getAdditionDisp(rankAddition);
+        resultData["rankAdditionDisp"] = getPercentDisp(rankAddition);
 
         if (!rule || !rule.hasOwnProperty("DisableChefSkillEffect") || rule.DisableChefSkillEffect == false) {
-            chefSkillAddition = getSkillAddition(recipe, chef.specialSkillEffect);
-            timeAddition = timeAddition.add(getTimeAddition(chef.specialSkillEffect));
+            setSkillAddition(chefSkillAddition, chef.specialSkillEffect, recipe);
+            setTimeAddition(timeAddition, chef.specialSkillEffect);
         }
-
-        resultData["chefSkillAddition"] = chefSkillAddition;
-        resultData["chefSkillAdditionDisp"] = getAdditionDisp(chefSkillAddition);
+        resultData["chefSkillAdditionDisp"] = getPercentDisp(chefSkillAddition);
 
         if (!rule || !rule.hasOwnProperty("DisableEquipSkillEffect") || rule.DisableEquipSkillEffect == false) {
             if (equip) {
-                equipSkillAddition = getSkillAddition(recipe, equip.effect);
-                timeAddition = timeAddition.add(getTimeAddition(equip.effect));
+                setSkillAddition(equipSkillAddition, equip.effect, recipe);
+                setTimeAddition(timeAddition, equip.effect);
             }
         }
+        resultData["equipSkillAdditionDisp"] = getPercentDisp(equipSkillAddition);
 
-        resultData["equipSkillAddition"] = equipSkillAddition;
-        resultData["equipSkillAdditionDisp"] = getAdditionDisp(equipSkillAddition);
-
-        otherAddition = otherAddition.add(Number(chef.addition));
+        otherAddition.percent = otherAddition.percent.add(Number(chef.addition));
     }
 
     if (!rule || !rule.hasOwnProperty("DisableDecorationEffect") || rule.DisableDecorationEffect == false) {
         if (decoration) {
-            decorationAddition = decoration;
+            decorationAddition.percent = decoration;
         }
     }
-    resultData["decorationAddition"] = decorationAddition;
-    resultData["decorationAdditionDisp"] = getAdditionDisp(decorationAddition);
+    resultData["decorationAdditionDisp"] = getPercentDisp(decorationAddition);
 
-    otherAddition = otherAddition.add(Number(recipe.addition));
+    otherAddition.percent = otherAddition.percent.add(Number(recipe.addition));
 
     if (rule) {
         var materialsAddition = getMaterialsAddition(recipe, materials);
-        otherAddition = otherAddition.add(materialsAddition);
+        otherAddition.percent = otherAddition.percent.add(materialsAddition);
     }
 
-    var priceAddition = Number(1).add(rankAddition).add(chefSkillAddition).add(equipSkillAddition).add(decorationAddition).add(recipe.ultimateAddition);
+    var priceAddition = rankAddition.add(chefSkillAddition).add(equipSkillAddition).add(decorationAddition).add(recipe.ultimateAddition);
     var scoreAddition = priceAddition.add(otherAddition);
 
     resultData["data"] = recipe;
     resultData["quantity"] = quantity;
     resultData["max"] = maxQuantity;
     resultData["limit"] = quantity;
-    resultData["otherAddition"] = otherAddition;
-    resultData["otherAdditionDisp"] = getAdditionDisp(otherAddition);
+    resultData["otherAdditionDisp"] = getPercentDisp(otherAddition);
     resultData["totalPrice"] = recipe.price * quantity;
-    resultData["realPrice"] = Math.ceil(recipe.price.mul(priceAddition));
+    resultData["realPrice"] = Math.ceil(calValueWithAddition(recipe.price, priceAddition));
     resultData["totalRealPrice"] = resultData.realPrice * quantity;
-    var score = Math.ceil(recipe.price.mul(scoreAddition));
+    var score = Math.ceil(calValueWithAddition(recipe.price, scoreAddition));
     resultData["bonusScore"] = score - resultData.realPrice;
     resultData["totalBonusScore"] = resultData.bonusScore * quantity;
     resultData["totalScore"] = score * quantity;
-    resultData["totalTime"] = Math.ceil(recipe.time.mul(Number(1).add(timeAddition))) * quantity;
+    resultData["totalTime"] = Math.ceil(calValueWithAddition(recipe.time, timeAddition)) * quantity;
     resultData["totalTimeDisp"] = secondsToTime(resultData.totalTime);
 
     var chefEff = 0;
     if (chef && resultData.rankVal > 0) {
-        chefEff = Math.floor(resultData.realPrice * 3600 / (recipe.time * (1 + timeAddition)));
+        chefEff = Math.floor(resultData.realPrice * 3600 / calValueWithAddition(recipe.time, timeAddition));
     }
     resultData["chefEff"] = chefEff;
 
     return resultData;
 }
 
-function getTimeAddition(skill) {
-    var timeAddition = 0;
-    for (var k in skill) {
-        if (skill[k].type.indexOf("开业时间") >= 0) {
-            timeAddition += skill[k].addition;
+function calValueWithAddition(value, addition) {
+    return value.add(calAddition(value, addition));
+}
+
+function calAddition(value, addition) {
+    return value.mul(addition.percent).div(100).add(addition.abs);
+}
+
+function setTimeAddition(addition, effects) {
+    for (var k in effects) {
+        if (effects[k].type == "OpenTime") {
+            setAddition(addition, effects[k]);
         }
     }
-    return timeAddition;
+}
+
+Addition.prototype.add = function (arg) {
+    return addAddition(this, arg);
+};
+
+function addAddition(addition1, addition2) {
+    var addition = new Addition();
+    addition.abs = addition1.abs.add(addition2.abs);
+    addition.percent = addition1.percent.add(addition2.percent);
+    return addition;
+}
+
+function setAddition(addition, effect) {
+    if (effect.cal == "Abs") {
+        addition.abs = addition.abs.add(effect.value);
+    } else if (effect.cal == "Percent") {
+        addition.percent = addition.percent.add(effect.value);
+    }
+}
+
+function Addition() {
+    this.abs = 0;
+    this.percent = 0;
 }
 
 function secondsToTime(sec) {
@@ -330,7 +363,7 @@ function getEquipInfo(equipName, equips) {
     return info;
 }
 
-function setDataForChef2(chef, equip) {
+function setDataForChef(chef, equip, useEquip, ultimateEffect) {
     chef["stirfryVal"] = chef.stirfry;
     chef["boilVal"] = chef.boil;
     chef["knifeVal"] = chef.knife;
@@ -345,97 +378,81 @@ function setDataForChef2(chef, equip) {
     chef["bakeDisp"] = chef.bake || "";
     chef["steamDisp"] = chef.steam || "";
 
-    var stirfryAddition = chef.stirfryUltimateAddition;
-    var boilAddition = chef.boilUltimateAddition;
-    var knifeAddition = chef.knifeUltimateAddition;
-    var fryAddition = chef.fryUltimateAddition;
-    var bakeAddition = chef.bakeUltimateAddition;
-    var steamAddition = chef.steamUltimateAddition;
+    var stirfryAddition = new Addition();
+    var boilAddition = new Addition();
+    var knifeAddition = new Addition();
+    var fryAddition = new Addition();
+    var bakeAddition = new Addition();
+    var steamAddition = new Addition();
 
-    if (equip) {
-        var effect = equip.effect;
-        for (var i in effect) {
-            var type = effect[i].type;
-            if (type == "Stirfry") {
-                stirfryAddition += calEffectValue(chef.stirfry, effect);
-            }
-            if (type == "Boil") {
-                boilAddition += calEffectValue(chef.boil, effect);
-            }
-            if (type == "Knife") {
-                knifeAddition += calEffectValue(chef.knife, effect);
-            }
-            if (type == "Fry") {
-                fryAddition += calEffectValue(chef.fry, effect);
-            }
-            if (type == "Bake") {
-                bakeAddition += calEffectValue(chef.bake, effect);
-            }
-            if (type == "Steam") {
-                steamAddition += calEffectValue(chef.steam, effect);
-            }
-        }
+    var effects = ultimateEffect;
+
+    if (useEquip && equip) {
+        effects = effects.concat(equip.effect);
     }
 
-    if (stirfryAddition) {
-        stirfryAddition = Math.ceil(stirfryAddition)
-        chef.stirfryVal += stirfryAddition;
-        if (stirfryAddition > 0) {
-            chef.stirfryDisp += "+";
-        } else {
-            chef.stirfryDisp += "";
-        }
-        chef.stirfryDisp += stirfryAddition;
+    if (chef.ultimateSelfEffect) {
+        effects = effects.concat(chef.ultimateSelfEffect);
     }
-    if (boilAddition) {
-        boilAddition = Math.ceil(boilAddition)
-        chef.boilVal += boilAddition;
-        if (boilAddition > 0) {
-            chef.boilDisp += "+";
-        } else {
-            chef.boilDisp += "";
+
+    for (var i in effects) {
+        var type = effects[i].type;
+        var gender = effects[i].gender;
+
+        if (gender && gender != chef.gender) {
+            continue;
         }
-        chef.boilDisp += boilAddition;
+
+        if (type == "Stirfry") {
+            setAddition(stirfryAddition, effects[i]);
+        }
+        if (type == "Boil") {
+            setAddition(boilAddition, effects[i]);
+        }
+        if (type == "Knife") {
+            setAddition(knifeAddition, effects[i]);
+        }
+        if (type == "Fry") {
+            setAddition(fryAddition, effects[i]);
+        }
+        if (type == "Bake") {
+            setAddition(bakeAddition, effects[i]);
+        }
+        if (type == "Steam") {
+            setAddition(steamAddition, effects[i]);
+        }
     }
-    if (knifeAddition) {
-        knifeAddition = Math.ceil(knifeAddition)
-        chef.knifeVal += knifeAddition;
-        if (knifeAddition > 0) {
-            chef.knifeDisp += "+";
-        } else {
-            chef.knifeDisp += "";
-        }
-        chef.knifeDisp += knifeAddition;
+
+    var stirfryAbs = Math.ceil(calAddition(chef.stirfry, stirfryAddition));
+    var boilAbs = Math.ceil(calAddition(chef.boil, boilAddition));
+    var knifeAbs = Math.ceil(calAddition(chef.knife, knifeAddition));
+    var fryAbs = Math.ceil(calAddition(chef.fry, fryAddition));
+    var bakeAbs = Math.ceil(calAddition(chef.bake, bakeAddition));
+    var steamAbs = Math.ceil(calAddition(chef.steam, steamAddition));
+
+    if (stirfryAbs) {
+        chef.stirfryVal += stirfryAbs;
+        chef.stirfryDisp += getChefAdditionDisp(stirfryAbs);
     }
-    if (fryAddition) {
-        fryAddition = Math.ceil(fryAddition)
-        chef.fryVal += fryAddition;
-        if (fryAddition > 0) {
-            chef.fryDisp += "+";
-        } else {
-            chef.fryDisp += "";
-        }
-        chef.fryDisp += fryAddition;
+    if (boilAbs) {
+        chef.boilVal += boilAbs;
+        chef.boilDisp += getChefAdditionDisp(boilAbs);
     }
-    if (bakeAddition) {
-        bakeAddition = Math.ceil(bakeAddition)
-        chef.bakeVal += bakeAddition;
-        if (bakeAddition > 0) {
-            chef.bakeDisp += "+";
-        } else {
-            chef.bakeDisp += "";
-        }
-        chef.bakeDisp += bakeAddition;
+    if (knifeAbs) {
+        chef.knifeVal += knifeAbs;
+        chef.knifeDisp += getChefAdditionDisp(knifeAbs);
     }
-    if (steamAddition) {
-        steamAddition = Math.ceil(steamAddition)
-        chef.steamVal += steamAddition;
-        if (steamAddition > 0) {
-            chef.steamDisp += "+";
-        } else {
-            chef.steamDisp += "";
-        }
-        chef.steamDisp += steamAddition;
+    if (fryAbs) {
+        chef.fryVal += fryAbs;
+        chef.fryDisp += getChefAdditionDisp(fryAbs);
+    }
+    if (bakeAbs) {
+        chef.bakeVal += bakeAbs;
+        chef.bakeDisp += getChefAdditionDisp(bakeAbs);
+    }
+    if (steamAbs) {
+        chef.steamVal += steamAbs;
+        chef.steamDisp += getChefAdditionDisp(steamAbs);
     }
 
     chef["disp"] = chef.name + "<br><small>";
@@ -478,14 +495,13 @@ function setDataForChef2(chef, equip) {
     chef.disp += "</small>"
 }
 
-function calEffectValue(oldValue, effect) {
-    if (effect.cal == "Abs") {
-        return oldValue.add(effect.value);
-    } else if (effect.cal == "Percent") {
-        return oldValue.mul(Number(1).add(effect.value));
-    } else {
-        console.log("cannot find cal: " + effect.cal);
+function getChefAdditionDisp(addition) {
+    var disp = "";
+    if (addition > 0) {
+        disp += "+";
     }
+    disp += addition;
+    return disp;
 }
 
 function isNumeric(n) {

@@ -141,12 +141,10 @@ function initRecipeTable(data) {
         }
     });
 
-    $.fn.dataTableExt.afnFiltering.push(function (settings, data, dataIndex) {
+    $.fn.dataTableExt.afnFiltering.push(function (settings, data, dataIndex, rowData, counter) {
         if (settings.nTable != document.getElementById('recipe-table')) {
             return true;
         }
-
-        var rowData = $('#recipe-table').DataTable().row(dataIndex).data();
 
         if ($('#chk-recipe-category-veg').prop("checked") && rowData.veg
             || $('#chk-recipe-category-meat').prop("checked") && rowData.meat
@@ -1189,11 +1187,7 @@ function initEquipTable(data) {
             }
         },
         {
-            "data": {
-                "_": "skillDisp",
-                "filter": "skillFilter",
-                "display": "skillDisp"
-            }
+            "data": "skillDisp"
         },
         {
             "data": "origin"
@@ -1223,12 +1217,12 @@ function initEquipTable(data) {
 
     $("#pane-equips div.search-box").html('<label>查找:<input type="search" class="form-control input-sm" placeholder="名字 技能 来源"></label>');
 
-    $.fn.dataTableExt.afnFiltering.push(function (settings, data, dataIndex) {
+    $.fn.dataTableExt.afnFiltering.push(function (settings, data, dataIndex, rowData, counter) {
         if (settings.nTable != document.getElementById('equip-table')) {
             return true;
         }
 
-        var skill = data[4];    // skill filter
+        var skill = rowData.skillFilter;
 
         if ($('#chk-equip-skill-stirfry-price').prop("checked") && skill.indexOf("UseStirfry") >= 0
             || $('#chk-equip-skill-boil-price').prop("checked") && skill.indexOf("UseBoil") >= 0
@@ -1536,7 +1530,7 @@ function importData(data, input) {
 
     if (person.decorationEffect) {
         data.decorationEffect = person.decorationEffect;
-        $("#input-cal-decoration").val(Number(person.decorationEffect).mul(100) || "");
+        $("#input-cal-decoration").val(person.decorationEffect || "");
     }
 
     try {
@@ -1620,7 +1614,7 @@ function updateDecorationLocalData() {
         person = new Object();
     }
 
-    person["decorationEffect"] = Number($("#input-cal-decoration").val()).div(100);
+    person["decorationEffect"] = Number($("#input-cal-decoration").val());
 
     try {
         localStorage.setItem('data', JSON.stringify(person));
@@ -1632,7 +1626,7 @@ function generateExportData() {
     person["recipes"] = generateRecipesExportData();
     person["chefs"] = generateChefsExportData();
     person["menu"] = generateMenuExportData();
-    person["decorationEffect"] = Number($("#input-cal-decoration").val()).div(100);
+    person["decorationEffect"] = Number($("#input-cal-decoration").val());
 
     return JSON.stringify(person);
 }
@@ -1805,7 +1799,7 @@ function initCalRules(data) {
         $("#btn-cal-rule-load").removeClass("btn-default").addClass("btn-danger");
     });
 
-    $("#input-cal-decoration").val(Number(data.decorationEffect).mul(100) || "");
+    $("#input-cal-decoration").val(data.decorationEffect || "");
 
     loadUltimate(data, true);
 
@@ -1944,43 +1938,43 @@ function loadUltimate(data, usePerson) {
 
     var ultimateData = getUltimateData(data.chefs, person, data.skills, true, usePerson);
     for (var i in ultimateData) {
-        if (ultimateData[i].type == "Stirfry") {
+        if (ultimateData[i].type == "Stirfry" && !ultimateData[i].gender) {
             $("#input-cal-ultimate-stirfry").val(ultimateData[i].value);
             continue;
-        } else if (ultimateData[i].type == "Boil") {
+        } else if (ultimateData[i].type == "Boil" && !ultimateData[i].gender) {
             $("#input-cal-ultimate-boil").val(ultimateData[i].value);
             continue;
-        } else if (ultimateData[i].type == "Knife") {
+        } else if (ultimateData[i].type == "Knife" && !ultimateData[i].gender) {
             $("#input-cal-ultimate-knife").val(ultimateData[i].value);
             continue;
-        } else if (ultimateData[i].type == "Fry") {
+        } else if (ultimateData[i].type == "Fry" && !ultimateData[i].gender) {
             $("#input-cal-ultimate-fry").val(ultimateData[i].value);
             continue;
-        } else if (ultimateData[i].type == "Bake") {
+        } else if (ultimateData[i].type == "Bake" && !ultimateData[i].gender) {
             $("#input-cal-ultimate-bake").val(ultimateData[i].value);
             continue;
-        } else if (ultimateData[i].type == "Steam") {
+        } else if (ultimateData[i].type == "Steam" && !ultimateData[i].gender) {
             $("#input-cal-ultimate-steam").val(ultimateData[i].value);
             continue;
-        } else if (ultimateData[i].type == "全体男厨师全技法") {
+        } else if (ultimateData[i].gender == "男") {
             $("#input-cal-ultimate-male-skill").val(ultimateData[i].value);
             continue;
-        } else if (ultimateData[i].type == "全体女厨师全技法") {
+        } else if (ultimateData[i].gender == "女") {
             $("#input-cal-ultimate-female-skill").val(ultimateData[i].value);
             continue;
-        } else if (ultimateData[i].type == "2星菜谱上限") {
+        } else if (ultimateData[i].type == "MaxEquipLimit" && ultimateData[i].rarity == 2) {
             $("#input-cal-ultimate-2-limit").val(ultimateData[i].value);
             continue;
-        } else if (ultimateData[i].type == "3星菜谱上限") {
+        } else if (ultimateData[i].type == "MaxEquipLimit" && ultimateData[i].rarity == 3) {
             $("#input-cal-ultimate-3-limit").val(ultimateData[i].value);
             continue;
-        } else if (ultimateData[i].type == "3星菜谱售价") {
-            $("#input-cal-ultimate-3-price").val(ultimateData[i].value.mul(100));
+        } else if (ultimateData[i].type == "UseAll" && ultimateData[i].rarity == 3) {
+            $("#input-cal-ultimate-3-price").val(ultimateData[i].value);
             continue;
-        } else if (ultimateData[i].type == "4星菜谱售价") {
-            $("#input-cal-ultimate-4-price").val(ultimateData[i].value.mul(100));
+        } else if (ultimateData[i].type == "UseAll" && ultimateData[i].rarity == 4) {
+            $("#input-cal-ultimate-4-price").val(ultimateData[i].value);
             continue;
-        } else if (ultimateData[i].type.indexOf("探索") > -1) {
+        } else if (ultimateData[i].type == "Material_Gain") {
             continue
         } else {
             console.log(ultimateData[i].type);
@@ -1988,123 +1982,217 @@ function loadUltimate(data, usePerson) {
     }
 }
 
-function setCalConfigData(data) {
+function setCalConfigData(rule) {
     $("#btn-cal-update").removeClass("btn-danger").addClass("btn-default");
 
-    data["decorationEffect"] = Number($("#input-cal-decoration").val()).div(100);
+    rule["decorationEffect"] = Number($("#input-cal-decoration").val());
 
     var ultimateData = new Array();
 
     var stirfry = Number($("#input-cal-ultimate-stirfry").val());
     if (stirfry) {
         var ultimateItem = new Object();
-        ultimateItem["type"] = "全体厨师炒技法";
-        ultimateItem["addition"] = stirfry;
+        ultimateItem["type"] = "Stirfry";
+        ultimateItem["value"] = stirfry;
+        ultimateItem["condition"] = "Global";
+        ultimateItem["cal"] = "Abs";
         ultimateData.push(ultimateItem);
     }
 
     var boil = Number($("#input-cal-ultimate-boil").val());
     if (boil) {
         var ultimateItem = new Object();
-        ultimateItem["type"] = "全体厨师煮技法";
-        ultimateItem["addition"] = boil;
+        ultimateItem["type"] = "Boil";
+        ultimateItem["value"] = boil;
+        ultimateItem["condition"] = "Global";
+        ultimateItem["cal"] = "Abs";
         ultimateData.push(ultimateItem);
     }
 
     var knife = Number($("#input-cal-ultimate-knife").val());
     if (knife) {
         var ultimateItem = new Object();
-        ultimateItem["type"] = "全体厨师切技法";
-        ultimateItem["addition"] = knife;
+        ultimateItem["type"] = "Knife";
+        ultimateItem["value"] = knife;
+        ultimateItem["condition"] = "Global";
+        ultimateItem["cal"] = "Abs";
         ultimateData.push(ultimateItem);
     }
 
     var fry = Number($("#input-cal-ultimate-fry").val());
     if (fry) {
         var ultimateItem = new Object();
-        ultimateItem["type"] = "全体厨师炸技法";
-        ultimateItem["addition"] = fry;
+        ultimateItem["type"] = "Fry";
+        ultimateItem["value"] = fry;
+        ultimateItem["condition"] = "Global";
+        ultimateItem["cal"] = "Abs";
         ultimateData.push(ultimateItem);
     }
 
     var bake = Number($("#input-cal-ultimate-bake").val());
     if (bake) {
         var ultimateItem = new Object();
-        ultimateItem["type"] = "全体厨师烤技法";
-        ultimateItem["addition"] = bake;
+        ultimateItem["type"] = "Bake";
+        ultimateItem["value"] = bake;
+        ultimateItem["condition"] = "Global";
+        ultimateItem["cal"] = "Abs";
         ultimateData.push(ultimateItem);
     }
 
     var steam = Number($("#input-cal-ultimate-steam").val());
     if (steam) {
         var ultimateItem = new Object();
-        ultimateItem["type"] = "全体厨师蒸技法";
-        ultimateItem["addition"] = steam;
-        ultimateData.push(ultimateItem);
-    }
-
-    var allSkill = Number($("#input-cal-ultimate-all-skill").val());
-    if (allSkill) {
-        var ultimateItem = new Object();
-        ultimateItem["type"] = "全体厨师全技法";
-        ultimateItem["addition"] = allSkill;
+        ultimateItem["type"] = "Steam";
+        ultimateItem["value"] = steam;
+        ultimateItem["condition"] = "Global";
+        ultimateItem["cal"] = "Abs";
         ultimateData.push(ultimateItem);
     }
 
     var maleSkill = Number($("#input-cal-ultimate-male-skill").val());
     if (maleSkill) {
-        var ultimateItem = new Object();
-        ultimateItem["type"] = "全体男厨师全技法";
-        ultimateItem["addition"] = maleSkill;
-        ultimateData.push(ultimateItem);
+        var ultimateItem1 = new Object();
+        ultimateItem1["type"] = "Stirfry";
+        ultimateItem1["value"] = stirfry;
+        ultimateItem1["condition"] = "Global";
+        ultimateItem1["cal"] = "Abs";
+        ultimateItem1["gender"] = "男";
+        ultimateData.push(ultimateItem1);
+        var ultimateItem2 = new Object();
+        ultimateItem2["type"] = "Boil";
+        ultimateItem2["value"] = boil;
+        ultimateItem2["condition"] = "Global";
+        ultimateItem2["cal"] = "Abs";
+        ultimateItem2["gender"] = "男";
+        ultimateData.push(ultimateItem2);
+        var ultimateItem3 = new Object();
+        ultimateItem3["type"] = "Knife";
+        ultimateItem3["value"] = knife;
+        ultimateItem3["condition"] = "Global";
+        ultimateItem3["cal"] = "Abs";
+        ultimateItem3["gender"] = "男";
+        ultimateData.push(ultimateItem3);
+        var ultimateItem4 = new Object();
+        ultimateItem4["type"] = "Fry";
+        ultimateItem4["value"] = fry;
+        ultimateItem4["condition"] = "Global";
+        ultimateItem4["cal"] = "Abs";
+        ultimateItem4["gender"] = "男";
+        ultimateData.push(ultimateItem4);
+        var ultimateItem5 = new Object();
+        ultimateItem5["type"] = "Bake";
+        ultimateItem5["value"] = bake;
+        ultimateItem5["condition"] = "Global";
+        ultimateItem5["cal"] = "Abs";
+        ultimateItem5["gender"] = "男";
+        ultimateData.push(ultimateItem5);
+        var ultimateItem6 = new Object();
+        ultimateItem6["type"] = "Steam";
+        ultimateItem6["value"] = steam;
+        ultimateItem6["condition"] = "Global";
+        ultimateItem6["cal"] = "Abs";
+        ultimateItem6["gender"] = "男";
+        ultimateData.push(ultimateItem6);
     }
 
     var femaleSkill = Number($("#input-cal-ultimate-female-skill").val());
     if (femaleSkill) {
-        var ultimateItem = new Object();
-        ultimateItem["type"] = "全体女厨师全技法";
-        ultimateItem["addition"] = femaleSkill;
-        ultimateData.push(ultimateItem);
+        var ultimateItem1 = new Object();
+        ultimateItem1["type"] = "Stirfry";
+        ultimateItem1["value"] = stirfry;
+        ultimateItem1["condition"] = "Global";
+        ultimateItem1["cal"] = "Abs";
+        ultimateItem1["gender"] = "女";
+        ultimateData.push(ultimateItem1);
+        var ultimateItem2 = new Object();
+        ultimateItem2["type"] = "Boil";
+        ultimateItem2["value"] = boil;
+        ultimateItem2["condition"] = "Global";
+        ultimateItem2["cal"] = "Abs";
+        ultimateItem2["gender"] = "女";
+        ultimateData.push(ultimateItem2);
+        var ultimateItem3 = new Object();
+        ultimateItem3["type"] = "Knife";
+        ultimateItem3["value"] = knife;
+        ultimateItem3["condition"] = "Global";
+        ultimateItem3["cal"] = "Abs";
+        ultimateItem3["gender"] = "女";
+        ultimateData.push(ultimateItem3);
+        var ultimateItem4 = new Object();
+        ultimateItem4["type"] = "Fry";
+        ultimateItem4["value"] = fry;
+        ultimateItem4["condition"] = "Global";
+        ultimateItem4["cal"] = "Abs";
+        ultimateItem4["gender"] = "女";
+        ultimateData.push(ultimateItem4);
+        var ultimateItem5 = new Object();
+        ultimateItem5["type"] = "Bake";
+        ultimateItem5["value"] = bake;
+        ultimateItem5["condition"] = "Global";
+        ultimateItem5["cal"] = "Abs";
+        ultimateItem5["gender"] = "女";
+        ultimateData.push(ultimateItem5);
+        var ultimateItem6 = new Object();
+        ultimateItem6["type"] = "Steam";
+        ultimateItem6["value"] = steam;
+        ultimateItem6["condition"] = "Global";
+        ultimateItem6["cal"] = "Abs";
+        ultimateItem6["gender"] = "女";
+        ultimateData.push(ultimateItem6);
     }
 
     var limit2 = Number($("#input-cal-ultimate-2-limit").val());
     if (limit2) {
         var ultimateItem = new Object();
-        ultimateItem["type"] = "2星菜谱上限";
-        ultimateItem["addition"] = limit2;
+        ultimateItem["type"] = "MaxEquipLimit";
+        ultimateItem["value"] = limit2;
+        ultimateItem["condition"] = "Global";
+        ultimateItem["cal"] = "Abs";
+        ultimateItem["rarity"] = 2;
         ultimateData.push(ultimateItem);
     }
 
     var limit3 = Number($("#input-cal-ultimate-3-limit").val());
     if (limit3) {
         var ultimateItem = new Object();
-        ultimateItem["type"] = "3星菜谱上限";
-        ultimateItem["addition"] = limit3;
+        ultimateItem["type"] = "MaxEquipLimit";
+        ultimateItem["value"] = limit3;
+        ultimateItem["condition"] = "Global";
+        ultimateItem["cal"] = "Abs";
+        ultimateItem["rarity"] = 3;
         ultimateData.push(ultimateItem);
     }
 
     var price3 = Number($("#input-cal-ultimate-3-price").val());
     if (price3) {
         var ultimateItem = new Object();
-        ultimateItem["type"] = "3星菜谱售价";
-        ultimateItem["addition"] = price3.div(100);
+        ultimateItem["type"] = "UseAll";
+        ultimateItem["value"] = price3;
+        ultimateItem["condition"] = "Global";
+        ultimateItem["cal"] = "Percent";
+        ultimateItem["rarity"] = 3;
         ultimateData.push(ultimateItem);
     }
 
     var price4 = Number($("#input-cal-ultimate-4-price").val());
     if (price4) {
         var ultimateItem = new Object();
-        ultimateItem["type"] = "4星菜谱售价";
-        ultimateItem["addition"] = price4.div(100);
+        ultimateItem["type"] = "UseAll";
+        ultimateItem["value"] = price4;
+        ultimateItem["condition"] = "Global";
+        ultimateItem["cal"] = "Percent";
+        ultimateItem["rarity"] = 4;
         ultimateData.push(ultimateItem);
     }
 
-    for (var i in data.recipes) {
-        setDataForRecipe(data.recipes[i], ultimateData);
+    rule["calUltimateData"] = ultimateData;
+
+    for (var i in rule.recipes) {
+        setDataForRecipe(rule.recipes[i], ultimateData);
     }
 
-    for (var i in data.chefs) {
-        setDataForChef(data.chefs[i], ultimateData, false);
+    for (var i in rule.chefs) {
+        setDataForChef(rule.chefs[i], null, false, ultimateData);
     }
 }
 
@@ -2364,7 +2452,7 @@ function calCustomResults(rule, data) {
         custom[i].equip = equipInfo;
 
         if (chefData.chefId) {
-            setDataForChef2(chefData, equipInfo);
+            setDataForChef(chefData, equipInfo, true, rule.calUltimateData);
         }
         custom[i].chef = chefData;
 
@@ -2445,6 +2533,7 @@ function calCustomResults(rule, data) {
 }
 
 function getRecipesOptions(rule) {
+    console.log(new Date());
     var options = new Array();
     for (var j in rule.menus) {
         var option = new Object();
@@ -2458,6 +2547,7 @@ function getRecipesOptions(rule) {
         option["score"] = resultData.totalScore;
         options.push(option);
     }
+    console.log(new Date());
     options.sort(function (a, b) {
         return b.score - a.score
     });
@@ -3181,8 +3271,7 @@ function initCalResultsTable(data) {
                 "equips": calEquipsData,
                 "materials": calMaterialsData,
                 "odata": data,
-                "autoEquips": autoEquips,
-                "changeEquips": changeEquips
+                "autoEquips": autoEquips
             });
         });
     }
@@ -3282,45 +3371,27 @@ function initCalResultTableCommon(mode, panel, data) {
             "defaultContent": ""
         },
         {
-            "data": {
-                "_": "recipe.rankAddition",
-                "display": "recipe.rankAdditionDisp"
-            },
+            "data": "recipe.rankAdditionDisp",
             "defaultContent": ""
         },
         {
-            "data": {
-                "_": "recipe.chefSkillAddition",
-                "display": "recipe.chefSkillAdditionDisp"
-            },
+            "data": "recipe.chefSkillAdditionDisp",
             "defaultContent": ""
         },
         {
-            "data": {
-                "_": "recipe.equipSkillAddition",
-                "display": "recipe.equipSkillAdditionDisp"
-            },
+            "data": "recipe.equipSkillAdditionDisp",
             "defaultContent": ""
         },
         {
-            "data": {
-                "_": "recipe.otherAddition",
-                "display": "recipe.otherAdditionDisp"
-            },
+            "data": "recipe.otherAdditionDisp",
             "defaultContent": ""
         },
         {
-            "data": {
-                "_": "recipe.data.ultimateAddition",
-                "display": "recipe.data.ultimateAdditionDisp"
-            },
+            "data": "recipe.data.ultimateAdditionDisp",
             "defaultContent": ""
         },
         {
-            "data": {
-                "_": "recipe.decorationAddition",
-                "display": "recipe.decorationAdditionDisp"
-            },
+            "data": "recipe.decorationAdditionDisp",
             "defaultContent": ""
         },
         {
@@ -3541,6 +3612,7 @@ function generateData(json, json2, person) {
     var useUltimate = $("#chk-chef-apply-ultimate").prop("checked");
     var usePerson = $("#chk-chef-apply-ultimate-person").prop("checked");
     var ultimateData = getUltimateData(json.chefs, person, json.skills, useUltimate, usePerson);
+    retData["ultimateData"] = ultimateData;
 
     var chefsData = new Array();
     for (var i in json.chefs) {
@@ -3621,7 +3693,7 @@ function generateData(json, json2, person) {
             }
         }
 
-        setDataForChef(chefData, ultimateData, useEquip);
+        setDataForChef(chefData, chefData.equip, useEquip, ultimateData);
 
         chefsData.push(chefData);
     }
@@ -3757,9 +3829,10 @@ function getUpdateData(data) {
     var useUltimate = $("#chk-chef-apply-ultimate").prop("checked");
     var usePerson = $("#chk-chef-apply-ultimate-person").prop("checked");
     var ultimateData = getUltimateData(data.chefs, person, data.skills, useUltimate, usePerson);
+    data.ultimateData = ultimateData;
 
     for (var i in data.chefs) {
-        setDataForChef(data.chefs[i], ultimateData, useEquip);
+        setDataForChef(data.chefs[i], data.chefs[i].equip, useEquip, ultimateData);
     }
 
     for (var i in data.recipes) {
@@ -3902,7 +3975,7 @@ function getRankGuestInfo(recipe, rank) {
 }
 
 function getUltimateData(chefs, person, skills, useUltimate, usePerson) {
-    var ultimateData = new Array();
+    var globalEffect = new Array();
     if (useUltimate) {
         for (var i in chefs) {
             if (chefs[i].ultimateSkill) {
@@ -3925,28 +3998,28 @@ function getUltimateData(chefs, person, skills, useUltimate, usePerson) {
                 }
 
                 if (valid) {
+                    chefs[i]["ultimateSelfEffect"] = [];
+
                     for (var k in skills) {
                         if (chefs[i].ultimateSkill == skills[k].skillId) {
                             for (var m in skills[k].effect) {
+                                if (skills[k].effect[m].condition == "Self") {
+                                    chefs[i]["ultimateSelfEffect"].push(skills[k].effect[m]);
+                                    continue;
+                                }
                                 var found = false;
-                                for (var n in ultimateData) {
-                                    if (ultimateData[n].type == skills[k].effect[m].type
-                                        && ultimateData[n].cal == skills[k].effect[m].cal
-                                        && ultimateData[n].gender == skills[k].effect[m].gender
-                                        && ultimateData[n].rarity == skills[k].effect[m].rarity) {
-                                        ultimateData[n].value = ultimateData[n].value.add(skills[k].effect[m].value);
+                                for (var n in globalEffect) {
+                                    if (globalEffect[n].type == skills[k].effect[m].type
+                                        && (globalEffect[n].cal == skills[k].effect[m].cal || !globalEffect[n].cal && !skills[k].effect[m].cal)
+                                        && (globalEffect[n].gender == skills[k].effect[m].gender || !globalEffect[n].gender && !skills[k].effect[m].gender)
+                                        && (globalEffect[n].rarity == skills[k].effect[m].rarity || !globalEffect[n].rarity && !skills[k].effect[m].rarity)) {
+                                        globalEffect[n].value = globalEffect[n].value.add(skills[k].effect[m].value);
                                         found = true;
                                         break;
                                     }
                                 }
                                 if (!found) {
-                                    var ultimateItem = new Object();
-                                    ultimateItem["gender"] = skills[k].gender || "";
-                                    ultimateItem["cal"] = skills[k].effect[m].cal;
-                                    ultimateItem["type"] = skills[k].effect[m].type;
-                                    ultimateItem["rarity"] = skills[k].effect[m].rarity || 0;
-                                    ultimateItem["value"] = skills[k].effect[m].value;
-                                    ultimateData.push(ultimateItem);
+                                    globalEffect.push(JSON.parse(JSON.stringify(skills[k].effect[m])));
                                 }
                             }
                             break;
@@ -3957,76 +4030,12 @@ function getUltimateData(chefs, person, skills, useUltimate, usePerson) {
         }
     }
 
-    return ultimateData;
-}
-
-function setDataForChef(chefData, ultimateData, useEquip) {
-
-    var stirfryAddition = 0;
-    var bakeAddition = 0;
-    var steamAddition = 0;
-    var boilAddition = 0;
-    var fryAddition = 0;
-    var knifeAddition = 0;
-
-    for (var i in ultimateData) {
-        if (ultimateData[i].type.indexOf("全体厨师炒技法") >= 0) {
-            stirfryAddition += ultimateData[i].addition;
-        } else if (ultimateData[i].type.indexOf("全体厨师烤技法") >= 0) {
-            bakeAddition += ultimateData[i].addition;
-        } else if (ultimateData[i].type.indexOf("全体厨师蒸技法") >= 0) {
-            steamAddition += ultimateData[i].addition;
-        } else if (ultimateData[i].type.indexOf("全体厨师煮技法") >= 0) {
-            boilAddition += ultimateData[i].addition;
-        } else if (ultimateData[i].type.indexOf("全体厨师炸技法") >= 0) {
-            fryAddition += ultimateData[i].addition;
-        } else if (ultimateData[i].type.indexOf("全体厨师切技法") >= 0) {
-            knifeAddition += ultimateData[i].addition;
-        } else if (ultimateData[i].type.indexOf("全体厨师全技法") >= 0) {
-            stirfryAddition += ultimateData[i].addition;
-            bakeAddition += ultimateData[i].addition;
-            steamAddition += ultimateData[i].addition;
-            boilAddition += ultimateData[i].addition;
-            fryAddition += ultimateData[i].addition;
-            knifeAddition += ultimateData[i].addition;
-        } else if (ultimateData[i].type.indexOf("全体男厨师全技法") >= 0) {
-            if (chefData.gender == "男") {
-                stirfryAddition += ultimateData[i].addition;
-                bakeAddition += ultimateData[i].addition;
-                steamAddition += ultimateData[i].addition;
-                boilAddition += ultimateData[i].addition;
-                fryAddition += ultimateData[i].addition;
-                knifeAddition += ultimateData[i].addition;
-            }
-        } else if (ultimateData[i].type.indexOf("全体女厨师全技法") >= 0) {
-            if (chefData.gender == "女") {
-                stirfryAddition += ultimateData[i].addition;
-                bakeAddition += ultimateData[i].addition;
-                steamAddition += ultimateData[i].addition;
-                boilAddition += ultimateData[i].addition;
-                fryAddition += ultimateData[i].addition;
-                knifeAddition += ultimateData[i].addition;
-            }
-        }
-    }
-
-    chefData["stirfryUltimateAddition"] = stirfryAddition;
-    chefData["boilUltimateAddition"] = boilAddition;
-    chefData["knifeUltimateAddition"] = knifeAddition;
-    chefData["fryUltimateAddition"] = fryAddition;
-    chefData["bakeUltimateAddition"] = bakeAddition;
-    chefData["steamUltimateAddition"] = steamAddition;
-
-    var equip = null;
-    if (useEquip) {
-        equip = chefData.equip;
-    }
-    setDataForChef2(chefData, equip)
+    return globalEffect;
 }
 
 function setDataForRecipe(recipeData, ultimateData) {
     recipeData["limitVal"] = recipeData.limit;
-    recipeData["ultimateAddition"] = 0;
+    recipeData["ultimateAddition"] = new Addition();
 
     for (var i in ultimateData) {
         if (ultimateData[i].type == "MaxEquipLimit" && ultimateData[i].rarity == recipeData.rarity) {
@@ -4034,7 +4043,7 @@ function setDataForRecipe(recipeData, ultimateData) {
         }
 
         if (ultimateData[i].type == "UseAll" && ultimateData[i].rarity == recipeData.rarity) {
-            recipeData.ultimateAddition = recipeData.ultimateAddition.add(ultimateData[i].value);
+            setAddition(recipeData.ultimateAddition, ultimateData[i]);
         }
     }
 
