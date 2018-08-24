@@ -2454,6 +2454,8 @@ function calCustomResults(rule, data) {
         var equipInfo = getEquipInfo(custom[i].equip.name, rule.equips);
         if (equipInfo) {
             custom[i].equip = equipInfo;
+        } else {
+            custom[i].equip = [];
         }
 
         if (chefData.chefId) {
