@@ -1937,6 +1937,7 @@ function loadUltimate(data, usePerson) {
     } catch (e) { }
 
     var ultimateData = getUltimateData(data.chefs, person, data.skills, true, usePerson);
+
     for (var i in ultimateData) {
         if (ultimateData[i].type == "Stirfry" && !ultimateData[i].gender) {
             $("#input-cal-ultimate-stirfry").val(ultimateData[i].value);
@@ -2053,42 +2054,42 @@ function setCalConfigData(rule) {
     if (maleSkill) {
         var ultimateItem1 = new Object();
         ultimateItem1["type"] = "Stirfry";
-        ultimateItem1["value"] = stirfry;
+        ultimateItem1["value"] = maleSkill;
         ultimateItem1["condition"] = "Global";
         ultimateItem1["cal"] = "Abs";
         ultimateItem1["gender"] = "男";
         ultimateData.push(ultimateItem1);
         var ultimateItem2 = new Object();
         ultimateItem2["type"] = "Boil";
-        ultimateItem2["value"] = boil;
+        ultimateItem2["value"] = maleSkill;
         ultimateItem2["condition"] = "Global";
         ultimateItem2["cal"] = "Abs";
         ultimateItem2["gender"] = "男";
         ultimateData.push(ultimateItem2);
         var ultimateItem3 = new Object();
         ultimateItem3["type"] = "Knife";
-        ultimateItem3["value"] = knife;
+        ultimateItem3["value"] = maleSkill;
         ultimateItem3["condition"] = "Global";
         ultimateItem3["cal"] = "Abs";
         ultimateItem3["gender"] = "男";
         ultimateData.push(ultimateItem3);
         var ultimateItem4 = new Object();
         ultimateItem4["type"] = "Fry";
-        ultimateItem4["value"] = fry;
+        ultimateItem4["value"] = maleSkill;
         ultimateItem4["condition"] = "Global";
         ultimateItem4["cal"] = "Abs";
         ultimateItem4["gender"] = "男";
         ultimateData.push(ultimateItem4);
         var ultimateItem5 = new Object();
         ultimateItem5["type"] = "Bake";
-        ultimateItem5["value"] = bake;
+        ultimateItem5["value"] = maleSkill;
         ultimateItem5["condition"] = "Global";
         ultimateItem5["cal"] = "Abs";
         ultimateItem5["gender"] = "男";
         ultimateData.push(ultimateItem5);
         var ultimateItem6 = new Object();
         ultimateItem6["type"] = "Steam";
-        ultimateItem6["value"] = steam;
+        ultimateItem6["value"] = maleSkill;
         ultimateItem6["condition"] = "Global";
         ultimateItem6["cal"] = "Abs";
         ultimateItem6["gender"] = "男";
@@ -2099,42 +2100,42 @@ function setCalConfigData(rule) {
     if (femaleSkill) {
         var ultimateItem1 = new Object();
         ultimateItem1["type"] = "Stirfry";
-        ultimateItem1["value"] = stirfry;
+        ultimateItem1["value"] = femaleSkill;
         ultimateItem1["condition"] = "Global";
         ultimateItem1["cal"] = "Abs";
         ultimateItem1["gender"] = "女";
         ultimateData.push(ultimateItem1);
         var ultimateItem2 = new Object();
         ultimateItem2["type"] = "Boil";
-        ultimateItem2["value"] = boil;
+        ultimateItem2["value"] = femaleSkill;
         ultimateItem2["condition"] = "Global";
         ultimateItem2["cal"] = "Abs";
         ultimateItem2["gender"] = "女";
         ultimateData.push(ultimateItem2);
         var ultimateItem3 = new Object();
         ultimateItem3["type"] = "Knife";
-        ultimateItem3["value"] = knife;
+        ultimateItem3["value"] = femaleSkill;
         ultimateItem3["condition"] = "Global";
         ultimateItem3["cal"] = "Abs";
         ultimateItem3["gender"] = "女";
         ultimateData.push(ultimateItem3);
         var ultimateItem4 = new Object();
         ultimateItem4["type"] = "Fry";
-        ultimateItem4["value"] = fry;
+        ultimateItem4["value"] = femaleSkill;
         ultimateItem4["condition"] = "Global";
         ultimateItem4["cal"] = "Abs";
         ultimateItem4["gender"] = "女";
         ultimateData.push(ultimateItem4);
         var ultimateItem5 = new Object();
         ultimateItem5["type"] = "Bake";
-        ultimateItem5["value"] = bake;
+        ultimateItem5["value"] = femaleSkill;
         ultimateItem5["condition"] = "Global";
         ultimateItem5["cal"] = "Abs";
         ultimateItem5["gender"] = "女";
         ultimateData.push(ultimateItem5);
         var ultimateItem6 = new Object();
         ultimateItem6["type"] = "Steam";
-        ultimateItem6["value"] = steam;
+        ultimateItem6["value"] = femaleSkill;
         ultimateItem6["condition"] = "Global";
         ultimateItem6["cal"] = "Abs";
         ultimateItem6["gender"] = "女";
@@ -2314,7 +2315,9 @@ function loadRule(data, rule) {
         }
         for (var j in rule.MaterialsNum) {
             if (allMaterials[i].materialId == rule.MaterialsNum[j].MaterialID) {
-                allMaterials[i].quantity = rule.MaterialsNum[j].Num;
+                if (rule.MaterialsNum[j].Num != 1) {
+                    allMaterials[i].quantity = rule.MaterialsNum[j].Num;
+                }
                 break;
             }
         }
@@ -2449,7 +2452,9 @@ function calCustomResults(rule, data) {
         }
 
         var equipInfo = getEquipInfo(custom[i].equip.name, rule.equips);
-        custom[i].equip = equipInfo;
+        if (equipInfo) {
+            custom[i].equip = equipInfo;
+        }
 
         if (chefData.chefId) {
             setDataForChef(chefData, equipInfo, true, rule.calUltimateData);
@@ -2533,7 +2538,6 @@ function calCustomResults(rule, data) {
 }
 
 function getRecipesOptions(rule) {
-    console.log(new Date());
     var options = new Array();
     for (var j in rule.menus) {
         var option = new Object();
@@ -2547,7 +2551,6 @@ function getRecipesOptions(rule) {
         option["score"] = resultData.totalScore;
         options.push(option);
     }
-    console.log(new Date());
     options.sort(function (a, b) {
         return b.score - a.score
     });
@@ -3383,7 +3386,7 @@ function initCalResultTableCommon(mode, panel, data) {
             "defaultContent": ""
         },
         {
-            "data": "recipe.otherAdditionDisp",
+            "data": "recipe.bonusAdditionDisp",
             "defaultContent": ""
         },
         {
@@ -4035,7 +4038,7 @@ function getUltimateData(chefs, person, skills, useUltimate, usePerson) {
 
 function setDataForRecipe(recipeData, ultimateData) {
     recipeData["limitVal"] = recipeData.limit;
-    recipeData["ultimateAddition"] = new Addition();
+    recipeData["ultimateAddition"] = 0;
 
     for (var i in ultimateData) {
         if (ultimateData[i].type == "MaxEquipLimit" && ultimateData[i].rarity == recipeData.rarity) {
@@ -4043,11 +4046,11 @@ function setDataForRecipe(recipeData, ultimateData) {
         }
 
         if (ultimateData[i].type == "UseAll" && ultimateData[i].rarity == recipeData.rarity) {
-            setAddition(recipeData.ultimateAddition, ultimateData[i]);
+            recipeData.ultimateAddition = recipeData.ultimateAddition.add(ultimateData[i].value);
         }
     }
 
-    recipeData["ultimateAdditionDisp"] = getAdditionDisp(recipeData.ultimateAddition);
+    recipeData["ultimateAdditionDisp"] = getPercentDisp(recipeData.ultimateAddition);
     recipeData["totalPrice"] = recipeData.price * recipeData.limitVal;
     recipeData["totalTime"] = recipeData.time * recipeData.limitVal;
     recipeData["totalTimeDisp"] = secondsToTime(recipeData.totalTime);
