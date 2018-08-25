@@ -4,7 +4,7 @@ $(function () {
         success: function (json) {
             init(json);
         },
-        url: 'data/data.json'
+        url: 'data/data.min.json'
     });
 });
 
