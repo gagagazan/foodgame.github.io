@@ -448,10 +448,12 @@ function getChefAtrributeDisp(final, origin) {
             disp += origin;
         }
         var add = final - origin;
-        if (add > 0) {
-            disp += "+";
+        if (add) {
+            if (add > 0) {
+                disp += "+";
+            }
+            disp += add;
         }
-        disp += add;
     }
     return disp;
 }
