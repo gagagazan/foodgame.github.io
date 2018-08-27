@@ -1367,6 +1367,7 @@ function initQuestTable(data) {
         {
             "data": "preId",
             "defaultContent": "",
+            "orderable": false,
             "width": "30px"
         },
         {
