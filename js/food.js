@@ -1365,6 +1365,11 @@ function initQuestTable(data) {
             "width": "1px"
         },
         {
+            "data": "preId",
+            "defaultContent": "",
+            "width": "30px"
+        },
+        {
             "data": "goal"
         },
         {
@@ -1406,7 +1411,7 @@ function initQuestTable(data) {
         }
 
         var value = $.trim($("#pane-quest .search-box input").val());
-        var searchCols = [0, 1, 2];    // questId, goal, rewards
+        var searchCols = [0, 2, 3];    // questId, goal, rewards
 
         for (var i = 0, len = searchCols.length; i < len; i++) {
             if (data[searchCols[i]].indexOf(value) !== -1) {
@@ -1424,7 +1429,10 @@ function initQuestTable(data) {
     $('#select-quest-type').change(function () {
         var questsData = getQuestsData(data.quests, $(this).val());
         questTable.clear().rows.add(questsData).draw();
+        initQuestShow(questTable);
     });
+
+    initQuestShow(questTable);
 }
 
 function initImportExport(data) {
@@ -4274,6 +4282,11 @@ function initEquipShow(equipTable) {
     equipTable.column(5).visible($('#chk-equip-show-origin').prop("checked"), false);
 
     equipTable.columns.adjust().draw(false);
+}
+
+function initQuestShow(questTable) {
+    questTable.column(1).visible($('#select-quest-type').val() == "支线任务", false);
+    questTable.columns.adjust().draw(false);
 }
 
 function initCalRecipesShow(calRecipesTable) {
