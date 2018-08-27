@@ -120,10 +120,10 @@ function getRecipeSkillAddition(effects, recipe) {
         }
 
         if (hasSkill) {
-            addition = addition.add(effects[k].value);
+            addition += effects[k].value;
         }
     }
-    return addition;
+    return +addition.toFixed(2);
 }
 
 function getMaterialsAddition(recipe, materials) {
@@ -133,18 +133,18 @@ function getMaterialsAddition(recipe, materials) {
         for (var n in materials) {
             if (recipe.materials[m].material == materials[n].materialId) {
                 if (materials[n].addition) {
-                    addition = addition.add(Number(materials[n].addition));
+                    addition += Number(materials[n].addition);
                     break;
                 }
             }
         }
     }
-    return addition;
+    return +addition.toFixed(2);
 }
 
 function getPercentDisp(percent) {
-    if (percent) {
-        return percent + "%";
+    if (percent != 0) {
+        return percent.toString() + "%";
     } else {
         return "";
     }
@@ -227,7 +227,7 @@ function getRecipeResult(chef, equip, recipe, quantity, maxQuantity, materials, 
         }
         resultData["equipSkillAdditionDisp"] = getPercentDisp(equipSkillAddition);
 
-        bonusAddition = bonusAddition.add(Number(chef.addition));
+        bonusAddition = bonusAddition + Number(chef.addition);
     }
 
     if (!rule || !rule.hasOwnProperty("DisableDecorationEffect") || rule.DisableDecorationEffect == false) {
@@ -237,28 +237,29 @@ function getRecipeResult(chef, equip, recipe, quantity, maxQuantity, materials, 
     }
     resultData["decorationAdditionDisp"] = getPercentDisp(decorationAddition);
 
-    bonusAddition = bonusAddition.add(Number(recipe.addition));
+    bonusAddition = bonusAddition + Number(recipe.addition);
 
     if (rule && rule.hasOwnProperty("MaterialsEffect") && rule.MaterialsEffect.length > 0) {
         var materialsAddition = getMaterialsAddition(recipe, materials);
-        bonusAddition = bonusAddition.add(materialsAddition);
+        bonusAddition = bonusAddition + materialsAddition;
     }
 
-    var priceAddition = rankAddition.add(chefSkillAddition).add(equipSkillAddition).add(decorationAddition).add(recipe.ultimateAddition);
+    var priceAddition = (rankAddition + chefSkillAddition + equipSkillAddition + decorationAddition + recipe.ultimateAddition) / 100;
+    timeAddition = timeAddition / 100;
 
     resultData["data"] = recipe;
     resultData["quantity"] = quantity;
     resultData["max"] = maxQuantity;
     resultData["limit"] = quantity;
-    resultData["bonusAdditionDisp"] = getPercentDisp(bonusAddition.mul(100));
+    resultData["bonusAdditionDisp"] = getPercentDisp(+(bonusAddition * 100).toFixed(2));
     resultData["totalPrice"] = recipe.price * quantity;
-    resultData["realPrice"] = Math.ceil(recipe.price.mul(Number(1).add(priceAddition.div(100))));
+    resultData["realPrice"] = Math.ceil(+(recipe.price * (1 + priceAddition)).toFixed(2));
     resultData["totalRealPrice"] = resultData.realPrice * quantity;
-    var score = Math.ceil(recipe.price.mul(Number(1).add(priceAddition.div(100)).add(bonusAddition)));
+    var score = Math.ceil(+(recipe.price * (1 + priceAddition + bonusAddition)).toFixed(2));
     resultData["bonusScore"] = score - resultData.realPrice;
     resultData["totalBonusScore"] = resultData.bonusScore * quantity;
     resultData["totalScore"] = score * quantity;
-    var realTime = Math.ceil(recipe.time.mul(Number(1).add(timeAddition.div(100))));
+    var realTime = Math.ceil(+(recipe.time * (1 + timeAddition)).toFixed(2));
     resultData["totalTime"] = realTime * quantity;
     resultData["totalTimeDisp"] = secondsToTime(resultData.totalTime);
 
@@ -272,24 +273,24 @@ function getRecipeResult(chef, equip, recipe, quantity, maxQuantity, materials, 
 }
 
 function calAddition(value, addition) {
-    return value.mul(addition.percent).div(100).add(addition.abs);
+    return +((value + addition.abs) * (1 + addition.percent / 100)).toFixed(2);
 }
 
 function getTimeAddition(addition, effects) {
     var addition = 0;
     for (var k in effects) {
         if (effects[k].type == "OpenTime") {
-            addition = addition.add(effects[k].value);
+            addition += effects[k].value;
         }
     }
-    return addition;
+    return +addition.toFixed(2);
 }
 
 function setAddition(addition, effect) {
     if (effect.cal == "Abs") {
-        addition.abs = addition.abs.add(effect.value);
+        addition.abs = +(addition.abs + effect.value).toFixed(2);
     } else if (effect.cal == "Percent") {
-        addition.percent = addition.percent.add(effect.value);
+        addition.percent = +(addition.percent + effect.value).toFixed(2);
     }
 }
 
@@ -340,19 +341,6 @@ function getEquipInfo(equipName, equips) {
 }
 
 function setDataForChef(chef, equip, useEquip, ultimateEffect) {
-    chef["stirfryVal"] = chef.stirfry;
-    chef["boilVal"] = chef.boil;
-    chef["knifeVal"] = chef.knife;
-    chef["fryVal"] = chef.fry;
-    chef["bakeVal"] = chef.bake;
-    chef["steamVal"] = chef.steam;
-
-    chef["stirfryDisp"] = chef.stirfry || "";
-    chef["boilDisp"] = chef.boil || "";
-    chef["knifeDisp"] = chef.knife || "";
-    chef["fryDisp"] = chef.fry || "";
-    chef["bakeDisp"] = chef.bake || "";
-    chef["steamDisp"] = chef.steam || "";
 
     var stirfryAddition = new Addition();
     var boilAddition = new Addition();
@@ -399,37 +387,19 @@ function setDataForChef(chef, equip, useEquip, ultimateEffect) {
         }
     }
 
-    var stirfryAbs = Math.ceil(calAddition(chef.stirfry, stirfryAddition));
-    var boilAbs = Math.ceil(calAddition(chef.boil, boilAddition));
-    var knifeAbs = Math.ceil(calAddition(chef.knife, knifeAddition));
-    var fryAbs = Math.ceil(calAddition(chef.fry, fryAddition));
-    var bakeAbs = Math.ceil(calAddition(chef.bake, bakeAddition));
-    var steamAbs = Math.ceil(calAddition(chef.steam, steamAddition));
+    chef["stirfryVal"] = Math.ceil(calAddition(chef.stirfry, stirfryAddition));
+    chef["boilVal"] = Math.ceil(calAddition(chef.boil, boilAddition));
+    chef["knifeVal"] = Math.ceil(calAddition(chef.knife, knifeAddition));
+    chef["fryVal"] = Math.ceil(calAddition(chef.fry, fryAddition));
+    chef["bakeVal"] = Math.ceil(calAddition(chef.bake, bakeAddition));
+    chef["steamVal"] = Math.ceil(calAddition(chef.steam, steamAddition));
 
-    if (stirfryAbs) {
-        chef.stirfryVal += stirfryAbs;
-        chef.stirfryDisp += getChefAdditionDisp(stirfryAbs);
-    }
-    if (boilAbs) {
-        chef.boilVal += boilAbs;
-        chef.boilDisp += getChefAdditionDisp(boilAbs);
-    }
-    if (knifeAbs) {
-        chef.knifeVal += knifeAbs;
-        chef.knifeDisp += getChefAdditionDisp(knifeAbs);
-    }
-    if (fryAbs) {
-        chef.fryVal += fryAbs;
-        chef.fryDisp += getChefAdditionDisp(fryAbs);
-    }
-    if (bakeAbs) {
-        chef.bakeVal += bakeAbs;
-        chef.bakeDisp += getChefAdditionDisp(bakeAbs);
-    }
-    if (steamAbs) {
-        chef.steamVal += steamAbs;
-        chef.steamDisp += getChefAdditionDisp(steamAbs);
-    }
+    chef["stirfryDisp"] = getChefAtrributeDisp(chef.stirfryVal, chef.stirfry);
+    chef["boilDisp"] = getChefAtrributeDisp(chef.boilVal, chef.boil);
+    chef["knifeDisp"] = getChefAtrributeDisp(chef.knifeVal, chef.knife);
+    chef["fryDisp"] = getChefAtrributeDisp(chef.fryVal, chef.fry);
+    chef["bakeDisp"] = getChefAtrributeDisp(chef.bakeVal, chef.bake);
+    chef["steamDisp"] = getChefAtrributeDisp(chef.steamVal, chef.steam);
 
     chef["disp"] = chef.name + "<br><small>";
     var count = 0;
@@ -471,151 +441,21 @@ function setDataForChef(chef, equip, useEquip, ultimateEffect) {
     chef.disp += "</small>"
 }
 
-function getChefAdditionDisp(addition) {
+function getChefAtrributeDisp(final, origin) {
     var disp = "";
-    if (addition > 0) {
-        disp += "+";
+    if (final > 0) {
+        if (origin) {
+            disp += origin;
+        }
+        var add = final - origin;
+        if (add > 0) {
+            disp += "+";
+        }
+        disp += add;
     }
-    disp += addition;
     return disp;
 }
 
 function isNumeric(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
 }
-
-function accAdd(arg1, arg2) {
-    if (isNaN(arg1)) {
-        arg1 = 0;
-    }
-    if (isNaN(arg2)) {
-        arg2 = 0;
-    }
-    arg1 = Number(arg1);
-    arg2 = Number(arg2);
-    var r1, r2, m, c;
-    try {
-        r1 = arg1.toString().split(".")[1].length;
-    }
-    catch (e) {
-        r1 = 0;
-    }
-    try {
-        r2 = arg2.toString().split(".")[1].length;
-    }
-    catch (e) {
-        r2 = 0;
-    }
-    c = Math.abs(r1 - r2);
-    m = Math.pow(10, Math.max(r1, r2));
-    if (c > 0) {
-        var cm = Math.pow(10, c);
-        if (r1 > r2) {
-            arg1 = Number(arg1.toString().replace(".", ""));
-            arg2 = Number(arg2.toString().replace(".", "")) * cm;
-        } else {
-            arg1 = Number(arg1.toString().replace(".", "")) * cm;
-            arg2 = Number(arg2.toString().replace(".", ""));
-        }
-    } else {
-        arg1 = Number(arg1.toString().replace(".", ""));
-        arg2 = Number(arg2.toString().replace(".", ""));
-    }
-    return (arg1 + arg2) / m;
-}
-
-Number.prototype.add = function (arg) {
-    return accAdd(this, arg);
-};
-
-function accSub(arg1, arg2) {
-    if (isNaN(arg1)) {
-        arg1 = 0;
-    }
-    if (isNaN(arg2)) {
-        arg2 = 0;
-    }
-    arg1 = Number(arg1);
-    arg2 = Number(arg2);
-
-    var r1, r2, m, n;
-    try {
-        r1 = arg1.toString().split(".")[1].length;
-    }
-    catch (e) {
-        r1 = 0;
-    }
-    try {
-        r2 = arg2.toString().split(".")[1].length;
-    }
-    catch (e) {
-        r2 = 0;
-    }
-    m = Math.pow(10, Math.max(r1, r2));
-    n = (r1 >= r2) ? r1 : r2;
-    return ((arg1 * m - arg2 * m) / m).toFixed(n);
-}
-
-Number.prototype.sub = function (arg) {
-    return accSub(this, arg);
-};
-
-function accMul(arg1, arg2) {
-    if (isNaN(arg1)) {
-        arg1 = 0;
-    }
-    if (isNaN(arg2)) {
-        arg2 = 0;
-    }
-    arg1 = Number(arg1);
-    arg2 = Number(arg2);
-
-    var m = 0, s1 = arg1.toString(), s2 = arg2.toString();
-    try {
-        m += s1.split(".")[1].length;
-    }
-    catch (e) {
-    }
-    try {
-        m += s2.split(".")[1].length;
-    }
-    catch (e) {
-    }
-    return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m);
-}
-
-Number.prototype.mul = function (arg) {
-    return accMul(this, arg);
-};
-
-function accDiv(arg1, arg2) {
-    if (isNaN(arg1)) {
-        arg1 = 0;
-    }
-    if (isNaN(arg2)) {
-        arg2 = 0;
-    }
-    arg1 = Number(arg1);
-    arg2 = Number(arg2);
-
-    var t1 = 0, t2 = 0, r1, r2;
-    try {
-        t1 = arg1.toString().split(".")[1].length;
-    }
-    catch (e) {
-    }
-    try {
-        t2 = arg2.toString().split(".")[1].length;
-    }
-    catch (e) {
-    }
-    with (Math) {
-        r1 = Number(arg1.toString().replace(".", ""));
-        r2 = Number(arg2.toString().replace(".", ""));
-        return (r1 / r2) * pow(10, t2 - t1);
-    }
-}
-
-Number.prototype.div = function (arg) {
-    return accDiv(this, arg);
-};

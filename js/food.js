@@ -2230,7 +2230,7 @@ function loadRule(data, rule) {
             for (var j in allRecipes[i].tags) {
                 for (var k in rule.RecipesTagsEffect) {
                     if (allRecipes[i].tags[j] == rule.RecipesTagsEffect[k].TagID) {
-                        allRecipes[i].addition = Number(allRecipes[i].addition).add(rule.RecipesTagsEffect[k].Effect);
+                        allRecipes[i].addition = +(Number(allRecipes[i].addition) + rule.RecipesTagsEffect[k].Effect).toFixed(2);
                     }
                 }
             }
@@ -2238,7 +2238,7 @@ function loadRule(data, rule) {
 
         for (var k in rule.RecipesEffect) {
             if (allRecipes[i].recipeId == rule.RecipesEffect[k].RecipeID) {
-                allRecipes[i].addition = Number(allRecipes[i].addition).add(rule.RecipesEffect[k].Effect);
+                allRecipes[i].addition = +(Number(allRecipes[i].addition) + rule.RecipesEffect[k].Effect).toFixed(2);
             }
         }
 
@@ -2249,7 +2249,7 @@ function loadRule(data, rule) {
                 || rule.RecipesSkillsEffect[k].Skill == "fry" && allRecipes[i].fry > 0
                 || rule.RecipesSkillsEffect[k].Skill == "bake" && allRecipes[i].bake > 0
                 || rule.RecipesSkillsEffect[k].Skill == "steam" && allRecipes[i].steam > 0) {
-                allRecipes[i].addition = Number(allRecipes[i].addition).add(rule.RecipesSkillsEffect[k].Effect);
+                allRecipes[i].addition = +(Number(allRecipes[i].addition) + rule.RecipesSkillsEffect[k].Effect).toFixed(2);
             }
         }
 
@@ -2289,7 +2289,7 @@ function loadRule(data, rule) {
             for (var j in allChefs[i].tags) {
                 for (var k in rule.ChefsTagsEffect) {
                     if (allChefs[i].tags[j] == rule.ChefsTagsEffect[k].TagID) {
-                        allChefs[i].addition = Number(allChefs[i].addition).add(rule.ChefsTagsEffect[k].Effect);
+                        allChefs[i].addition = +(Number(allChefs[i].addition) + rule.ChefsTagsEffect[k].Effect).toFixed(2);
                     }
                 }
             }
@@ -2310,7 +2310,7 @@ function loadRule(data, rule) {
     for (var i in allMaterials) {
         for (var j in rule.MaterialsEffect) {
             if (allMaterials[i].materialId == rule.MaterialsEffect[j].MaterialID) {
-                allMaterials[i].addition = Number(allMaterials[i].addition).add(rule.MaterialsEffect[j].Effect);
+                allMaterials[i].addition = +(Number(allMaterials[i].addition) + rule.MaterialsEffect[j].Effect).toFixed(2);
             }
         }
         for (var j in rule.MaterialsNum) {
@@ -4018,7 +4018,7 @@ function getUltimateData(chefs, person, skills, useUltimate, usePerson) {
                                         && (globalEffect[n].cal == skills[k].effect[m].cal || !globalEffect[n].cal && !skills[k].effect[m].cal)
                                         && (globalEffect[n].gender == skills[k].effect[m].gender || !globalEffect[n].gender && !skills[k].effect[m].gender)
                                         && (globalEffect[n].rarity == skills[k].effect[m].rarity || !globalEffect[n].rarity && !skills[k].effect[m].rarity)) {
-                                        globalEffect[n].value = globalEffect[n].value.add(skills[k].effect[m].value);
+                                        globalEffect[n].value = +(globalEffect[n].value + skills[k].effect[m].value).toFixed(2);
                                         found = true;
                                         break;
                                     }
@@ -4048,7 +4048,7 @@ function setDataForRecipe(recipeData, ultimateData) {
         }
 
         if (ultimateData[i].type == "UseAll" && ultimateData[i].rarity == recipeData.rarity) {
-            recipeData.ultimateAddition = recipeData.ultimateAddition.add(ultimateData[i].value);
+            recipeData.ultimateAddition = +(recipeData.ultimateAddition + ultimateData[i].value).toFixed(2);
         }
     }
 
