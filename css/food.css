@@ -376,3 +376,7 @@ table.history-table tr td.history-dt {
     width: 80px;
     padding-left: 0px;
 }
+
+.cal-menu {
+    display: inline;
+}

@@ -6,9 +6,9 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="css/style.min.css?v=3" />
     <script type="text/javascript" src="js/script.min.js?v=7"></script>
-    <script type="text/javascript" src="js/common.min.js?v=22"></script>
-    <link rel="stylesheet" type="text/css" href="css/food.min.css?v=22" />
-    <script type="text/javascript" src="js/food.min.js?v=90"></script>
+    <script type="text/javascript" src="js/common.min.js?v=23"></script>
+    <link rel="stylesheet" type="text/css" href="css/food.min.css?v=23" />
+    <script type="text/javascript" src="js/food.min.js?v=91"></script>
     <link rel="stylesheet" type="text/css" href="css/image.css?v=2" />
 </head>
 
@@ -33,7 +33,7 @@
             <li>
                 <a href="#pane-quest" data-toggle="tab">任务</a>
             </li>
-            <li class="hidden">
+            <li>
                 <a href="#pane-cal" data-toggle="tab">计算器</a>
             </li>
             <li>
@@ -814,37 +814,48 @@
                                         加载
                                     </button>
                                 </div>
-                                <div class="box">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">装饰加成</div>
-                                        <input type="text" class="form-control" id="input-cal-decoration">
-                                        <div class="input-group-addon">%</div>
+                                <div class="cal-menu hidden">
+                                    <div class="box">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">装饰加成</div>
+                                            <input type="text" class="form-control" id="input-cal-decoration">
+                                            <div class="input-group-addon">%</div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="box">
-                                    <button id="btn-cal-set-ultimate" class="btn btn-default collapsed" type="button" data-toggle="collapse" data-target="#cal-ultimate">
-                                        配置修炼数据
-                                    </button>
-                                    <button id="btn-cal-update" class="btn btn-default" type="button">
-                                        重新计算
-                                    </button>
-                                </div>
-                                <div class="box">
-                                    <label class="btn btn-default">
-                                        <input type="checkbox" id="chk-cal-use-equip" checked>
-                                        <i class="fa fa-check glyphicon glyphicon-ok"></i>
-                                        已配厨具
-                                    </label>
-                                </div>
-                                <div class="box">
-                                    <button id="btn-cal-clear-custom" class="btn btn-default" type="button">
-                                        清空自选
-                                    </button>
-                                </div>
-                                <div class="box hidden">
-                                    <button id="btn-cal-set-num" class="btn btn-default" type="button">
-                                        选择当前菜谱
-                                    </button>
+                                    <div class="box">
+                                        <button id="btn-cal-set-ultimate" class="btn btn-default collapsed" type="button" data-toggle="collapse" data-target="#cal-ultimate">
+                                            配置修炼数据
+                                        </button>
+                                        <button id="btn-cal-update" class="btn btn-default" type="button">
+                                            重新计算
+                                        </button>
+                                    </div>
+                                    <div class="box">
+                                        <label class="btn btn-default">
+                                            <input type="checkbox" id="chk-cal-use-equip" checked>
+                                            <i class="fa fa-check glyphicon glyphicon-ok"></i>
+                                            已配厨具
+                                        </label>
+                                    </div>
+                                    <div class="box">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">排序</div>
+                                            <select id="select-cal-order" class="form-control">
+                                                <option>分数</option>
+                                                <option>时间</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="box">
+                                        <button id="btn-cal-clear-custom" class="btn btn-default" type="button">
+                                            清空自选
+                                        </button>
+                                    </div>
+                                    <div class="box hidden">
+                                        <button id="btn-cal-set-num" class="btn btn-default" type="button">
+                                            选择当前菜谱
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                             <div id="cal-ultimate" class="collapse">
@@ -1325,9 +1336,14 @@
                                 <div>
                                     <div class="box">
                                         <label class="btn btn-default">
+                                            <input type="checkbox" class="chk-cal-results-show-recipe-rarity chk-cal-results-show">
+                                            <i class="fa fa-check glyphicon glyphicon-ok"></i>
+                                            星
+                                        </label>
+                                        <label class="btn btn-default">
                                             <input type="checkbox" class="chk-cal-results-show-recipe-skill chk-cal-results-show">
                                             <i class="fa fa-check glyphicon glyphicon-ok"></i>
-                                            菜谱技法
+                                            技法
                                         </label>
                                         <label class="btn btn-default">
                                             <input type="checkbox" class="chk-cal-results-show-recipe-material chk-cal-results-show">
@@ -1350,22 +1366,22 @@
                                             品阶
                                         </label>
                                         <label class="btn btn-default">
-                                            <input type="checkbox" class="chk-cal-results-show-recipe-rank-addition chk-cal-results-show" checked>
+                                            <input type="checkbox" class="chk-cal-results-show-recipe-rank-addition chk-cal-results-show">
                                             <i class="fa fa-check glyphicon glyphicon-ok"></i>
                                             品阶加成
                                         </label>
                                         <label class="btn btn-default">
-                                            <input type="checkbox" class="chk-cal-results-show-chef-skill-addition chk-cal-results-show" checked>
+                                            <input type="checkbox" class="chk-cal-results-show-chef-skill-addition chk-cal-results-show">
                                             <i class="fa fa-check glyphicon glyphicon-ok"></i>
                                             技能加成
                                         </label>
                                         <label class="btn btn-default">
-                                            <input type="checkbox" class="chk-cal-results-show-chef-equip-addition chk-cal-results-show" checked>
+                                            <input type="checkbox" class="chk-cal-results-show-chef-equip-addition chk-cal-results-show">
                                             <i class="fa fa-check glyphicon glyphicon-ok"></i>
                                             厨具加成
                                         </label>
                                         <label class="btn btn-default">
-                                            <input type="checkbox" class="chk-cal-results-show-bonus-addition chk-cal-results-show" checked>
+                                            <input type="checkbox" class="chk-cal-results-show-bonus-addition chk-cal-results-show">
                                             <i class="fa fa-check glyphicon glyphicon-ok"></i>
                                             规则加成
                                         </label>
@@ -1409,6 +1425,7 @@
                                                 <th>厨师</th>
                                                 <th>厨具</th>
                                                 <th>菜谱</th>
+                                                <th>星</th>
                                                 <th>炒</th>
                                                 <th>煮</th>
                                                 <th>切</th>
@@ -1454,6 +1471,7 @@
                 </p>
                 <p class="text-primary">注意, 个人数据在两个网站不同步, 换网站时可在原网站导出个人数据, 再在新网站导入数据.</p>
                 <p>图鉴第一组按钮选择显示项, 默认没有全部显示, 后面的负责筛选, 点击列名可以排序.</p>
+                <br>
                 <h4>
                     <span class="label label-info">菜谱图鉴</span>
                 </h4>
@@ -1469,6 +1487,7 @@
                 <p>筛选按钮 菜肉面鱼 - 可筛选蔬菜料理, 肉类料理, 面类料理, 水产料理.</p>
                 <p>筛选按钮 过滤升阶贵客 - 根据你的菜谱品阶已完成的升阶贵客不显示.</p>
                 <p>筛选按钮 已有 - 只显示已有菜谱.</p>
+                <br>
                 <h4>
                     <span class="label label-info">厨师图鉴</span>
                 </h4>
@@ -1483,16 +1502,31 @@
                 <p>开关 已修炼/全修炼 - 图鉴数据会使用已修炼,或者全修炼技能加成.</p>
                 <p>开关 厨具技能开/关 - 厨具技能开时, 图鉴数据会使用厨具技能加成.</p>
                 <p>按钮 重新计算 - 基于效率考虑, 编辑已修炼列或厨具列后, 图鉴数据不会自动重新计算, 需要手动点击该按钮.</p>
+                <br>
                 <h4>
                     <span class="label label-info">厨具图鉴</span>
                 </h4>
                 <p>可以选择类别进行筛选.</p>
+                <br>
                 <h4>
                     <span class="label label-info">任务图鉴</span>
                 </h4>
                 <p>主线任务更新到520/600, 每隔一段时间会更新.</p>
                 <p>支线任务更新到286/286.</p>
                 <p>支线任务编号解释 - 举例支线123.1, 代表主线任务123会解锁</p>
+                <br>
+                <h4>
+                    <span class="label label-info">计算器</span>
+                </h4>
+                <p class="text-danger">选择计算器并点击加载. 正常营业 - 用于算一次性经营金币或时间的任务. 女性厨师 - 支线236.1</p>
+                <p class="text-danger">读取已修炼 - 读取厨师图鉴中的个人已修炼数据</p>
+                <p class="text-danger">已配厨具 - 选择厨师时会自动填入厨师图鉴中该厨师的厨具</p>
+                <p class="text-danger">修改装饰加成和修炼数据后, 需要手动点击重新计算按钮</p>
+                <p class="text-danger">下方的所有菜谱列表中的总分数包含了规则加成, 修炼加成, 装饰加成.</p>
+                <p class="text-danger">黑色字体的总时间都不包含厨师厨具的加成, 最终时间看上方的蓝色字体总时间</p>
+                <br>
+                <p class="text-danger">限时和厨神计算器都有人做我就不做了, 如发现计算结果和游戏不符可以联系我</p>
+                <br>
                 <h4>
                     <span class="label label-info">个人数据</span>
                 </h4>
@@ -1512,7 +1546,7 @@
                 <h3>
                     <span class="label label-primary">致谢</span>
                 </h3>
-                <p>感谢Boketto提供的菜谱数据. 感谢官方2群闲时提供的升阶贵客符文数据.</p>
+                <p>感谢Boketto提供的菜谱数据. 感谢闲时和小熊提供的升阶贵客符文数据.</p>
             </div>
         </div>
     </div>

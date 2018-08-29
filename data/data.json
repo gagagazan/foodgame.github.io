@@ -12295,7 +12295,6 @@
     {
       "chefId": 3,
       "name": "羽十六",
-      "gender": "女",
       "rarity": 3,
       "stirfry": 185,
       "bake": 0,
@@ -12314,12 +12313,14 @@
         "累计开业60小时"
       ],
       "ultimateSkill": 322,
-      "origin": "开局"
+      "origin": "开局",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 6,
       "name": "熊麓",
-      "gender": "女",
       "rarity": 3,
       "stirfry": 61,
       "bake": 61,
@@ -12338,12 +12339,14 @@
         "累计开业60小时"
       ],
       "ultimateSkill": 312,
-      "origin": "开局"
+      "origin": "开局",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 9,
       "name": "麦小咖",
-      "gender": "男",
       "rarity": 1,
       "stirfry": 0,
       "bake": 20,
@@ -12362,12 +12365,14 @@
         "累计开业20小时"
       ],
       "ultimateSkill": 332,
-      "origin": "主线17"
+      "origin": "主线17",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 12,
       "name": "白祁右",
-      "gender": "男",
       "rarity": 1,
       "stirfry": 40,
       "bake": 0,
@@ -12386,12 +12391,14 @@
         "遇见5次特殊客人"
       ],
       "ultimateSkill": 334,
-      "origin": "主线3"
+      "origin": "主线3",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 15,
       "name": "熊伏伏",
-      "gender": "男",
       "rarity": 1,
       "stirfry": 0,
       "bake": 92,
@@ -12410,12 +12417,14 @@
         "累计开业20小时"
       ],
       "ultimateSkill": 331,
-      "origin": "主线10"
+      "origin": "主线10",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 18,
       "name": "紫酱",
-      "gender": "男",
       "rarity": 1,
       "stirfry": 66,
       "bake": 0,
@@ -12434,12 +12443,14 @@
         "遇见5次特殊客人"
       ],
       "ultimateSkill": 333,
-      "origin": "主线7"
+      "origin": "主线7",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 21,
       "name": "武葵",
-      "gender": "男",
       "rarity": 2,
       "stirfry": 23,
       "bake": 46,
@@ -12458,12 +12469,14 @@
         "累计开业40小时"
       ],
       "ultimateSkill": 338,
-      "origin": "开局"
+      "origin": "开局",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 24,
       "name": "郭锅",
-      "gender": "男",
       "rarity": 2,
       "stirfry": 138,
       "bake": 92,
@@ -12482,12 +12495,14 @@
         "遇见10次特殊客人"
       ],
       "ultimateSkill": 336,
-      "origin": "主线22"
+      "origin": "主线22",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 27,
       "name": "农当午",
-      "gender": "男",
       "rarity": 2,
       "stirfry": 23,
       "bake": 46,
@@ -12506,12 +12521,14 @@
         "累计开业40小时"
       ],
       "ultimateSkill": 338,
-      "origin": "主线27"
+      "origin": "主线27",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 30,
       "name": "鱼不斩",
-      "gender": "男",
       "rarity": 2,
       "stirfry": 138,
       "bake": 46,
@@ -12530,12 +12547,14 @@
         "遇见10次特殊客人"
       ],
       "ultimateSkill": 336,
-      "origin": "新手奖池"
+      "origin": "新手奖池",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 33,
       "name": "雷椒",
-      "gender": "男",
       "rarity": 1,
       "stirfry": 0,
       "bake": 75,
@@ -12554,12 +12573,14 @@
         "累计开业20小时"
       ],
       "ultimateSkill": 334,
-      "origin": "新手奖池"
+      "origin": "新手奖池",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 36,
       "name": "豆腕儿",
-      "gender": "男",
       "rarity": 1,
       "stirfry": 0,
       "bake": 0,
@@ -12578,12 +12599,14 @@
         "遇见5次特殊客人"
       ],
       "ultimateSkill": 333,
-      "origin": "新手奖池"
+      "origin": "新手奖池",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 39,
       "name": "申公子",
-      "gender": "男",
       "rarity": 3,
       "stirfry": 0,
       "bake": 66,
@@ -12602,12 +12625,14 @@
         "累计开业60小时"
       ],
       "ultimateSkill": 344,
-      "origin": "签到礼包"
+      "origin": "签到礼包",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 42,
       "name": "禅优塔",
-      "gender": "男",
       "rarity": 2,
       "stirfry": 0,
       "bake": 0,
@@ -12626,12 +12651,14 @@
         "累计开业40小时"
       ],
       "ultimateSkill": 341,
-      "origin": "中级奖池"
+      "origin": "中级奖池",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 45,
       "name": "雷角",
-      "gender": "男",
       "rarity": 1,
       "stirfry": 0,
       "bake": 15,
@@ -12650,12 +12677,14 @@
         "累计开业20小时"
       ],
       "ultimateSkill": 334,
-      "origin": "每周挑战"
+      "origin": "每周挑战",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 48,
       "name": "武陵仔",
-      "gender": "男",
       "rarity": 1,
       "stirfry": 0,
       "bake": 66,
@@ -12674,12 +12703,14 @@
         "遇见5次特殊客人"
       ],
       "ultimateSkill": 334,
-      "origin": "新手奖池"
+      "origin": "新手奖池",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 51,
       "name": "傣弟",
-      "gender": "男",
       "rarity": 1,
       "stirfry": 0,
       "bake": 0,
@@ -12698,12 +12729,14 @@
         "累计开业20小时"
       ],
       "ultimateSkill": 332,
-      "origin": "中级奖池"
+      "origin": "中级奖池",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 54,
       "name": "面小解",
-      "gender": "男",
       "rarity": 1,
       "stirfry": 0,
       "bake": 16,
@@ -12722,12 +12755,14 @@
         "遇见5次特殊客人"
       ],
       "ultimateSkill": 332,
-      "origin": "中级奖池"
+      "origin": "中级奖池",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 57,
       "name": "谛天",
-      "gender": "男",
       "rarity": 1,
       "stirfry": 0,
       "bake": 109,
@@ -12746,12 +12781,14 @@
         "累计开业20小时"
       ],
       "ultimateSkill": 331,
-      "origin": "每周挑战"
+      "origin": "每周挑战",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 60,
       "name": "锄小禾",
-      "gender": "男",
       "rarity": 1,
       "stirfry": 0,
       "bake": 0,
@@ -12770,12 +12807,14 @@
         "遇见5次特殊客人"
       ],
       "ultimateSkill": 332,
-      "origin": "新手奖池"
+      "origin": "新手奖池",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 63,
       "name": "椒娃",
-      "gender": "女",
       "rarity": 1,
       "stirfry": 0,
       "bake": 53,
@@ -12794,12 +12833,14 @@
         "累计开业20小时"
       ],
       "ultimateSkill": 334,
-      "origin": "签到礼包"
+      "origin": "签到礼包",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 66,
       "name": "熊妮",
-      "gender": "女",
       "rarity": 1,
       "stirfry": 15,
       "bake": 0,
@@ -12818,12 +12859,14 @@
         "遇见5次特殊客人"
       ],
       "ultimateSkill": 335,
-      "origin": "中级奖池"
+      "origin": "中级奖池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 69,
       "name": "藕多多",
-      "gender": "男",
       "rarity": 1,
       "stirfry": 0,
       "bake": 100,
@@ -12842,12 +12885,14 @@
         "累计开业20小时"
       ],
       "ultimateSkill": 331,
-      "origin": "新手奖池"
+      "origin": "新手奖池",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 72,
       "name": "小当家",
-      "gender": "女",
       "rarity": 1,
       "stirfry": 0,
       "bake": 0,
@@ -12866,12 +12911,14 @@
         "遇见5次特殊客人"
       ],
       "ultimateSkill": 333,
-      "origin": "新手奖池"
+      "origin": "新手奖池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 75,
       "name": "兜帽药师",
-      "gender": "男",
       "rarity": 1,
       "stirfry": 66,
       "bake": 0,
@@ -12890,12 +12937,14 @@
         "累计开业20小时"
       ],
       "ultimateSkill": 333,
-      "origin": "开局"
+      "origin": "开局",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 78,
       "name": "蓝孩子",
-      "gender": "男",
       "rarity": 2,
       "stirfry": 85,
       "bake": 21,
@@ -12914,12 +12963,14 @@
         "遇见10次特殊客人"
       ],
       "ultimateSkill": 340,
-      "origin": "璧池"
+      "origin": "璧池",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 81,
       "name": "盲女",
-      "gender": "女",
       "rarity": 2,
       "stirfry": 0,
       "bake": 46,
@@ -12938,12 +12989,14 @@
         "累计开业40小时"
       ],
       "ultimateSkill": 321,
-      "origin": "璧池"
+      "origin": "璧池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 84,
       "name": "兰染",
-      "gender": "男",
       "rarity": 4,
       "stirfry": 276,
       "bake": 46,
@@ -12962,12 +13015,14 @@
         "累计开业80小时"
       ],
       "ultimateSkill": 313,
-      "origin": "璧池"
+      "origin": "璧池",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 87,
       "name": "粉爪酱",
-      "gender": "女",
       "rarity": 2,
       "stirfry": 0,
       "bake": 92,
@@ -12986,12 +13041,14 @@
         "遇见10次特殊客人"
       ],
       "ultimateSkill": 341,
-      "origin": "中级奖池"
+      "origin": "中级奖池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 90,
       "name": "蛋皇",
-      "gender": "女",
       "rarity": 4,
       "stirfry": 0,
       "bake": 92,
@@ -13010,12 +13067,14 @@
         "累计开业80小时"
       ],
       "ultimateSkill": 350,
-      "origin": "璧池"
+      "origin": "璧池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 93,
       "name": "苏吴安",
-      "gender": "男",
       "rarity": 1,
       "stirfry": 0,
       "bake": 0,
@@ -13034,12 +13093,14 @@
         "遇见5次特殊客人"
       ],
       "ultimateSkill": 332,
-      "origin": "中级奖池"
+      "origin": "中级奖池",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 96,
       "name": "堂雪",
-      "gender": "女",
       "rarity": 3,
       "stirfry": 33,
       "bake": 66,
@@ -13058,12 +13119,14 @@
         "累计开业60小时"
       ],
       "ultimateSkill": 345,
-      "origin": "璧池"
+      "origin": "璧池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 99,
       "name": "方叔",
-      "gender": "男",
       "rarity": 1,
       "stirfry": 0,
       "bake": 100,
@@ -13082,12 +13145,14 @@
         "累计开业20小时"
       ],
       "ultimateSkill": 331,
-      "origin": "中级奖池"
+      "origin": "中级奖池",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 102,
       "name": "辣子姬",
-      "gender": "女",
       "rarity": 2,
       "stirfry": 138,
       "bake": 0,
@@ -13106,12 +13171,14 @@
         "累计开业40小时"
       ],
       "ultimateSkill": 336,
-      "origin": "璧池"
+      "origin": "璧池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 105,
       "name": "夏风",
-      "gender": "女",
       "rarity": 2,
       "stirfry": 46,
       "bake": 0,
@@ -13130,12 +13197,14 @@
         "遇见10次特殊客人"
       ],
       "ultimateSkill": 340,
-      "origin": "中级奖池"
+      "origin": "中级奖池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 108,
       "name": "春日",
-      "gender": "女",
       "rarity": 2,
       "stirfry": 46,
       "bake": 23,
@@ -13154,12 +13223,14 @@
         "累计开业40小时"
       ],
       "ultimateSkill": 340,
-      "origin": "璧池"
+      "origin": "璧池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 111,
       "name": "蟹小星",
-      "gender": "女",
       "rarity": 2,
       "stirfry": 23,
       "bake": 0,
@@ -13178,12 +13249,14 @@
         "遇见10次特殊客人"
       ],
       "ultimateSkill": 321,
-      "origin": "璧池"
+      "origin": "璧池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 114,
       "name": "小龙侠",
-      "gender": "女",
       "rarity": 2,
       "stirfry": 92,
       "bake": 23,
@@ -13202,12 +13275,14 @@
         "累计开业40小时"
       ],
       "ultimateSkill": 341,
-      "origin": "璧池"
+      "origin": "璧池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 117,
       "name": "叶姬",
-      "gender": "女",
       "rarity": 2,
       "stirfry": 0,
       "bake": 92,
@@ -13226,12 +13301,14 @@
         "遇见10次特殊客人"
       ],
       "ultimateSkill": 366,
-      "origin": "限时礼包<br>晚秋拾遗奖池"
+      "origin": "限时礼包<br>晚秋拾遗奖池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 120,
       "name": "不知火喵",
-      "gender": "女",
       "rarity": 4,
       "stirfry": 0,
       "bake": 276,
@@ -13250,12 +13327,14 @@
         "累计开业80小时"
       ],
       "ultimateSkill": 432,
-      "origin": "限时礼包<br>圣诞奖池"
+      "origin": "限时礼包<br>圣诞奖池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 123,
       "name": "栗莉",
-      "gender": "女",
       "rarity": 2,
       "stirfry": 92,
       "bake": 138,
@@ -13274,12 +13353,14 @@
         "累计开业40小时"
       ],
       "ultimateSkill": 337,
-      "origin": "璧池"
+      "origin": "璧池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 126,
       "name": "粉雪",
-      "gender": "女",
       "rarity": 2,
       "stirfry": 0,
       "bake": 46,
@@ -13298,12 +13379,14 @@
         "遇见10次特殊客人"
       ],
       "ultimateSkill": 338,
-      "origin": "新手奖池"
+      "origin": "新手奖池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 129,
       "name": "汤媛",
-      "gender": "女",
       "rarity": 2,
       "stirfry": 23,
       "bake": 0,
@@ -13322,12 +13405,14 @@
         "累计开业40小时"
       ],
       "ultimateSkill": 339,
-      "origin": "晚秋拾遗奖池"
+      "origin": "晚秋拾遗奖池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 132,
       "name": "贝丽",
-      "gender": "女",
       "rarity": 2,
       "stirfry": 0,
       "bake": 23,
@@ -13346,12 +13431,14 @@
         "遇见10次特殊客人"
       ],
       "ultimateSkill": 341,
-      "origin": "双11奖池"
+      "origin": "双11奖池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 135,
       "name": "上宫晴",
-      "gender": "女",
       "rarity": 5,
       "stirfry": 124,
       "bake": 0,
@@ -13366,12 +13453,14 @@
       "creation": 7,
       "ultimateGoal": [],
       "ultimateSkill": 0,
-      "origin": "限时礼包<br>情人节池"
+      "origin": "限时礼包<br>情人节池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 138,
       "name": "毛利红",
-      "gender": "女",
       "rarity": 2,
       "stirfry": 0,
       "bake": 92,
@@ -13390,12 +13479,14 @@
         "累计开业40小时"
       ],
       "ultimateSkill": 341,
-      "origin": "晚秋拾遗奖池"
+      "origin": "晚秋拾遗奖池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 141,
       "name": "火凤",
-      "gender": "女",
       "rarity": 4,
       "stirfry": 276,
       "bake": 184,
@@ -13414,12 +13505,14 @@
         "累计开业80小时"
       ],
       "ultimateSkill": 318,
-      "origin": "限时礼包<br>春节池"
+      "origin": "限时礼包<br>春节池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 144,
       "name": "夏娃",
-      "gender": "女",
       "rarity": 4,
       "stirfry": 92,
       "bake": 0,
@@ -13438,12 +13531,14 @@
         "累计开业80小时"
       ],
       "ultimateSkill": 353,
-      "origin": "双11奖池"
+      "origin": "双11奖池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 147,
       "name": "秋韵",
-      "gender": "女",
       "rarity": 2,
       "stirfry": 46,
       "bake": 0,
@@ -13462,12 +13557,14 @@
         "遇见10次特殊客人"
       ],
       "ultimateSkill": 321,
-      "origin": "双11奖池"
+      "origin": "双11奖池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 150,
       "name": "祖冲之",
-      "gender": "男",
       "rarity": 4,
       "stirfry": 190,
       "bake": 0,
@@ -13486,12 +13583,14 @@
         "累计开业80小时"
       ],
       "ultimateSkill": 352,
-      "origin": "圣诞奖池"
+      "origin": "圣诞奖池",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 153,
       "name": "兔爷",
-      "gender": "男",
       "rarity": 3,
       "stirfry": 66,
       "bake": 0,
@@ -13510,12 +13609,14 @@
         "累计开业60小时"
       ],
       "ultimateSkill": 344,
-      "origin": "晚秋拾遗奖池"
+      "origin": "晚秋拾遗奖池",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 156,
       "name": "李一清",
-      "gender": "女",
       "rarity": 3,
       "stirfry": 33,
       "bake": 66,
@@ -13534,12 +13635,14 @@
         "累计开业60小时"
       ],
       "ultimateSkill": 347,
-      "origin": "晚秋拾遗奖池"
+      "origin": "晚秋拾遗奖池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 159,
       "name": "嫦娥",
-      "gender": "女",
       "rarity": 4,
       "stirfry": 46,
       "bake": 0,
@@ -13558,12 +13661,14 @@
         "累计开业80小时"
       ],
       "ultimateSkill": 351,
-      "origin": "晚秋拾遗奖池"
+      "origin": "晚秋拾遗奖池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 162,
       "name": "后羿",
-      "gender": "男",
       "rarity": 5,
       "stirfry": 0,
       "bake": 124,
@@ -13578,12 +13683,14 @@
       "creation": 7,
       "ultimateGoal": [],
       "ultimateSkill": 0,
-      "origin": "晚秋拾遗奖池"
+      "origin": "晚秋拾遗奖池",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 165,
       "name": "杨小倩",
-      "gender": "女",
       "rarity": 3,
       "stirfry": 0,
       "bake": 66,
@@ -13602,12 +13709,14 @@
         "累计开业60小时"
       ],
       "ultimateSkill": 312,
-      "origin": "双11奖池"
+      "origin": "双11奖池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 168,
       "name": "琪琪",
-      "gender": "女",
       "rarity": 3,
       "stirfry": 199,
       "bake": 33,
@@ -13626,12 +13735,14 @@
         "累计开业60小时"
       ],
       "ultimateSkill": 342,
-      "origin": "双11奖池"
+      "origin": "双11奖池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 171,
       "name": "秦端雨",
-      "gender": "女",
       "rarity": 3,
       "stirfry": 123,
       "bake": 185,
@@ -13650,12 +13761,14 @@
         "累计开业60小时"
       ],
       "ultimateSkill": 431,
-      "origin": "限时礼包<br>桃花池"
+      "origin": "限时礼包<br>桃花池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 174,
       "name": "屈媛",
-      "gender": "女",
       "rarity": 3,
       "stirfry": 33,
       "bake": 0,
@@ -13674,12 +13787,14 @@
         "累计开业60小时"
       ],
       "ultimateSkill": 344,
-      "origin": "端午池"
+      "origin": "端午池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 177,
       "name": "大天狗",
-      "gender": "男",
       "rarity": 5,
       "stirfry": 232,
       "bake": 174,
@@ -13694,12 +13809,14 @@
       "creation": 0,
       "ultimateGoal": [],
       "ultimateSkill": 0,
-      "origin": "双11奖池"
+      "origin": "双11奖池",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 180,
       "name": "孙香香",
-      "gender": "女",
       "rarity": 3,
       "stirfry": 61,
       "bake": 123,
@@ -13718,12 +13835,14 @@
         "累计开业60小时"
       ],
       "ultimateSkill": 312,
-      "origin": "双11奖池"
+      "origin": "双11奖池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 183,
       "name": "灯鬼",
-      "gender": "女",
       "rarity": 3,
       "stirfry": 108,
       "bake": 216,
@@ -13742,12 +13861,14 @@
         "累计开业60小时"
       ],
       "ultimateSkill": 343,
-      "origin": "圣诞奖池"
+      "origin": "圣诞奖池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 186,
       "name": "湘思",
-      "gender": "女",
       "rarity": 3,
       "stirfry": 0,
       "bake": 66,
@@ -13766,12 +13887,14 @@
         "累计开业60小时"
       ],
       "ultimateSkill": 344,
-      "origin": "情人节池"
+      "origin": "情人节池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 189,
       "name": "白稻荷",
-      "gender": "女",
       "rarity": 3,
       "stirfry": 0,
       "bake": 123,
@@ -13790,12 +13913,14 @@
         "累计开业100小时"
       ],
       "ultimateSkill": 454,
-      "origin": "限时礼包<br>端午池"
+      "origin": "限时礼包<br>端午池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 192,
       "name": "胡小桃",
-      "gender": "女",
       "rarity": 3,
       "stirfry": 0,
       "bake": 123,
@@ -13814,12 +13939,14 @@
         "累计开业60小时"
       ],
       "ultimateSkill": 347,
-      "origin": "主线433"
+      "origin": "主线433",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 195,
       "name": "齐雪",
-      "gender": "女",
       "rarity": 3,
       "stirfry": 0,
       "bake": 33,
@@ -13838,12 +13965,14 @@
         "累计开业60小时"
       ],
       "ultimateSkill": 345,
-      "origin": "情人节池"
+      "origin": "情人节池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 198,
       "name": "姜小诗",
-      "gender": "女",
       "rarity": 1,
       "stirfry": 20,
       "bake": 0,
@@ -13862,12 +13991,14 @@
         "遇见5次特殊客人"
       ],
       "ultimateSkill": 333,
-      "origin": "圣诞奖池"
+      "origin": "圣诞奖池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 201,
       "name": "撒豆丁",
-      "gender": "男",
       "rarity": 3,
       "stirfry": 0,
       "bake": 33,
@@ -13886,12 +14017,14 @@
         "累计开业60小时"
       ],
       "ultimateSkill": 312,
-      "origin": "春节池"
+      "origin": "春节池",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 204,
       "name": "李小染",
-      "gender": "男",
       "rarity": 1,
       "stirfry": 20,
       "bake": 0,
@@ -13910,12 +14043,14 @@
         "累计开业20小时"
       ],
       "ultimateSkill": 333,
-      "origin": "签到礼包"
+      "origin": "签到礼包",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 207,
       "name": "王仔",
-      "gender": "男",
       "rarity": 3,
       "stirfry": 0,
       "bake": 33,
@@ -13934,12 +14069,14 @@
         "累计开业60小时"
       ],
       "ultimateSkill": 346,
-      "origin": "春节池"
+      "origin": "春节池",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 210,
       "name": "努扎尔",
-      "gender": "男",
       "rarity": 3,
       "stirfry": 133,
       "bake": 33,
@@ -13958,12 +14095,14 @@
         "累计开业60小时"
       ],
       "ultimateSkill": 312,
-      "origin": "圣诞奖池"
+      "origin": "圣诞奖池",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 213,
       "name": "雨莲",
-      "gender": "女",
       "rarity": 2,
       "stirfry": 92,
       "bake": 23,
@@ -13982,12 +14121,14 @@
         "累计开业40小时"
       ],
       "ultimateSkill": 341,
-      "origin": "情人节池"
+      "origin": "情人节池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 216,
       "name": "紫燕",
-      "gender": "男",
       "rarity": 2,
       "stirfry": 138,
       "bake": 92,
@@ -14006,12 +14147,14 @@
         "累计开业60小时"
       ],
       "ultimateSkill": 453,
-      "origin": "圣诞奖池"
+      "origin": "圣诞奖池",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 219,
       "name": "雨轩",
-      "gender": "女",
       "rarity": 2,
       "stirfry": 0,
       "bake": 138,
@@ -14030,12 +14173,14 @@
         "累计开业40小时"
       ],
       "ultimateSkill": 337,
-      "origin": "春节池"
+      "origin": "春节池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 222,
       "name": "雷慕",
-      "gender": "女",
       "rarity": 4,
       "stirfry": 46,
       "bake": 276,
@@ -14054,12 +14199,14 @@
         "累计开业80小时"
       ],
       "ultimateSkill": 318,
-      "origin": "限时礼包<br>端午池"
+      "origin": "限时礼包<br>端午池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 225,
       "name": "姜灵儿",
-      "gender": "女",
       "rarity": 3,
       "stirfry": 0,
       "bake": 199,
@@ -14078,12 +14225,14 @@
         "累计开业60小时"
       ],
       "ultimateSkill": 343,
-      "origin": "圣诞奖池"
+      "origin": "圣诞奖池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 228,
       "name": "玄离",
-      "gender": "男",
       "rarity": 5,
       "stirfry": 124,
       "bake": 0,
@@ -14098,12 +14247,14 @@
       "creation": 0,
       "ultimateGoal": [],
       "ultimateSkill": 0,
-      "origin": "圣诞奖池"
+      "origin": "圣诞奖池",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 231,
       "name": "桃姬",
-      "gender": "女",
       "rarity": 2,
       "stirfry": 0,
       "bake": 92,
@@ -14122,12 +14273,14 @@
         "遇见10次特殊客人"
       ],
       "ultimateSkill": 339,
-      "origin": "桃花池"
+      "origin": "桃花池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 234,
       "name": "散人",
-      "gender": "男",
       "rarity": 4,
       "stirfry": 276,
       "bake": 0,
@@ -14146,12 +14299,14 @@
         "累计开业80小时"
       ],
       "ultimateSkill": 432,
-      "origin": "限时礼包"
+      "origin": "限时礼包",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 237,
       "name": "西条",
-      "gender": "女",
       "rarity": 2,
       "stirfry": 23,
       "bake": 92,
@@ -14170,12 +14325,14 @@
         "累计开业40小时"
       ],
       "ultimateSkill": 321,
-      "origin": "桃花池"
+      "origin": "桃花池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 240,
       "name": "夜月",
-      "gender": "男",
       "rarity": 2,
       "stirfry": 0,
       "bake": 0,
@@ -14194,12 +14351,14 @@
         "遇见10次特殊客人"
       ],
       "ultimateSkill": 340,
-      "origin": "情人节池"
+      "origin": "情人节池",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 243,
       "name": "淘淘",
-      "gender": "男",
       "rarity": 1,
       "stirfry": 33,
       "bake": 100,
@@ -14218,12 +14377,14 @@
         "遇见5次特殊客人"
       ],
       "ultimateSkill": 331,
-      "origin": "桃花池"
+      "origin": "桃花池",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 246,
       "name": "唐美美",
-      "gender": "女",
       "rarity": 3,
       "stirfry": 133,
       "bake": 0,
@@ -14242,12 +14403,14 @@
         "累计开业60小时"
       ],
       "ultimateSkill": 322,
-      "origin": "春节池"
+      "origin": "春节池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 249,
       "name": "盐如玉",
-      "gender": "女",
       "rarity": 4,
       "stirfry": 276,
       "bake": 184,
@@ -14266,12 +14429,14 @@
         "累计开业80小时"
       ],
       "ultimateSkill": 348,
-      "origin": "情人节池"
+      "origin": "情人节池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 252,
       "name": "凡冶",
-      "gender": "男",
       "rarity": 1,
       "stirfry": 66,
       "bake": 100,
@@ -14290,12 +14455,14 @@
         "累计开业20小时"
       ],
       "ultimateSkill": 331,
-      "origin": "端午池"
+      "origin": "端午池",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 255,
       "name": "雷公子",
-      "gender": "男",
       "rarity": 4,
       "stirfry": 92,
       "bake": 276,
@@ -14314,12 +14481,14 @@
         "累计开业80小时"
       ],
       "ultimateSkill": 349,
-      "origin": "情人节池"
+      "origin": "情人节池",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 258,
       "name": "咸公主",
-      "gender": "女",
       "rarity": 4,
       "stirfry": 46,
       "bake": 0,
@@ -14338,12 +14507,14 @@
         "累计开业80小时"
       ],
       "ultimateSkill": 313,
-      "origin": "限时礼包<br>夏日池"
+      "origin": "限时礼包<br>夏日池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 261,
       "name": "秋丽",
-      "gender": "女",
       "rarity": 3,
       "stirfry": 199,
       "bake": 33,
@@ -14362,12 +14533,14 @@
         "累计开业60小时"
       ],
       "ultimateSkill": 342,
-      "origin": "桃花池"
+      "origin": "桃花池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 264,
       "name": "金凌",
-      "gender": "女",
       "rarity": 3,
       "stirfry": 133,
       "bake": 0,
@@ -14386,12 +14559,14 @@
         "累计开业60小时"
       ],
       "ultimateSkill": 312,
-      "origin": "桃花池"
+      "origin": "桃花池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 267,
       "name": "玄一",
-      "gender": "女",
       "rarity": 5,
       "stirfry": 374,
       "bake": 124,
@@ -14406,12 +14581,14 @@
       "creation": 7,
       "ultimateGoal": [],
       "ultimateSkill": 0,
-      "origin": "情人节池"
+      "origin": "情人节池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 270,
       "name": "猪小福",
-      "gender": "男",
       "rarity": 4,
       "stirfry": 184,
       "bake": 92,
@@ -14430,12 +14607,14 @@
         "累计开业80小时"
       ],
       "ultimateSkill": 313,
-      "origin": "春节池"
+      "origin": "春节池",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 273,
       "name": "小福妮",
-      "gender": "女",
       "rarity": 4,
       "stirfry": 0,
       "bake": 184,
@@ -14454,12 +14633,14 @@
         "累计开业80小时"
       ],
       "ultimateSkill": 313,
-      "origin": "春节池"
+      "origin": "春节池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 276,
       "name": "火姬",
-      "gender": "女",
       "rarity": 5,
       "stirfry": 0,
       "bake": 374,
@@ -14474,12 +14655,14 @@
       "creation": 0,
       "ultimateGoal": [],
       "ultimateSkill": 0,
-      "origin": "春节池"
+      "origin": "春节池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 279,
       "name": "张玉楠",
-      "gender": "女",
       "rarity": 1,
       "stirfry": 61,
       "bake": 15,
@@ -14498,12 +14681,14 @@
         "累计开业20小时"
       ],
       "ultimateSkill": 333,
-      "origin": "端午池"
+      "origin": "端午池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 282,
       "name": "小绵娘",
-      "gender": "女",
       "rarity": 2,
       "stirfry": 46,
       "bake": 23,
@@ -14522,12 +14707,14 @@
         "遇见10次特殊客人"
       ],
       "ultimateSkill": 366,
-      "origin": "限时礼包"
+      "origin": "限时礼包",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 285,
       "name": "皮蛋 八哥 雍正",
-      "gender": "男",
       "rarity": 5,
       "stirfry": 135,
       "bake": 135,
@@ -14542,12 +14729,14 @@
       "creation": -9,
       "ultimateGoal": [],
       "ultimateSkill": 0,
-      "origin": "宕机补偿"
+      "origin": "宕机补偿",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 288,
       "name": "唐小虎",
-      "gender": "男",
       "rarity": 1,
       "stirfry": 0,
       "bake": 0,
@@ -14566,12 +14755,14 @@
         "遇见5次特殊客人"
       ],
       "ultimateSkill": 335,
-      "origin": "端午池"
+      "origin": "端午池",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 294,
       "name": "紫罗兰",
-      "gender": "女",
       "rarity": 3,
       "stirfry": 199,
       "bake": 33,
@@ -14590,12 +14781,14 @@
         "累计开业60小时"
       ],
       "ultimateSkill": 431,
-      "origin": "限时礼包"
+      "origin": "限时礼包",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 297,
       "name": "石镜",
-      "gender": "男",
       "rarity": 4,
       "stirfry": 92,
       "bake": 0,
@@ -14614,12 +14807,14 @@
         "累计开业80小时"
       ],
       "ultimateSkill": 350,
-      "origin": "桃花池"
+      "origin": "桃花池",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 300,
       "name": "艾生",
-      "gender": "男",
       "rarity": 1,
       "stirfry": 0,
       "bake": 15,
@@ -14638,12 +14833,14 @@
         "遇见5次特殊客人"
       ],
       "ultimateSkill": 335,
-      "origin": "端午池"
+      "origin": "端午池",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 303,
       "name": "郭福",
-      "gender": "女",
       "rarity": 5,
       "stirfry": 62,
       "bake": 374,
@@ -14658,12 +14855,14 @@
       "creation": 7,
       "ultimateGoal": [],
       "ultimateSkill": 0,
-      "origin": "端午池"
+      "origin": "端午池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 306,
       "name": "雨生",
-      "gender": "男",
       "rarity": 2,
       "stirfry": 23,
       "bake": 0,
@@ -14682,12 +14881,14 @@
         "累计开业40小时"
       ],
       "ultimateSkill": 339,
-      "origin": "端午池"
+      "origin": "端午池",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 309,
       "name": "秦邮",
-      "gender": "女",
       "rarity": 3,
       "stirfry": 0,
       "bake": 66,
@@ -14706,12 +14907,14 @@
         "累计开业60小时"
       ],
       "ultimateSkill": 346,
-      "origin": "端午池"
+      "origin": "端午池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 312,
       "name": "介子灵",
-      "gender": "女",
       "rarity": 2,
       "stirfry": 46,
       "bake": 23,
@@ -14730,12 +14933,14 @@
         "遇见10次特殊客人"
       ],
       "ultimateSkill": 339,
-      "origin": "端午池"
+      "origin": "端午池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 315,
       "name": "马格丽",
-      "gender": "女",
       "rarity": 3,
       "stirfry": 133,
       "bake": 199,
@@ -14754,12 +14959,14 @@
         "累计开业60小时"
       ],
       "ultimateSkill": 343,
-      "origin": "端午池"
+      "origin": "端午池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 318,
       "name": "息夫人",
-      "gender": "女",
       "rarity": 5,
       "stirfry": 249,
       "bake": 0,
@@ -14774,12 +14981,14 @@
       "creation": 7,
       "ultimateGoal": [],
       "ultimateSkill": 0,
-      "origin": "桃花池"
+      "origin": "桃花池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 321,
       "name": "杜凤儿",
-      "gender": "女",
       "rarity": 3,
       "stirfry": 133,
       "bake": 0,
@@ -14798,12 +15007,14 @@
         "累计开业60小时"
       ],
       "ultimateSkill": 322,
-      "origin": "限时礼包"
+      "origin": "限时礼包",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 324,
       "name": "白灵",
-      "gender": "女",
       "rarity": 2,
       "stirfry": 46,
       "bake": 23,
@@ -14822,12 +15033,14 @@
         "遇见10次特殊客人"
       ],
       "ultimateSkill": 339,
-      "origin": "宕机补偿"
+      "origin": "宕机补偿",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 336,
       "name": "弥朵莉",
-      "gender": "女",
       "rarity": 3,
       "stirfry": 99,
       "bake": 33,
@@ -14846,12 +15059,14 @@
         "累计开业60小时"
       ],
       "ultimateSkill": 344,
-      "origin": "夏日池"
+      "origin": "夏日池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 339,
       "name": "毛太郎",
-      "gender": "男",
       "rarity": 4,
       "stirfry": 184,
       "bake": 0,
@@ -14870,12 +15085,14 @@
         "累计开业80小时"
       ],
       "ultimateSkill": 318,
-      "origin": "宕机补偿"
+      "origin": "宕机补偿",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 345,
       "name": "寒锋",
-      "gender": "男",
       "rarity": 2,
       "stirfry": 0,
       "bake": 92,
@@ -14894,12 +15111,14 @@
         "累计开业40小时"
       ],
       "ultimateSkill": 341,
-      "origin": "夏日池"
+      "origin": "夏日池",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 348,
       "name": "锦依娜",
-      "gender": "女",
       "rarity": 2,
       "stirfry": 138,
       "bake": 23,
@@ -14918,12 +15137,14 @@
         "遇见10次特殊客人"
       ],
       "ultimateSkill": 336,
-      "origin": "夏日池"
+      "origin": "夏日池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 351,
       "name": "兰兰",
-      "gender": "女",
       "rarity": 1,
       "stirfry": 15,
       "bake": 30,
@@ -14942,12 +15163,14 @@
         "累计开业20小时"
       ],
       "ultimateSkill": 334,
-      "origin": "夏日池"
+      "origin": "夏日池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 357,
       "name": "木碗青",
-      "gender": "女",
       "rarity": 4,
       "stirfry": 50,
       "bake": 0,
@@ -14966,12 +15189,14 @@
         "累计开业80小时"
       ],
       "ultimateSkill": 351,
-      "origin": "夏日池"
+      "origin": "夏日池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 366,
       "name": "毛琪丝",
-      "gender": "女",
       "rarity": 5,
       "stirfry": 62,
       "bake": 249,
@@ -14986,12 +15211,14 @@
       "creation": 0,
       "ultimateGoal": [],
       "ultimateSkill": 0,
-      "origin": "限时礼包"
+      "origin": "限时礼包",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 369,
       "name": "渔姬",
-      "gender": "女",
       "rarity": 3,
       "stirfry": 0,
       "bake": 66,
@@ -15010,12 +15237,14 @@
         "累计开业60小时"
       ],
       "ultimateSkill": 347,
-      "origin": "夏日池"
+      "origin": "夏日池",
+      "tags": [
+        2
+      ]
     },
     {
       "chefId": 375,
       "name": "青子衿",
-      "gender": "男",
       "rarity": 3,
       "stirfry": 0,
       "bake": 66,
@@ -15034,12 +15263,14 @@
         "累计开业60小时"
       ],
       "ultimateSkill": 345,
-      "origin": "夏日池"
+      "origin": "夏日池",
+      "tags": [
+        1
+      ]
     },
     {
       "chefId": 405,
       "name": "泡泡",
-      "gender": "女",
       "rarity": 5,
       "stirfry": 348,
       "bake": 0,
@@ -15054,7 +15285,10 @@
       "creation": 7,
       "ultimateGoal": [],
       "ultimateSkill": 0,
-      "origin": "夏日池"
+      "origin": "夏日池",
+      "tags": [
+        2
+      ]
     }
   ],
   "equips": [
@@ -15972,7 +16206,7 @@
         107,
         62
       ],
-      "origin": "圣诞奖池"
+      "origin": "圣诞奖池<br>限时礼包"
     },
     {
       "equipId": 110,
@@ -28433,42 +28667,42 @@
           "value": 1,
           "condition": "Global",
           "cal": "Abs",
-          "gender": "男"
+          "tag": 1
         },
         {
           "type": "Steam",
           "value": 1,
           "condition": "Global",
           "cal": "Abs",
-          "gender": "男"
+          "tag": 1
         },
         {
           "type": "Fry",
           "value": 1,
           "condition": "Global",
           "cal": "Abs",
-          "gender": "男"
+          "tag": 1
         },
         {
           "type": "Boil",
           "value": 1,
           "condition": "Global",
           "cal": "Abs",
-          "gender": "男"
+          "tag": 1
         },
         {
           "type": "Knife",
           "value": 1,
           "condition": "Global",
           "cal": "Abs",
-          "gender": "男"
+          "tag": 1
         },
         {
           "type": "Bake",
           "value": 1,
           "condition": "Global",
           "cal": "Abs",
-          "gender": "男"
+          "tag": 1
         }
       ]
     },
@@ -28925,42 +29159,42 @@
           "value": 1,
           "condition": "Global",
           "cal": "Abs",
-          "gender": "女"
+          "tag": 2
         },
         {
           "type": "Steam",
           "value": 1,
           "condition": "Global",
           "cal": "Abs",
-          "gender": "女"
+          "tag": 2
         },
         {
           "type": "Fry",
           "value": 1,
           "condition": "Global",
           "cal": "Abs",
-          "gender": "女"
+          "tag": 2
         },
         {
           "type": "Boil",
           "value": 1,
           "condition": "Global",
           "cal": "Abs",
-          "gender": "女"
+          "tag": 2
         },
         {
           "type": "Knife",
           "value": 1,
           "condition": "Global",
           "cal": "Abs",
-          "gender": "女"
+          "tag": 2
         },
         {
           "type": "Bake",
           "value": 1,
           "condition": "Global",
           "cal": "Abs",
-          "gender": "女"
+          "tag": 2
         }
       ]
     },
@@ -29107,10 +29341,23 @@
     {
       "Id": 0,
       "Title": "正常营业"
+    },
+    {
+      "Id": 5026,
+      "Title": "女性厨师",
+      "EnableChefTags": [
+        2
+      ],
+      "DisableMultiCookbook": true,
+      "DisableDecorationEffect": true
     }
   ],
   "activities": [],
   "history": [
+    {
+      "date": "2018/08/29",
+      "content": "加入计算器功能, 详情见上方标亮处"
+    },
     {
       "date": "2018/08/17",
       "content": "加入图以符合图鉴这个名字. 目前图片合计2M(高清屏5M). 不勾选图片列不会下载图片"

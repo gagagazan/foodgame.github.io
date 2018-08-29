@@ -194,8 +194,6 @@ function getRecipeResult(chef, equip, recipe, quantity, maxQuantity, materials, 
     var decorationAddition = 0;
     var bonusAddition = 0;
 
-    var timeAddition = 0;
-
     resultData["disp"] = recipe.name;
 
     if (chef) {
@@ -215,14 +213,12 @@ function getRecipeResult(chef, equip, recipe, quantity, maxQuantity, materials, 
 
         if (!rule || !rule.hasOwnProperty("DisableChefSkillEffect") || rule.DisableChefSkillEffect == false) {
             chefSkillAddition = getRecipeSkillAddition(chef.specialSkillEffect, recipe);
-            timeAddition = getTimeAddition(chef.specialSkillEffect);
         }
         resultData["chefSkillAdditionDisp"] = getPercentDisp(chefSkillAddition);
 
         if (!rule || !rule.hasOwnProperty("DisableEquipSkillEffect") || rule.DisableEquipSkillEffect == false) {
             if (equip) {
                 equipSkillAddition = getRecipeSkillAddition(equip.effect, recipe);
-                timeAddition = getTimeAddition(equip.effect);
             }
         }
         resultData["equipSkillAdditionDisp"] = getPercentDisp(equipSkillAddition);
@@ -239,13 +235,12 @@ function getRecipeResult(chef, equip, recipe, quantity, maxQuantity, materials, 
 
     bonusAddition = bonusAddition + Number(recipe.addition);
 
-    if (rule && rule.hasOwnProperty("MaterialsEffect") && rule.MaterialsEffect.length > 0) {
+    if (rule && rule.hasOwnProperty("MaterialsEffect")) {
         var materialsAddition = getMaterialsAddition(recipe, materials);
         bonusAddition = bonusAddition + materialsAddition;
     }
 
     var priceAddition = (rankAddition + chefSkillAddition + equipSkillAddition + decorationAddition + recipe.ultimateAddition) / 100;
-    timeAddition = timeAddition / 100;
 
     resultData["data"] = recipe;
     resultData["quantity"] = quantity;
@@ -259,13 +254,12 @@ function getRecipeResult(chef, equip, recipe, quantity, maxQuantity, materials, 
     resultData["bonusScore"] = score - resultData.realPrice;
     resultData["totalBonusScore"] = resultData.bonusScore * quantity;
     resultData["totalScore"] = score * quantity;
-    var realTime = Math.ceil(+(recipe.time * (1 + timeAddition)).toFixed(2));
-    resultData["totalTime"] = realTime * quantity;
+    resultData["totalTime"] = recipe.time * quantity;
     resultData["totalTimeDisp"] = secondsToTime(resultData.totalTime);
 
     var chefEff = 0;
     if (chef && resultData.rankVal > 0) {
-        chefEff = Math.floor(resultData.realPrice * 3600 / realTime);
+        chefEff = Math.floor(resultData.realPrice * 3600 / recipe.time);
     }
     resultData["chefEff"] = chefEff;
 
@@ -276,7 +270,7 @@ function calAddition(value, addition) {
     return +((value + addition.abs) * (1 + addition.percent / 100)).toFixed(2);
 }
 
-function getTimeAddition(addition, effects) {
+function getTimeAddition(effects) {
     var addition = 0;
     for (var k in effects) {
         if (effects[k].type == "OpenTime") {
@@ -361,9 +355,9 @@ function setDataForChef(chef, equip, useEquip, ultimateEffect) {
 
     for (var i in effects) {
         var type = effects[i].type;
-        var gender = effects[i].gender;
+        var tag = effects[i].tag;
 
-        if (gender && gender != chef.gender) {
+        if (tag && chef.tags.indexOf(tag) < 0) {
             continue;
         }
 
