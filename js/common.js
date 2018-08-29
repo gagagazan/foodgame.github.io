@@ -437,17 +437,15 @@ function setDataForChef(chef, equip, useEquip, ultimateEffect) {
 
 function getChefAtrributeDisp(final, origin) {
     var disp = "";
-    if (final > 0) {
-        if (origin) {
-            disp += origin;
+    if (origin) {
+        disp += origin;
+    }
+    var add = final - origin;
+    if (add) {
+        if (add > 0) {
+            disp += "+";
         }
-        var add = final - origin;
-        if (add) {
-            if (add > 0) {
-                disp += "+";
-            }
-            disp += add;
-        }
+        disp += add;
     }
     return disp;
 }
