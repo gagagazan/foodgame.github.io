@@ -353,17 +353,17 @@ table.dataTable tbody>tr>.selected {
     position: relative;
 }
 
-.td-chef-icon {
+td.td-chef-icon {
     width: 50px;
     height: 50px;
 }
 
-.td-recipe-icon {
+td.td-recipe-icon {
     width: 40px;
     height: 40px;
 }
 
-.td-equip-icon {
+td.td-equip-icon {
     width: 35px;
     height: 35px;
 }
