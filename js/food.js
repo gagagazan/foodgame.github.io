@@ -1010,16 +1010,28 @@ function reInitChefTable(data) {
             "data": "specialSkillDisp"
         },
         {
-            "data": "meat"
+            "data": {
+                "_": "meatVal",
+                "display": "meatDisp"
+            }
         },
         {
-            "data": "creation"
+            "data": {
+                "_": "creationVal",
+                "display": "creationDisp"
+            }
         },
         {
-            "data": "veg"
+            "data": {
+                "_": "vegVal",
+                "display": "vegDisp"
+            }
         },
         {
-            "data": "fish"
+            "data": {
+                "_": "fishVal",
+                "display": "fishDisp"
+            }
         },
         {
             "data": "gender"
@@ -3722,10 +3734,6 @@ function generateData(json, json2, person) {
 
         var chefData = json.chefs[i];
 
-        chefData["meat"] = json.chefs[i].meat || "";
-        chefData["creation"] = json.chefs[i].creation || "";
-        chefData["veg"] = json.chefs[i].veg || "";
-        chefData["fish"] = json.chefs[i].fish || "";
         chefData["addition"] = "";
 
         chefData["rarityDisp"] = getRarityDisp(json.chefs[i].rarity);

@@ -343,6 +343,11 @@ function setDataForChef(chef, equip, useEquip, ultimateEffect) {
     var bakeAddition = new Addition();
     var steamAddition = new Addition();
 
+    var meatAddition = 0;
+    var creationAddition = 0;
+    var vegAddition = 0;
+    var fishAddition = 0;
+
     var effects = ultimateEffect;
 
     if (useEquip && equip) {
@@ -363,23 +368,36 @@ function setDataForChef(chef, equip, useEquip, ultimateEffect) {
 
         if (type == "Stirfry") {
             setAddition(stirfryAddition, effects[i]);
-        }
-        if (type == "Boil") {
+        } else if (type == "Boil") {
             setAddition(boilAddition, effects[i]);
-        }
-        if (type == "Knife") {
+        } else if (type == "Knife") {
             setAddition(knifeAddition, effects[i]);
-        }
-        if (type == "Fry") {
+        } else if (type == "Fry") {
             setAddition(fryAddition, effects[i]);
-        }
-        if (type == "Bake") {
+        } else if (type == "Bake") {
             setAddition(bakeAddition, effects[i]);
-        }
-        if (type == "Steam") {
+        } else if (type == "Steam") {
             setAddition(steamAddition, effects[i]);
+        } else if (type == "Meat") {
+            meatAddition += effects[i].value;
+        } else if (type == "Creation") {
+            creationAddition += effects[i].value;
+        } else if (type == "Vegetable") {
+            vegAddition += effects[i].value;
+        } else if (type == "Fish") {
+            fishAddition += effects[i].value;
         }
     }
+
+    chef["meatVal"] = chef.meat + meatAddition;
+    chef["creationVal"] = chef.creation + creationAddition;
+    chef["vegVal"] = chef.veg + vegAddition;
+    chef["fishVal"] = chef.fish + fishAddition;
+
+    chef["meatDisp"] = getChefAtrributeDisp(chef.meatVal, chef.meat);
+    chef["creationDisp"] = getChefAtrributeDisp(chef.creationVal, chef.creation);
+    chef["vegDisp"] = getChefAtrributeDisp(chef.vegVal, chef.veg);
+    chef["fishDisp"] = getChefAtrributeDisp(chef.fishVal, chef.fish);
 
     chef["stirfryVal"] = Math.ceil(calAddition(chef.stirfry, stirfryAddition));
     chef["boilVal"] = Math.ceil(calAddition(chef.boil, boilAddition));
