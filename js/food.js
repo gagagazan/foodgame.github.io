@@ -1935,7 +1935,7 @@ function initCalRules(data) {
         calCustomResults(currentRule, data);
     });
 
-    if (cal){
+    if (cal) {
         $("#chk-cal-no-origin").prop("checked", true);
     }
 
@@ -2245,6 +2245,15 @@ function loadRule(data, rule) {
     var allEquips = JSON.parse(JSON.stringify(data.equips));
     var allMaterials = JSON.parse(JSON.stringify(data.materials));
 
+    for (var i in rule.MaterialsEffect) {
+        for (var j in allMaterials) {
+            if (allMaterials[j].materialId == rule.MaterialsEffect[i].MaterialID) {
+                allMaterials[j].addition = +(Number(allMaterials[j].addition) + rule.MaterialsEffect[i].Effect).toFixed(2);
+                break;
+            }
+        }
+    }
+
     var materials = new Array();
     if (rule.hasOwnProperty("MaterialsNum")) {
         for (var i in rule.MaterialsNum) {
@@ -2252,12 +2261,6 @@ function loadRule(data, rule) {
                 if (allMaterials[j].materialId == rule.MaterialsNum[i].MaterialID) {
                     if (rule.MaterialsNum[i].Num != 1) {
                         allMaterials[j].quantity = rule.MaterialsNum[i].Num;
-                    }
-                    for (var k in rule.MaterialsEffect) {
-                        if (allMaterials[j].materialId == rule.MaterialsEffect[k].MaterialID) {
-                            allMaterials[j].addition = +(Number(allMaterials[j].addition) + rule.MaterialsEffect[k].Effect).toFixed(2);
-                            // no break!
-                        }
                     }
                     materials.push(allMaterials[j]);
                     break;
