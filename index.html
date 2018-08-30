@@ -8,7 +8,7 @@
     <script type="text/javascript" src="js/script.min.js?v=7"></script>
     <script type="text/javascript" src="js/common.min.js?v=25"></script>
     <link rel="stylesheet" type="text/css" href="css/food.min.css?v=24" />
-    <script type="text/javascript" src="js/food.min.js?v=92"></script>
+    <script type="text/javascript" src="js/food.min.js?v=93"></script>
     <link rel="stylesheet" type="text/css" href="css/image.css?v=2" />
 </head>
 
@@ -805,11 +805,6 @@
                                 <div class="box form-inline">
                                     <select id="select-cal-rule" class="selectpicker" data-live-search='true' data-width='auto' data-dropdown-align-right='auto'
                                         data-live-search-placeholder='查找' data-none-results-text='没有找到' data-none-selected-text=''></select>
-                                    <label class="btn btn-default hidden">
-                                        <input type="checkbox" id="chk-cal-no-origin-recipes">
-                                        <i class="fa fa-check glyphicon glyphicon-ok"></i>
-                                        未出
-                                    </label>
                                     <button id="btn-cal-rule-load" class="btn btn-danger" type="button">
                                         加载
                                     </button>
@@ -835,6 +830,20 @@
                                             <input type="checkbox" id="chk-cal-use-equip" checked>
                                             <i class="fa fa-check glyphicon glyphicon-ok"></i>
                                             已配厨具
+                                        </label>
+                                    </div>
+                                    <div class="box">
+                                        <label class="btn btn-default">
+                                            <input type="checkbox" id="chk-cal-got">
+                                            <i class="fa fa-check glyphicon glyphicon-ok"></i>
+                                            已有
+                                        </label>
+                                    </div>
+                                    <div class="box hidden">
+                                        <label class="btn btn-default">
+                                            <input type="checkbox" id="chk-cal-no-origin">
+                                            <i class="fa fa-check glyphicon glyphicon-ok"></i>
+                                            未出
                                         </label>
                                     </div>
                                     <div class="box">
@@ -1521,6 +1530,7 @@
                 <p class="text-danger">选择计算器并点击加载. 正常营业 - 用于算一次性经营金币或时间的任务</p>
                 <p class="text-danger">读取已修炼 - 读取厨师图鉴中的个人已修炼数据</p>
                 <p class="text-danger">已配厨具 - 选择厨师时会自动填入厨师图鉴中该厨师的厨具</p>
+                <p class="text-danger">已有 - 只显示已有的菜谱和厨师 (修改菜谱厨师图鉴中的已有数据后, 需要点击计算器的加载按钮重新加载)</p>
                 <p class="text-danger">修改装饰加成和修炼数据后, 需要手动点击重新计算按钮</p>
                 <p class="text-danger">下方的所有菜谱列表中的总分数包含了规则加成, 修炼加成, 装饰加成.</p>
                 <p class="text-danger">黑色字体的总时间都不包含厨师厨具的加成, 最终时间看上方的蓝色字体总时间</p>

@@ -231,8 +231,7 @@ function initRecipeTable(data) {
 
         if (!check || check && got) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     });
@@ -1905,6 +1904,16 @@ function initCalRules(data) {
         $("#cal-ultimate input").val("");
     });
 
+    $("#chk-cal-got").click(function () {
+        $('#cal-recipes-results-table').DataTable().draw();
+        initCalCustomOptions(currentRule, data);
+    });
+
+    $("#chk-cal-no-origin").click(function () {
+        $('#cal-recipes-results-table').DataTable().draw();
+        initCalCustomOptions(currentRule, data);
+    });
+
     $('#select-cal-order').change(function () {
         initCalCustomOptions(currentRule, data);
         var table = $('#cal-recipes-results-table').DataTable();
@@ -1926,12 +1935,12 @@ function initCalRules(data) {
         calCustomResults(currentRule, data);
     });
 
-    if (private) {
-        $("#chk-cal-no-origin-recipes").closest(".btn").removeClass('hidden');
+    if (cal){
+        $("#chk-cal-no-origin").prop("checked", true);
+    }
 
-        $("#chk-cal-no-origin-recipes").click(function () {
-            $("#btn-cal-rule-load").removeClass("btn-default").addClass("btn-danger");
-        });
+    if (private) {
+        $("#chk-cal-no-origin").closest(".box").removeClass('hidden');
 
         $("#btn-cal-set-num").closest(".box").removeClass('hidden');
 
@@ -2265,12 +2274,6 @@ function loadRule(data, rule) {
     var recipes = new Array();
     for (var i in allRecipes) {
 
-        if (private) {
-            if (!$('#chk-cal-no-origin-recipes').prop("checked") && !allRecipes[i].origin) {
-                continue;
-            }
-        }
-
         if (rule.hasOwnProperty("CookbookRarityLimit")) {
             if (allRecipes[i].rarity > rule.CookbookRarityLimit) {
                 continue;
@@ -2314,9 +2317,6 @@ function loadRule(data, rule) {
 
     var chefs = new Array();
     for (var i in allChefs) {
-        if (!allChefs[i].origin) {
-            continue;
-        }
 
         if (rule.hasOwnProperty("ChefRarityLimit")) {
             if (allChefs[i].rarity > rule.ChefRarityLimit) {
@@ -2639,7 +2639,18 @@ function calCustomResults(rule, data) {
 function getRecipesOptions(rule) {
     var options = new Array();
     var order = $("#select-cal-order").val();
+    var chkGot = $('#chk-cal-got').prop("checked");
+    var chkNoOrigin = $('#chk-cal-no-origin').prop("checked");
     for (var j in rule.menus) {
+
+        if (chkGot && !rule.menus[j].recipe.data.got) {
+            continue;
+        }
+
+        if (!chkNoOrigin && !rule.menus[j].recipe.data.origin) {
+            continue;
+        }
+
         var option = new Object();
 
         option["display"] = rule.menus[j].recipe.data.name;
@@ -3609,6 +3620,34 @@ function initCalResultTableCommon(mode, panel, data) {
 
             return false;
         });
+
+        $.fn.dataTableExt.afnFiltering.push(function (settings, data, dataIndex, rowData, counter) {
+            if (settings.nTable != document.getElementById('cal-recipes-results-table')) {
+                return true;
+            }
+
+            var check = $('#chk-cal-got').prop("checked");
+
+            if (!check || check && rowData.recipe.data.got) {
+                return true;
+            } else {
+                return false;
+            }
+        });
+
+        $.fn.dataTableExt.afnFiltering.push(function (settings, data, dataIndex, rowData, counter) {
+            if (settings.nTable != document.getElementById('cal-recipes-results-table')) {
+                return true;
+            }
+
+            var check = $('#chk-cal-no-origin').prop("checked");
+
+            if (check || !check && rowData.recipe.data.origin) {
+                return true;
+            } else {
+                return false;
+            }
+        });
     }
 
     panel.find('.chk-cal-results-show').off("click").click(function () {
@@ -4241,7 +4280,19 @@ function getChefsOptions(chefs) {
         return b.rarity - a.rarity
     });
 
+    var chkGot = $('#chk-cal-got').prop("checked");
+    var chkNoOrigin = $('#chk-cal-no-origin').prop("checked");
+
     for (var i in chefs) {
+
+        if (chkGot && !chefs[i].got) {
+            continue;
+        }
+
+        if (!chkNoOrigin && !chefs[i].origin) {
+            continue;
+        }
+
         var option = new Object();
         option["display"] = chefs[i].name;
         option["value"] = chefs[i].name;
