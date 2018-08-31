@@ -1916,12 +1916,7 @@ function initCalRules(data) {
 
     $('#select-cal-order').change(function () {
         initCalCustomOptions(currentRule, data);
-        var table = $('#cal-recipes-results-table').DataTable();
-        if ($(this).val() == "分数") {
-            table.order([27, 'desc']).draw();     // totalScore
-        } else if ($(this).val() == "时间") {
-            table.order([28, 'desc']).draw();     // totalTime
-        }
+        sortRecipesResult();
     });
 
     $("#btn-cal-clear-custom").click(function () {
@@ -2391,14 +2386,25 @@ function loadRule(data, rule) {
 
     if (rule.Title == "正常营业") {
         rule["showTime"] = true;
+        rule["showEff"] = true;
+        $('#select-cal-order option[value="分数"]').siblings().removeAttr('disabled');
     } else {
         rule["showTime"] = false;
+        rule["showEff"] = false;
+        $('#select-cal-order').val("分数");
+        $('#select-cal-order option[value="分数"]').siblings().attr("disabled", "disabled");
     }
 
     if (rule.showTime) {
         $('.chk-cal-results-show-total-time').prop("checked", true);
     } else {
         $('.chk-cal-results-show-total-time').prop("checked", false);
+    }
+
+    if (rule.showEff) {
+        $('.chk-cal-results-show-efficiency').prop("checked", true);
+    } else {
+        $('.chk-cal-results-show-efficiency').prop("checked", false);
     }
 
     $('#cal-self-select-table').DataTable().clear().rows.add(selfSelectData);
@@ -2662,20 +2668,18 @@ function getRecipesOptions(rule) {
         if (rule.hasOwnProperty("MaterialsNum")) {
             var available = getRecipeQuantity(rule.menus[j].recipe.data, rule.rest, rule);
             var resultData = getRecipeResult(null, null, rule.menus[j].recipe.data, available, rule.menus[j].recipe.max, rule.materials, rule, rule.decorationEffect);
-            if (order == "分数") {
-                option["subtext"] = resultData.totalScore + " / " + rule.menus[j].recipe.totalScore;
-                option["order"] = resultData.totalScore;
-            } else if (order == "时间") {
-                option["subtext"] = secondsToTime(resultData.totalTime);
-                option["order"] = resultData.totalTime;
-            }
+            option["subtext"] = resultData.totalScore + " / " + rule.menus[j].recipe.totalScore;
+            option["order"] = resultData.totalScore;
         } else {
             if (order == "分数") {
                 option["subtext"] = rule.menus[j].recipe.totalScore;
                 option["order"] = rule.menus[j].recipe.totalScore;
             } else if (order == "时间") {
-                option["subtext"] = secondsToTime(rule.menus[j].recipe.data.totalTime);
+                option["subtext"] = rule.menus[j].recipe.data.totalTimeDisp;
                 option["order"] = rule.menus[j].recipe.data.totalTime;
+            } else if (order == "效率") {
+                option["subtext"] = rule.menus[j].recipe.efficiency;
+                option["order"] = rule.menus[j].recipe.efficiency;
             }
         }
 
@@ -2712,8 +2716,37 @@ function calRecipesResults(rule) {
         return b.recipe.totalScore - a.recipe.totalScore
     });
     rule["menus"] = menus;
+
     $("#cal-recipes-results-table").DataTable().clear().rows.add(menus).draw();
     initCalResultsShow("recipes", $('#cal-recipes-results-table').DataTable(), $("#pane-cal-recipes-results"));
+    sortRecipesResult();
+}
+
+function sortRecipesResult() {
+    var orderColumn = 27;
+    var value = $('#select-cal-order').val();
+    if (value == "分数") {
+        orderColumn = 27;      // totalScore
+    } else if (value == "时间") {
+        orderColumn = 28;     // totalTime
+    } else if (value == "效率") {
+        orderColumn = 29;     // efficiency
+    }
+
+    var exist = false;
+
+    var table = $('#cal-recipes-results-table').DataTable();
+    var order = table.order();
+    for (var i in order) {
+        if (order[i][0] == orderColumn && order[i][1] == "desc") {
+            exist = true;
+            break;
+        }
+    }
+
+    if (!exist) {
+        table.order([orderColumn, 'desc']).draw();
+    }
 }
 
 function checkMaterials2(custom, materials) {
@@ -3559,18 +3592,20 @@ function initCalResultTableCommon(mode, panel, data) {
                 "display": "recipe.totalTimeDisp"
             },
             "defaultContent": ""
+        },
+        {
+            "data": "recipe.efficiency",
+            "defaultContent": ""
         }
     ];
 
     var paging = true;
     var info = true;
     var ordering = true;
-    var order = [[27, "desc"]]  //score
     if (mode == "optimal" || mode == "self-select") {
         paging = false;
         info = false;
         ordering = false;
-        order = [];
     }
 
     var table = panel.find('.cal-results-table').DataTable({
@@ -3595,7 +3630,7 @@ function initCalResultTableCommon(mode, panel, data) {
         autoWidth: false,
         info: info,
         ordering: ordering,
-        order: order,
+        order: [],
         rowsGroup: [0, 1, 2]   // from group, chef, equip
     });
 
@@ -3655,9 +3690,6 @@ function initCalResultTableCommon(mode, panel, data) {
 
     panel.find('.chk-cal-results-show').off("click").click(function () {
         initCalResultsShow(mode, table, panel);
-        if (mode == "self-select") {
-            calCustomResults(currentRule, data);
-        }
     });
 
     initCalResultsShow(mode, table, panel);
@@ -4557,6 +4589,7 @@ function initCalResultsShow(mode, calResultsTable, panel) {
     calResultsTable.column(25).visible(panel.find('.chk-cal-results-show-recipe-real-total-price').prop("checked"), false);
     calResultsTable.column(26).visible(panel.find('.chk-cal-results-show-bonus-score').prop("checked"), false);
     calResultsTable.column(28).visible(panel.find('.chk-cal-results-show-total-time').prop("checked"), false);
+    calResultsTable.column(29).visible(panel.find('.chk-cal-results-show-efficiency').prop("checked"), false);
 
     calResultsTable.columns.adjust().draw(false);
 }

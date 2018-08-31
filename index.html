@@ -7,9 +7,9 @@
     <link rel="shortcut icon" href="favicon.ico?v=1" type="image/x-icon" />
     <link rel="stylesheet" type="text/css" href="css/style.min.css?v=3" />
     <script type="text/javascript" src="js/script.min.js?v=7"></script>
-    <script type="text/javascript" src="js/common.min.js?v=25"></script>
+    <script type="text/javascript" src="js/common.min.js?v=26"></script>
     <link rel="stylesheet" type="text/css" href="css/food.min.css?v=24" />
-    <script type="text/javascript" src="js/food.min.js?v=94"></script>
+    <script type="text/javascript" src="js/food.min.js?v=95"></script>
     <link rel="stylesheet" type="text/css" href="css/image.css?v=2" />
 </head>
 
@@ -750,8 +750,8 @@
             <div id="pane-quest" class="tab-pane">
                 <div class="box1 form-inline">
                     <select id="select-quest-type" class="form-control">
-                        <option>主线任务</option>
-                        <option>支线任务</option>
+                        <option value='主线任务'>主线任务</option>
+                        <option value='支线任务'>支线任务</option>
                     </select>
                 </div>
                 <div>
@@ -851,8 +851,9 @@
                                         <div class="input-group">
                                             <div class="input-group-addon">排序</div>
                                             <select id="select-cal-order" class="form-control">
-                                                <option>分数</option>
-                                                <option>时间</option>
+                                                <option value='分数'>分数</option>
+                                                <option value='时间'>时间</option>
+                                                <option value='效率'>效率</option>
                                             </select>
                                         </div>
                                     </div>
@@ -1425,6 +1426,11 @@
                                             <i class="fa fa-check glyphicon glyphicon-ok"></i>
                                             总时间
                                         </label>
+                                        <label class="btn btn-default">
+                                            <input type="checkbox" class="chk-cal-results-show-efficiency chk-cal-results-show">
+                                            <i class="fa fa-check glyphicon glyphicon-ok"></i>
+                                            效率
+                                        </label>
                                     </div>
                                 </div>
                                 <div>
@@ -1460,6 +1466,7 @@
                                                 <th>规则分</th>
                                                 <th>总得分</th>
                                                 <th>总时间</th>
+                                                <th>金币/小时</th>
                                             </tr>
                                         </thead>
                                     </table>

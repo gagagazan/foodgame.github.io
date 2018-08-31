@@ -257,9 +257,12 @@ function getRecipeResult(chef, equip, recipe, quantity, maxQuantity, materials, 
     resultData["totalTime"] = recipe.time * quantity;
     resultData["totalTimeDisp"] = secondsToTime(resultData.totalTime);
 
+    var efficiency = Math.floor(resultData.realPrice * 3600 / recipe.time);
+    resultData["efficiency"] = efficiency;
+
     var chefEff = 0;
     if (chef && resultData.rankVal > 0) {
-        chefEff = Math.floor(resultData.realPrice * 3600 / recipe.time);
+        chefEff = efficiency;
     }
     resultData["chefEff"] = chefEff;
 
