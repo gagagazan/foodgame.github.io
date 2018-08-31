@@ -2272,6 +2272,10 @@ function loadRule(data, rule) {
     var recipes = new Array();
     for (var i in allRecipes) {
 
+        if (allRecipes[i].ignore) {
+            continue;
+        }
+
         if (rule.hasOwnProperty("CookbookRarityLimit")) {
             if (allRecipes[i].rarity > rule.CookbookRarityLimit) {
                 continue;
@@ -2316,6 +2320,10 @@ function loadRule(data, rule) {
     var chefs = new Array();
     for (var i in allChefs) {
 
+        if (allChefs[i].ignore) {
+            continue;
+        }
+
         if (rule.hasOwnProperty("ChefRarityLimit")) {
             if (allChefs[i].rarity > rule.ChefRarityLimit) {
                 continue;
@@ -2354,6 +2362,11 @@ function loadRule(data, rule) {
 
     var equips = new Array();
     for (var i in allEquips) {
+
+        if (allEquips[i].ignore) {
+            continue;
+        }
+
         if (!allEquips[i].origin) {
             continue;
         }
@@ -3702,6 +3715,15 @@ function generateData(json, json2, person) {
     var retData = new Object();
 
     if (json2) {
+        for (var i in json2.equips) {
+            json2.equips[i]["ignore"] = true;
+        }
+        for (var i in json2.recipes) {
+            json2.recipes[i]["ignore"] = true;
+        }
+        for (var i in json2.chefs) {
+            json2.chefs[i]["ignore"] = true;
+        }
         json.equips = json.equips.concat(json2.equips);
         json.quests = json.quests.concat(json2.quests);
         json.recipes = json.recipes.concat(json2.recipes);
