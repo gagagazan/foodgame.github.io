@@ -1308,7 +1308,7 @@ function initEquipTable(data) {
     });
 
     $('.chk-equip-show').click(function () {
-        initEquipShow(equipTable);
+        initEquipShow();
         updateMenuLocalData();
     });
 
@@ -1319,7 +1319,7 @@ function initEquipTable(data) {
         else {
             $('.chk-equip-show').prop("checked", true);
         }
-        initEquipShow(equipTable);
+        initEquipShow();
         updateMenuLocalData();
     });
 
@@ -1361,7 +1361,7 @@ function initEquipTable(data) {
         $('#chk-equip-no-origin').closest(".box").removeClass('hidden');
     }
 
-    initEquipShow(equipTable);
+    initEquipShow();
 }
 
 function initQuestTable(data) {
@@ -1563,6 +1563,7 @@ function importData(data, input) {
     $('#chef-table').DataTable().clear().rows.add(data.chefs).draw();
     initRecipeShow();
     initChefShow();
+    initEquipShow();
 
     $("#btn-chef-recal").removeClass("btn-danger").addClass("btn-default");
 
@@ -4492,7 +4493,9 @@ function initChefShow() {
     chefTable.columns.adjust().draw(false);
 }
 
-function initEquipShow(equipTable) {
+function initEquipShow() {
+    var equipTable = $('#equip-table').DataTable();
+
     equipTable.column(0).visible($('#chk-equip-show-id').prop("checked"), false);
     equipTable.column(1).visible($('#chk-equip-show-icon').prop("checked"), false);
     equipTable.column(3).visible($('#chk-equip-show-rarity').prop("checked"), false);
