@@ -2424,6 +2424,7 @@ function loadRule(data, rule) {
     $('#cal-self-select-table').DataTable().clear().rows.add(selfSelectData);
     initCalResultsShow("self-select", $('#cal-self-select-table').DataTable(), $("#pane-cal-self-select"));
     $("#pane-cal-self-select .selected-sum").html("请选择");
+    $("#pane-cal-self-select .selected-sum-2").html("");
 
     if (private) {
         $('#cal-recipes-table').DataTable().clear().rows.add(recipes).draw();
@@ -2592,6 +2593,8 @@ function calCustomResults(rule, data) {
     var score = 0;
     var time = 0;
     var timeAddition = 0;
+    var ultimate3 = "";
+    var ultimate4 = "";
 
     for (var i in custom) {
         if (custom[i].recipe.data.recipeId && custom[i].chef.chefId) {
@@ -2602,7 +2605,7 @@ function calCustomResults(rule, data) {
                 price += resultData.totalPrice;
                 bonus += resultData.totalBonusScore;
                 score += resultData.totalScore;
-                if (rule.showTime && resultData.quantity) {
+                if (rule.showTime && resultData.quantity > 0) {
                     time += resultData.data.time * resultData.quantity;
                     if (i % 3 == 0) {
                         if (!rule || !rule.hasOwnProperty("DisableChefSkillEffect") || rule.DisableChefSkillEffect == false) {
@@ -2613,6 +2616,13 @@ function calCustomResults(rule, data) {
                                 timeAddition += getTimeAddition(custom[i].equip.effect);
                             }
                         }
+                    }
+                }
+                if (resultData.data.ultimateAdditionDisp && resultData.quantity > 0) {
+                    if (resultData.data.rarity == 3) {
+                        ultimate3 = resultData.data.ultimateAdditionDisp;
+                    } else if (resultData.data.rarity == 4) {
+                        ultimate4 = resultData.data.ultimateAdditionDisp;
                     }
                 }
             } else {
@@ -2654,6 +2664,10 @@ function calCustomResults(rule, data) {
     if (materialsResult.message) {
         $("#pane-cal-self-select .selected-sum").append(" (" + materialsResult.message + ")");
     }
+
+    $("#pane-cal-self-select .selected-sum-2").html("菜谱售价修炼加成：");
+    $("#pane-cal-self-select .selected-sum-2").append("3星" + (ultimate3 || "无") + " ");
+    $("#pane-cal-self-select .selected-sum-2").append("4星" + (ultimate4 || "无") + " ");
 
     rule["rest"] = materialsResult.materials;
     initCalCustomOptions(rule, data);
@@ -3491,49 +3505,59 @@ function initCalResultTableCommon(mode, panel, data) {
                 "display": "recipe.disp"
             },
             "className": "cal-td-recipe-name",
-            "defaultContent": ""
+            "defaultContent": "",
+            "width": "140px"
         },
         {
             "data": {
                 "_": "recipe.data.rarity",
                 "display": "recipe.data.rarityDisp"
             },
-            "defaultContent": ""
+            "defaultContent": "",
+            "width": "60px"
         },
         {
             "data": "recipe.data.stirfry",
-            "defaultContent": ""
+            "defaultContent": "",
+            "width": "25px"
         },
         {
             "data": "recipe.data.boil",
-            "defaultContent": ""
+            "defaultContent": "",
+            "width": "25px"
         },
         {
             "data": "recipe.data.knife",
-            "defaultContent": ""
+            "defaultContent": "",
+            "width": "25px"
         },
         {
             "data": "recipe.data.fry",
-            "defaultContent": ""
+            "defaultContent": "",
+            "width": "25px"
         },
         {
             "data": "recipe.data.bake",
-            "defaultContent": ""
+            "defaultContent": "",
+            "width": "25px"
         },
         {
             "data": "recipe.data.steam",
-            "defaultContent": ""
+            "defaultContent": "",
+            "width": "25px"
         },
         {
             "data": {
                 "_": "recipe.data.materialsVal",
                 "display": "recipe.data.materialsDisp"
             },
-            "defaultContent": ""
+            "defaultContent": "",
+            "width": "230px"
         },
         {
             "data": "recipe.data.origin",
-            "defaultContent": ""
+            "defaultContent": "",
+            "width": "115px"
         },
         {
             "data": "recipe.quantity",
@@ -3543,46 +3567,56 @@ function initCalResultTableCommon(mode, panel, data) {
         },
         {
             "data": "recipe.available",
-            "defaultContent": ""
+            "defaultContent": "",
+            "width": "60px"
         },
         {
             "data": "recipe.max",
-            "defaultContent": ""
+            "defaultContent": "",
+            "width": "60px"
         },
         {
             "data": "recipe.data.price",
-            "defaultContent": ""
+            "defaultContent": "",
+            "width": "32px"
         },
         {
             "data": {
                 "_": "recipe.rankVal",
                 "display": "recipe.rankDisp"
             },
-            "defaultContent": ""
+            "defaultContent": "",
+            "width": "30px"
         },
         {
             "data": "recipe.rankAdditionDisp",
-            "defaultContent": ""
+            "defaultContent": "",
+            "width": "60px"
         },
         {
             "data": "recipe.chefSkillAdditionDisp",
-            "defaultContent": ""
+            "defaultContent": "",
+            "width": "60px"
         },
         {
             "data": "recipe.equipSkillAdditionDisp",
-            "defaultContent": ""
+            "defaultContent": "",
+            "width": "60px"
         },
         {
             "data": "recipe.bonusAdditionDisp",
-            "defaultContent": ""
+            "defaultContent": "",
+            "width": "60px"
         },
         {
             "data": "recipe.data.ultimateAdditionDisp",
-            "defaultContent": ""
+            "defaultContent": "",
+            "width": "60px"
         },
         {
             "data": "recipe.decorationAdditionDisp",
-            "defaultContent": ""
+            "defaultContent": "",
+            "width": "60px"
         },
         {
             "data": "recipe.totalPrice",
@@ -3638,6 +3672,7 @@ function initCalResultTableCommon(mode, panel, data) {
         lengthMenu: [[5, 10, 20, 50, 100, -1], [5, 10, 20, 50, 100, "所有"]],
         pageLength: 20,
         dom: "<'row'<'col-sm-12'<'selected-sum'>>>" +
+            "<'row'<'col-sm-12'<'selected-sum-2'>>>" +
             "<'row'<'col-sm-4'l><'col-sm-4 text-center'i><'col-sm-4'<'search-box'>>>" +
             "<'row'<'col-sm-12'tr>>" +
             "<'row'<'col-sm-12'p>>",
@@ -3647,8 +3682,6 @@ function initCalResultTableCommon(mode, panel, data) {
         order: [],
         rowsGroup: [0, 1, 2]   // from group, chef, equip
     });
-
-    panel.find(".selected-sum").html("");
 
     if (mode == "recipes") {
         panel.find("div.search-box").html('<label>查找:<input type="search" class="form-control input-sm" placeholder="菜名 材料"></label>');
@@ -4586,8 +4619,6 @@ function initCalResultsShow(mode, calResultsTable, panel) {
     } else if (mode == "optimal") {
         calResultsTable.column(14).visible(false, false);   // available
         calResultsTable.column(15).visible(false, false);   // max
-    } else if (mode == "self-select") {
-        panel.find('.chk-cal-results-show-ultimate-addition').prop("checked", true).closest(".btn").addClass("hidden");
     }
 
     calResultsTable.column(4).visible(panel.find('.chk-cal-results-show-recipe-rarity').prop("checked"), false);

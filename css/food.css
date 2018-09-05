@@ -230,10 +230,15 @@ table.dataTable tbody>tr>.selected {
 }
 
 .selected-sum {
-    text-align: center;
     color: #337ab7;
     font-weight: bold;
     font-size: 20px;
+}
+
+.selected-sum-2 {
+    height: 12px;
+    font-size: 12px;
+    padding-left: 2px;
 }
 
 .box .input-group {
