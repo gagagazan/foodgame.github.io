@@ -680,27 +680,27 @@ function getSkillDiff(chef, recipe, rank) {
 
     var disp = "";
     var value = 0;
-    if (stirfry < 0) {
+    if (stirfry < 0 && recipe.stirfry > 0) {
         disp += "炒" + stirfry + " ";
         value += stirfry;
     }
-    if (boil < 0) {
+    if (boil < 0 && recipe.boil > 0) {
         disp += "煮" + boil + " ";
         value += boil;
     }
-    if (knife < 0) {
+    if (knife < 0 && recipe.knife > 0) {
         disp += "切" + knife + " ";
         value += knife;
     }
-    if (fry < 0) {
+    if (fry < 0 && recipe.fry > 0) {
         disp += "炸" + fry + " ";
         value += fry;
     }
-    if (bake < 0) {
+    if (bake < 0 && recipe.bake > 0) {
         disp += "烤" + bake + " ";
         value += bake;
     }
-    if (steam < 0) {
+    if (steam < 0 && recipe.steam > 0) {
         disp += "蒸" + steam + " ";
         value += steam;
     }
