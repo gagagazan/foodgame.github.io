@@ -1452,14 +1452,39 @@ function initImportExport(data) {
         $("#input-export-import").val(generateExportData());
     });
     $('#btn-import').click(function () {
-        $(this).prop("disabled", true);
-        var success = importData(data, $("#input-export-import").val());
-        if (success) {
-            $("#input-export-import").val("");
-        } else {
-            alert("格式有误");
-        }
-        $(this).prop("disabled", false);
+        $("#import-msg-2").html("导入中...").removeClass("hidden");
+        setTimeout(function () {
+            var success = importData(data, $("#input-export-import").val());
+            if (success) {
+                $("#input-export-import").val("");
+                $("#import-msg-2").html("导入成功 !");
+            } else {
+                $("#import-msg-2").html("导入失败 !");
+            }
+        }, 500);
+    });
+
+    $('#btn-export-download').click(function () {
+        var blob = new Blob([generateExportData()], { type: "text/plain;charset=utf-8" });
+        saveAs(blob, "food.txt");
+    });
+
+    $('#file-import').change(function () {
+        $("#import-msg").html("导入中...").removeClass("hidden");
+        setTimeout(function () {
+            var file = document.getElementById("file-import").files[0];
+            var reader = new FileReader();
+            reader.onload = function (event) {
+                var success = importData(data, event.target.result);
+                if (success) {
+                    $("#import-msg").html("导入成功 !");
+                } else {
+                    $("#import-msg").html("导入失败 !");
+                }
+            };
+            reader.readAsText(file, "UTF-8");
+            $(this).val("");
+        }, 500);
     });
 }
 

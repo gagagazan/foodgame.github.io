@@ -385,3 +385,33 @@ table.history-table tr td.history-dt {
 .cal-menu {
     display: inline;
 }
+
+.select-file {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.select-file input[type="file"] {
+    position: absolute;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    left: 0;
+    top: 0;
+    font-size: 100px;
+}
+
+.inline-div {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.import-msg {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+    padding: 6px 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    margin-left: 10px;
+}

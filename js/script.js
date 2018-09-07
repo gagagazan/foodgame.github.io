@@ -21198,12 +21198,12 @@ if (typeof jQuery === 'undefined') {
 * @param {string} direction Direction of the sort to be applied (`asc` or `desc`)
 * @returns {DataTables.Api} this
 *//**
-                                    * Set the ordering for the table.
-                                    *
-                                    * @param {array} order 1D array of sorting information to be applied.
-                                    * @param {array} [...] Optional additional sorting conditions
-                                    * @returns {DataTables.Api} this
-                                    *//**
+                                                            * Set the ordering for the table.
+                                                            *
+                                                            * @param {array} order 1D array of sorting information to be applied.
+                                                            * @param {array} [...] Optional additional sorting conditions
+                                                            * @returns {DataTables.Api} this
+                                                            *//**
 * Set the ordering for the table.
 *
 * @param {array} order 2D array of sorting information to be applied.
@@ -33250,234 +33250,407 @@ if (typeof jQuery === 'undefined') {
  *     
  */
 
-(function($){
+(function ($) {
 
-ShowedDataSelectorModifier = {
-	order: 'current',
-	page: 'current',
-	search: 'applied',
-}
+    ShowedDataSelectorModifier = {
+        order: 'current',
+        page: 'current',
+        search: 'applied',
+    }
 
-GroupedColumnsOrderDir = 'asc';
-
-
-/*
- * columnsForGrouping: array of DTAPI:cell-selector for columns for which rows grouping is applied
- */
-var RowsGroup = function ( dt, columnsForGrouping )
-{
-	this.table = dt.table();
-	this.columnsForGrouping = columnsForGrouping;
-	 // set to True when new reorder is applied by RowsGroup to prevent order() looping
-	this.orderOverrideNow = false;
-	this.mergeCellsNeeded = false; // merge after init
-	this.order = []
-	
-	var self = this;
-	dt.on('order.dt', function ( e, settings) {
-		if (!self.orderOverrideNow) {
-			self.orderOverrideNow = true;
-			self._updateOrderAndDraw()
-		} else {
-			self.orderOverrideNow = false;
-		}
-	})
-	
-	dt.on('preDraw.dt', function ( e, settings) {
-		if (self.mergeCellsNeeded) {
-			self.mergeCellsNeeded = false;
-			self._mergeCells()
-		}
-	})
-	
-	dt.on('column-visibility.dt', function ( e, settings) {
-		self.mergeCellsNeeded = true;
-	})
-
-	dt.on('search.dt', function ( e, settings) {
-		// This might to increase the time to redraw while searching on tables
-		//   with huge shown columns
-		self.mergeCellsNeeded = true;
-	})
-
-	dt.on('page.dt', function ( e, settings) {
-		self.mergeCellsNeeded = true;
-	})
-
-	dt.on('length.dt', function ( e, settings) {
-		self.mergeCellsNeeded = true;
-	})
-
-	dt.on('xhr.dt', function ( e, settings) {
-		self.mergeCellsNeeded = true;
-	})
-
-	this._updateOrderAndDraw();
-	
-/* Events sequence while Add row (also through Editor)
- * addRow() function
- *   draw() function
- *     preDraw() event
- *       mergeCells() - point 1
- *     Appended new row breaks visible elements because the mergeCells() on previous step doesn't apllied to already processing data
- *   order() event
- *     _updateOrderAndDraw()
- *       preDraw() event
- *         mergeCells()
- *       Appended new row now has properly visibility as on current level it has already applied changes from first mergeCells() call (point 1)
- *   draw() event
- */
-};
+    GroupedColumnsOrderDir = 'asc';
 
 
-RowsGroup.prototype = {
-	setMergeCells: function(){
-		this.mergeCellsNeeded = true;
-	},
+    /*
+     * columnsForGrouping: array of DTAPI:cell-selector for columns for which rows grouping is applied
+     */
+    var RowsGroup = function (dt, columnsForGrouping) {
+        this.table = dt.table();
+        this.columnsForGrouping = columnsForGrouping;
+        // set to True when new reorder is applied by RowsGroup to prevent order() looping
+        this.orderOverrideNow = false;
+        this.mergeCellsNeeded = false; // merge after init
+        this.order = []
 
-	mergeCells: function()
-	{
-		this.setMergeCells();
-		this.table.draw();
-	},
+        var self = this;
+        dt.on('order.dt', function (e, settings) {
+            if (!self.orderOverrideNow) {
+                self.orderOverrideNow = true;
+                self._updateOrderAndDraw()
+            } else {
+                self.orderOverrideNow = false;
+            }
+        })
 
-	_getOrderWithGroupColumns: function (order, groupedColumnsOrderDir)
-	{
-		if (groupedColumnsOrderDir === undefined)
-			groupedColumnsOrderDir = GroupedColumnsOrderDir
-			
-		var self = this;
-		var groupedColumnsIndexes = this.columnsForGrouping.map(function(columnSelector){
-			return self.table.column(columnSelector).index()
-		})
-		var groupedColumnsKnownOrder = order.filter(function(columnOrder){
-			return groupedColumnsIndexes.indexOf(columnOrder[0]) >= 0
-		})
-		var nongroupedColumnsOrder = order.filter(function(columnOrder){
-			return groupedColumnsIndexes.indexOf(columnOrder[0]) < 0
-		})
-		var groupedColumnsKnownOrderIndexes = groupedColumnsKnownOrder.map(function(columnOrder){
-			return columnOrder[0]
-		})
-		var groupedColumnsOrder = groupedColumnsIndexes.map(function(iColumn){
-			var iInOrderIndexes = groupedColumnsKnownOrderIndexes.indexOf(iColumn)
-			if (iInOrderIndexes >= 0)
-				return [iColumn, groupedColumnsKnownOrder[iInOrderIndexes][1]]
-			else
-				return [iColumn, groupedColumnsOrderDir]
-		})
-		
-		groupedColumnsOrder.push.apply(groupedColumnsOrder, nongroupedColumnsOrder)
-		return groupedColumnsOrder;
-	},
- 
-	// Workaround: the DT reset ordering to 'asc' from multi-ordering if user order on one column (without shift)
-	//   but because we always has multi-ordering due to grouped rows this happens every time
-	_getInjectedMonoSelectWorkaround: function(order)
-	{
-		if (order.length === 1) {
-			// got mono order - workaround here
-			var orderingColumn = order[0][0]
-			var previousOrder = this.order.map(function(val){
-				return val[0]
-			})
-			var iColumn = previousOrder.indexOf(orderingColumn);
-			if (iColumn >= 0) {
-				// assume change the direction, because we already has that in previos order
-				return [[orderingColumn, this._toogleDirection(this.order[iColumn][1])]]
-			} // else This is the new ordering column. Proceed as is.
-		} // else got milti order - work normal
-		return order;
-	},
-	
-	_mergeCells: function()
-	{
-		var columnsIndexes = this.table.columns(this.columnsForGrouping, ShowedDataSelectorModifier).indexes().toArray()
-		var showedRowsCount = this.table.rows(ShowedDataSelectorModifier)[0].length 
-		this._mergeColumn(0, showedRowsCount - 1, columnsIndexes)
-	},
-	
-	// the index is relative to the showed data
-	//    (selector-modifier = {order: 'current', page: 'current', search: 'applied'}) index
-	_mergeColumn: function(iStartRow, iFinishRow, columnsIndexes)
-	{
-		var columnsIndexesCopy = columnsIndexes.slice()
-		currentColumn = columnsIndexesCopy.shift()
-		currentColumn = this.table.column(currentColumn, ShowedDataSelectorModifier)
-		
-		var columnNodes = currentColumn.nodes()
-		var columnValues = currentColumn.data()
-		
-		var newSequenceRow = iStartRow,
-			iRow;
-		for (iRow = iStartRow + 1; iRow <= iFinishRow; ++iRow) {
-			
-			if (columnValues[iRow] === columnValues[newSequenceRow]) {
-				$(columnNodes[iRow]).hide()
-			} else {
-				$(columnNodes[newSequenceRow]).show()
-				$(columnNodes[newSequenceRow]).attr('rowspan', (iRow-1) - newSequenceRow + 1)
-				
-				if (columnsIndexesCopy.length > 0)
-					this._mergeColumn(newSequenceRow, (iRow-1), columnsIndexesCopy)
-				
-				newSequenceRow = iRow;
-			}
-			
-		}
-		$(columnNodes[newSequenceRow]).show()
-		$(columnNodes[newSequenceRow]).attr('rowspan', (iRow-1)- newSequenceRow + 1)
-		if (columnsIndexesCopy.length > 0)
-			this._mergeColumn(newSequenceRow, (iRow-1), columnsIndexesCopy)
-	},
-	
-	_toogleDirection: function(dir)
-	{
-		return dir == 'asc'? 'desc': 'asc';
-	},
- 
-	_updateOrderAndDraw: function()
-	{
-		this.mergeCellsNeeded = true;
-		
-		var currentOrder = this.table.order();
-		currentOrder = this._getInjectedMonoSelectWorkaround(currentOrder);
-		this.order = this._getOrderWithGroupColumns(currentOrder)
-		this.table.order($.extend(true, Array(), this.order))
-		this.table.draw()
-	},
-};
+        dt.on('preDraw.dt', function (e, settings) {
+            if (self.mergeCellsNeeded) {
+                self.mergeCellsNeeded = false;
+                self._mergeCells()
+            }
+        })
+
+        dt.on('column-visibility.dt', function (e, settings) {
+            self.mergeCellsNeeded = true;
+        })
+
+        dt.on('search.dt', function (e, settings) {
+            // This might to increase the time to redraw while searching on tables
+            //   with huge shown columns
+            self.mergeCellsNeeded = true;
+        })
+
+        dt.on('page.dt', function (e, settings) {
+            self.mergeCellsNeeded = true;
+        })
+
+        dt.on('length.dt', function (e, settings) {
+            self.mergeCellsNeeded = true;
+        })
+
+        dt.on('xhr.dt', function (e, settings) {
+            self.mergeCellsNeeded = true;
+        })
+
+        this._updateOrderAndDraw();
+
+        /* Events sequence while Add row (also through Editor)
+         * addRow() function
+         *   draw() function
+         *     preDraw() event
+         *       mergeCells() - point 1
+         *     Appended new row breaks visible elements because the mergeCells() on previous step doesn't apllied to already processing data
+         *   order() event
+         *     _updateOrderAndDraw()
+         *       preDraw() event
+         *         mergeCells()
+         *       Appended new row now has properly visibility as on current level it has already applied changes from first mergeCells() call (point 1)
+         *   draw() event
+         */
+    };
 
 
-$.fn.dataTable.RowsGroup = RowsGroup;
-$.fn.DataTable.RowsGroup = RowsGroup;
+    RowsGroup.prototype = {
+        setMergeCells: function () {
+            this.mergeCellsNeeded = true;
+        },
 
-// Automatic initialisation listener
-$(document).on( 'init.dt', function ( e, settings ) {
-	if ( e.namespace !== 'dt' ) {
-		return;
-	}
+        mergeCells: function () {
+            this.setMergeCells();
+            this.table.draw();
+        },
 
-	var api = new $.fn.dataTable.Api( settings );
-	
-	if ( settings.oInit.rowsGroup ||
-		 $.fn.dataTable.defaults.rowsGroup )
-	{
-		options = settings.oInit.rowsGroup?
-			settings.oInit.rowsGroup:
-			$.fn.dataTable.defaults.rowsGroup;
-		var rowsGroup = new RowsGroup( api, options );
-		$.fn.dataTable.Api.register( 'rowsgroup.update()', function () {
-			rowsGroup.mergeCells();
-			return this;
-		} );
-		$.fn.dataTable.Api.register( 'rowsgroup.updateNextDraw()', function () {
-			rowsGroup.setMergeCells();
-			return this;
-		} );
-	}
-} );
+        _getOrderWithGroupColumns: function (order, groupedColumnsOrderDir) {
+            if (groupedColumnsOrderDir === undefined)
+                groupedColumnsOrderDir = GroupedColumnsOrderDir
+
+            var self = this;
+            var groupedColumnsIndexes = this.columnsForGrouping.map(function (columnSelector) {
+                return self.table.column(columnSelector).index()
+            })
+            var groupedColumnsKnownOrder = order.filter(function (columnOrder) {
+                return groupedColumnsIndexes.indexOf(columnOrder[0]) >= 0
+            })
+            var nongroupedColumnsOrder = order.filter(function (columnOrder) {
+                return groupedColumnsIndexes.indexOf(columnOrder[0]) < 0
+            })
+            var groupedColumnsKnownOrderIndexes = groupedColumnsKnownOrder.map(function (columnOrder) {
+                return columnOrder[0]
+            })
+            var groupedColumnsOrder = groupedColumnsIndexes.map(function (iColumn) {
+                var iInOrderIndexes = groupedColumnsKnownOrderIndexes.indexOf(iColumn)
+                if (iInOrderIndexes >= 0)
+                    return [iColumn, groupedColumnsKnownOrder[iInOrderIndexes][1]]
+                else
+                    return [iColumn, groupedColumnsOrderDir]
+            })
+
+            groupedColumnsOrder.push.apply(groupedColumnsOrder, nongroupedColumnsOrder)
+            return groupedColumnsOrder;
+        },
+
+        // Workaround: the DT reset ordering to 'asc' from multi-ordering if user order on one column (without shift)
+        //   but because we always has multi-ordering due to grouped rows this happens every time
+        _getInjectedMonoSelectWorkaround: function (order) {
+            if (order.length === 1) {
+                // got mono order - workaround here
+                var orderingColumn = order[0][0]
+                var previousOrder = this.order.map(function (val) {
+                    return val[0]
+                })
+                var iColumn = previousOrder.indexOf(orderingColumn);
+                if (iColumn >= 0) {
+                    // assume change the direction, because we already has that in previos order
+                    return [[orderingColumn, this._toogleDirection(this.order[iColumn][1])]]
+                } // else This is the new ordering column. Proceed as is.
+            } // else got milti order - work normal
+            return order;
+        },
+
+        _mergeCells: function () {
+            var columnsIndexes = this.table.columns(this.columnsForGrouping, ShowedDataSelectorModifier).indexes().toArray()
+            var showedRowsCount = this.table.rows(ShowedDataSelectorModifier)[0].length
+            this._mergeColumn(0, showedRowsCount - 1, columnsIndexes)
+        },
+
+        // the index is relative to the showed data
+        //    (selector-modifier = {order: 'current', page: 'current', search: 'applied'}) index
+        _mergeColumn: function (iStartRow, iFinishRow, columnsIndexes) {
+            var columnsIndexesCopy = columnsIndexes.slice()
+            currentColumn = columnsIndexesCopy.shift()
+            currentColumn = this.table.column(currentColumn, ShowedDataSelectorModifier)
+
+            var columnNodes = currentColumn.nodes()
+            var columnValues = currentColumn.data()
+
+            var newSequenceRow = iStartRow,
+                iRow;
+            for (iRow = iStartRow + 1; iRow <= iFinishRow; ++iRow) {
+
+                if (columnValues[iRow] === columnValues[newSequenceRow]) {
+                    $(columnNodes[iRow]).hide()
+                } else {
+                    $(columnNodes[newSequenceRow]).show()
+                    $(columnNodes[newSequenceRow]).attr('rowspan', (iRow - 1) - newSequenceRow + 1)
+
+                    if (columnsIndexesCopy.length > 0)
+                        this._mergeColumn(newSequenceRow, (iRow - 1), columnsIndexesCopy)
+
+                    newSequenceRow = iRow;
+                }
+
+            }
+            $(columnNodes[newSequenceRow]).show()
+            $(columnNodes[newSequenceRow]).attr('rowspan', (iRow - 1) - newSequenceRow + 1)
+            if (columnsIndexesCopy.length > 0)
+                this._mergeColumn(newSequenceRow, (iRow - 1), columnsIndexesCopy)
+        },
+
+        _toogleDirection: function (dir) {
+            return dir == 'asc' ? 'desc' : 'asc';
+        },
+
+        _updateOrderAndDraw: function () {
+            this.mergeCellsNeeded = true;
+
+            var currentOrder = this.table.order();
+            currentOrder = this._getInjectedMonoSelectWorkaround(currentOrder);
+            this.order = this._getOrderWithGroupColumns(currentOrder)
+            this.table.order($.extend(true, Array(), this.order))
+            this.table.draw()
+        },
+    };
+
+
+    $.fn.dataTable.RowsGroup = RowsGroup;
+    $.fn.DataTable.RowsGroup = RowsGroup;
+
+    // Automatic initialisation listener
+    $(document).on('init.dt', function (e, settings) {
+        if (e.namespace !== 'dt') {
+            return;
+        }
+
+        var api = new $.fn.dataTable.Api(settings);
+
+        if (settings.oInit.rowsGroup ||
+            $.fn.dataTable.defaults.rowsGroup) {
+            options = settings.oInit.rowsGroup ?
+                settings.oInit.rowsGroup :
+                $.fn.dataTable.defaults.rowsGroup;
+            var rowsGroup = new RowsGroup(api, options);
+            $.fn.dataTable.Api.register('rowsgroup.update()', function () {
+                rowsGroup.mergeCells();
+                return this;
+            });
+            $.fn.dataTable.Api.register('rowsgroup.updateNextDraw()', function () {
+                rowsGroup.setMergeCells();
+                return this;
+            });
+        }
+    });
 
 }(jQuery));
 
+/* FileSaver.js
+ * A saveAs() FileSaver implementation.
+ * 1.3.8
+ * 2018-03-22 14:03:47
+ *
+ * By Eli Grey, https://eligrey.com
+ * License: MIT
+ *   See https://github.com/eligrey/FileSaver.js/blob/master/LICENSE.md
+ */
+
+/*global self */
+/*jslint bitwise: true, indent: 4, laxbreak: true, laxcomma: true, smarttabs: true, plusplus: true */
+
+/*! @source http://purl.eligrey.com/github/FileSaver.js/blob/master/src/FileSaver.js */
+
+var saveAs = saveAs || (function (view) {
+    "use strict";
+    // IE <10 is explicitly unsupported
+    if (typeof view === "undefined" || typeof navigator !== "undefined" && /MSIE [1-9]\./.test(navigator.userAgent)) {
+        return;
+    }
+    var
+        doc = view.document
+        // only get URL when necessary in case Blob.js hasn't overridden it yet
+        , get_URL = function () {
+            return view.URL || view.webkitURL || view;
+        }
+        , save_link = doc.createElementNS("http://www.w3.org/1999/xhtml", "a")
+        , can_use_save_link = "download" in save_link
+        , click = function (node) {
+            var event = new MouseEvent("click");
+            node.dispatchEvent(event);
+        }
+        , is_safari = /constructor/i.test(view.HTMLElement) || view.safari
+        , is_chrome_ios = /CriOS\/[\d]+/.test(navigator.userAgent)
+        , setImmediate = view.setImmediate || view.setTimeout
+        , throw_outside = function (ex) {
+            setImmediate(function () {
+                throw ex;
+            }, 0);
+        }
+        , force_saveable_type = "application/octet-stream"
+        // the Blob API is fundamentally broken as there is no "downloadfinished" event to subscribe to
+        , arbitrary_revoke_timeout = 1000 * 40 // in ms
+        , revoke = function (file) {
+            var revoker = function () {
+                if (typeof file === "string") { // file is an object URL
+                    get_URL().revokeObjectURL(file);
+                } else { // file is a File
+                    file.remove();
+                }
+            };
+            setTimeout(revoker, arbitrary_revoke_timeout);
+        }
+        , dispatch = function (filesaver, event_types, event) {
+            event_types = [].concat(event_types);
+            var i = event_types.length;
+            while (i--) {
+                var listener = filesaver["on" + event_types[i]];
+                if (typeof listener === "function") {
+                    try {
+                        listener.call(filesaver, event || filesaver);
+                    } catch (ex) {
+                        throw_outside(ex);
+                    }
+                }
+            }
+        }
+        , auto_bom = function (blob) {
+            // prepend BOM for UTF-8 XML and text/* types (including HTML)
+            // note: your browser will automatically convert UTF-16 U+FEFF to EF BB BF
+            if (/^\s*(?:text\/\S*|application\/xml|\S*\/\S*\+xml)\s*;.*charset\s*=\s*utf-8/i.test(blob.type)) {
+                return new Blob([String.fromCharCode(0xFEFF), blob], { type: blob.type });
+            }
+            return blob;
+        }
+        , FileSaver = function (blob, name, no_auto_bom) {
+            if (!no_auto_bom) {
+                blob = auto_bom(blob);
+            }
+            // First try a.download, then web filesystem, then object URLs
+            var
+                filesaver = this
+                , type = blob.type
+                , force = type === force_saveable_type
+                , object_url
+                , dispatch_all = function () {
+                    dispatch(filesaver, "writestart progress write writeend".split(" "));
+                }
+                // on any filesys errors revert to saving with object URLs
+                , fs_error = function () {
+                    if ((is_chrome_ios || (force && is_safari)) && view.FileReader) {
+                        // Safari doesn't allow downloading of blob urls
+                        var reader = new FileReader();
+                        reader.onloadend = function () {
+                            var url = is_chrome_ios ? reader.result : reader.result.replace(/^data:[^;]*;/, 'data:attachment/file;');
+                            var popup = view.open(url, '_blank');
+                            if (!popup) view.location.href = url;
+                            url = undefined; // release reference before dispatching
+                            filesaver.readyState = filesaver.DONE;
+                            dispatch_all();
+                        };
+                        reader.readAsDataURL(blob);
+                        filesaver.readyState = filesaver.INIT;
+                        return;
+                    }
+                    // don't create more object URLs than needed
+                    if (!object_url) {
+                        object_url = get_URL().createObjectURL(blob);
+                    }
+                    if (force) {
+                        view.location.href = object_url;
+                    } else {
+                        var opened = view.open(object_url, "_blank");
+                        if (!opened) {
+                            // Apple does not allow window.open, see https://developer.apple.com/library/safari/documentation/Tools/Conceptual/SafariExtensionGuide/WorkingwithWindowsandTabs/WorkingwithWindowsandTabs.html
+                            view.location.href = object_url;
+                        }
+                    }
+                    filesaver.readyState = filesaver.DONE;
+                    dispatch_all();
+                    revoke(object_url);
+                }
+                ;
+            filesaver.readyState = filesaver.INIT;
+
+            if (can_use_save_link) {
+                object_url = get_URL().createObjectURL(blob);
+                setImmediate(function () {
+                    save_link.href = object_url;
+                    save_link.download = name;
+                    click(save_link);
+                    dispatch_all();
+                    revoke(object_url);
+                    filesaver.readyState = filesaver.DONE;
+                }, 0);
+                return;
+            }
+
+            fs_error();
+        }
+        , FS_proto = FileSaver.prototype
+        , saveAs = function (blob, name, no_auto_bom) {
+            return new FileSaver(blob, name || blob.name || "download", no_auto_bom);
+        }
+        ;
+
+    // IE 10+ (native saveAs)
+    if (typeof navigator !== "undefined" && navigator.msSaveOrOpenBlob) {
+        return function (blob, name, no_auto_bom) {
+            name = name || blob.name || "download";
+
+            if (!no_auto_bom) {
+                blob = auto_bom(blob);
+            }
+            return navigator.msSaveOrOpenBlob(blob, name);
+        };
+    }
+
+    // todo: detect chrome extensions & packaged apps
+    //save_link.target = "_blank";
+
+    FS_proto.abort = function () { };
+    FS_proto.readyState = FS_proto.INIT = 0;
+    FS_proto.WRITING = 1;
+    FS_proto.DONE = 2;
+
+    FS_proto.error =
+        FS_proto.onwritestart =
+        FS_proto.onprogress =
+        FS_proto.onwrite =
+        FS_proto.onabort =
+        FS_proto.onerror =
+        FS_proto.onwriteend =
+        null;
+
+    return saveAs;
+}(
+    typeof self !== "undefined" && self
+    || typeof window !== "undefined" && window
+    || this
+));
 

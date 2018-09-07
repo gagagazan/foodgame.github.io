@@ -6,10 +6,10 @@
     <meta charset="UTF-8">
     <link rel="shortcut icon" href="favicon.ico?v=1" type="image/x-icon" />
     <link rel="stylesheet" type="text/css" href="css/style.min.css?v=3" />
-    <script type="text/javascript" src="js/script.min.js?v=7"></script>
+    <script type="text/javascript" src="js/script.min.js?v=8"></script>
     <script type="text/javascript" src="js/common.min.js?v=26"></script>
-    <link rel="stylesheet" type="text/css" href="css/food.min.css?v=25" />
-    <script type="text/javascript" src="js/food.min.js?v=98"></script>
+    <link rel="stylesheet" type="text/css" href="css/food.min.css?v=26" />
+    <script type="text/javascript" src="js/food.min.js?v=99"></script>
     <link rel="stylesheet" type="text/css" href="css/image.css?v=4" />
 </head>
 
@@ -152,14 +152,16 @@
                             已有
                         </label>
                         <div class="chk-recipe-show-material-wrapper">
-                            <select id="chk-recipe-show-material" multiple data-live-search="true" data-live-search-placeholder="查找" data-width="auto"
-                                data-dropdown-align-right='auto' data-none-selected-text="耗材效率" data-selected-text-format="count"
-                                data-count-selected-text="{0} 食材" data-none-results-text="没有找到" data-actions-box="true" data-deselect-all-text="清空"></select>
+                            <select id="chk-recipe-show-material" multiple data-live-search="true" data-live-search-placeholder="查找"
+                                data-width="auto" data-dropdown-align-right='auto' data-none-selected-text="耗材效率" data-selected-text-format="count"
+                                data-count-selected-text="{0} 食材" data-none-results-text="没有找到" data-actions-box="true"
+                                data-deselect-all-text="清空"></select>
                         </div>
                         <div class="chk-recipe-show-chef-wrapper">
-                            <select id="chk-recipe-show-chef" multiple data-live-search="true" data-live-search-placeholder="查找" data-width="auto" data-dropdown-align-right='auto'
-                                data-none-selected-text="选择厨师" data-selected-text-format="count" data-count-selected-text="{0} 厨师"
-                                data-none-results-text="没有找到" data-actions-box="true" data-deselect-all-text="清空"></select>
+                            <select id="chk-recipe-show-chef" multiple data-live-search="true" data-live-search-placeholder="查找" data-width="auto"
+                                data-dropdown-align-right='auto' data-none-selected-text="选择厨师" data-selected-text-format="count"
+                                data-count-selected-text="{0} 厨师" data-none-results-text="没有找到" data-actions-box="true"
+                                data-deselect-all-text="清空"></select>
                         </div>
                         <label class="btn btn-default">
                             <input type="checkbox" id="chk-recipe-show-skill-diff">
@@ -410,9 +412,10 @@
                             已有
                         </label>
                         <div class="chk-chef-show-recipe-wrapper">
-                            <select id="chk-chef-show-recipe" multiple data-live-search="true" data-live-search-placeholder="查找" data-width="auto" data-dropdown-align-right='auto'
-                                data-none-selected-text="选择菜谱" data-selected-text-format="count" data-count-selected-text="{0} 菜谱"
-                                data-none-results-text="没有找到" data-actions-box="true" data-deselect-all-text="清空"></select>
+                            <select id="chk-chef-show-recipe" multiple data-live-search="true" data-live-search-placeholder="查找" data-width="auto"
+                                data-dropdown-align-right='auto' data-none-selected-text="选择菜谱" data-selected-text-format="count"
+                                data-count-selected-text="{0} 菜谱" data-none-results-text="没有找到" data-actions-box="true"
+                                data-deselect-all-text="清空"></select>
                         </div>
                     </div>
                 </div>
@@ -502,16 +505,16 @@
                 </div>
                 <div>
                     <div class="box">
-                        <input type="checkbox" id="chk-chef-apply-ultimate" data-toggle="toggle" data-on="修炼技能开" data-off="修炼技能关" data-onstyle="default"
-                            data-width="105px" checked>
+                        <input type="checkbox" id="chk-chef-apply-ultimate" data-toggle="toggle" data-on="修炼技能开" data-off="修炼技能关"
+                            data-onstyle="default" data-width="105px" checked>
                         <span class="chef-apply-ultimate">
-                            <input type="checkbox" id="chk-chef-apply-ultimate-person" data-toggle="toggle" data-on="已修炼" data-off="全修炼" data-onstyle="default"
-                                data-width="80px" checked>
+                            <input type="checkbox" id="chk-chef-apply-ultimate-person" data-toggle="toggle" data-on="已修炼" data-off="全修炼"
+                                data-onstyle="default" data-width="80px" checked>
                         </span>
                     </div>
                     <div class="box">
-                        <input type="checkbox" id="chk-chef-apply-equips" data-toggle="toggle" data-on="厨具技能开" data-off="厨具技能关" data-onstyle="default"
-                            data-width="105px" checked>
+                        <input type="checkbox" id="chk-chef-apply-equips" data-toggle="toggle" data-on="厨具技能开" data-off="厨具技能关"
+                            data-onstyle="default" data-width="105px" checked>
                     </div>
                     <div class="box">
                         <a id="btn-chef-recal" class="btn btn-default">
@@ -768,15 +771,31 @@
                 </div>
             </div>
             <div id="pane-export-import" class="tab-pane">
+                <h5 class="text-primary">备份 - 手动复制版</h5>
                 <div class="form-group">
                     <textarea id="input-export-import" class="form-control"></textarea>
                 </div>
                 <button id="btn-export" class="btn btn-default" type="button">
-                    导出数据
+                    生成个人数据
                 </button>
                 <button id="btn-import" class="btn btn-default" type="button">
-                    导入数据
+                    导入个人数据
                 </button>
+                <div id="import-msg-2" class="import-msg inline-div hidden"></div>
+                <hr>
+                <h5 class="text-primary">备份 - 文件版</h5>
+                <div class="inline-div">
+                    <button id="btn-export-download" class="btn btn-default" type="button">
+                        下载个人数据文件
+                    </button>
+                </div>
+                <div class="select-file inline-div">
+                    <input id="file-import" type="file" accept=".txt">
+                    <button id="btn-import-upload" class="btn btn-default" type="button">
+                        导入个人数据文件
+                    </button>
+                </div>
+                <div id="import-msg" class="import-msg inline-div hidden"></div>
             </div>
             <div id="pane-cal" class="tab-pane">
                 <div class="tabs-left">
@@ -804,8 +823,9 @@
                         <div id="pane-cal-rules" class="tab-pane active">
                             <div>
                                 <div class="box form-inline">
-                                    <select id="select-cal-rule" class="selectpicker" data-live-search='true' data-width='auto' data-dropdown-align-right='auto'
-                                        data-live-search-placeholder='查找' data-none-results-text='没有找到' data-none-selected-text=''></select>
+                                    <select id="select-cal-rule" class="selectpicker" data-live-search='true' data-width='auto'
+                                        data-dropdown-align-right='auto' data-live-search-placeholder='查找' data-none-results-text='没有找到'
+                                        data-none-selected-text=''></select>
                                     <button id="btn-cal-rule-load" class="btn btn-danger" type="button">
                                         加载
                                     </button>
@@ -819,7 +839,8 @@
                                         </div>
                                     </div>
                                     <div class="box">
-                                        <button id="btn-cal-set-ultimate" class="btn btn-default collapsed" type="button" data-toggle="collapse" data-target="#cal-ultimate">
+                                        <button id="btn-cal-set-ultimate" class="btn btn-default collapsed" type="button" data-toggle="collapse"
+                                            data-target="#cal-ultimate">
                                             配置修炼数据
                                         </button>
                                         <button id="btn-cal-update" class="btn btn-default" type="button">
@@ -1535,24 +1556,28 @@
                 <h4>
                     <span class="label label-info">计算器</span>
                 </h4>
-                <p class="text-danger">选择计算器并点击加载. 正常营业 - 用于算一次性经营金币或时间的任务</p>
-                <p class="text-danger">读取已修炼 - 读取厨师图鉴中的个人已修炼数据</p>
-                <p class="text-danger">已配厨具 - 选择厨师时会自动填入厨师图鉴中该厨师的厨具</p>
-                <p class="text-danger">已有 - 只显示已有的菜谱和厨师 (修改菜谱厨师图鉴中的已有数据后, 需要点击计算器的加载按钮重新加载)</p>
-                <p class="text-danger">修改装饰加成和修炼数据后, 需要手动点击重新计算按钮</p>
-                <p class="text-danger">下方的所有菜谱列表中的总分数包含了规则加成, 修炼加成, 装饰加成.</p>
-                <p class="text-danger">黑色字体的总时间都不包含厨师厨具的加成, 最终时间看上方的蓝色字体总时间</p>
+                <p>选择计算器并点击加载. 正常营业 - 用于算一次性经营金币或时间的任务</p>
+                <p>读取已修炼 - 读取厨师图鉴中的个人已修炼数据</p>
+                <p>已配厨具 - 选择厨师时会自动填入厨师图鉴中该厨师的厨具</p>
+                <p>已有 - 只显示已有的菜谱和厨师 (修改菜谱厨师图鉴中的已有数据后, 需要点击计算器的加载按钮重新加载)</p>
+                <p>修改装饰加成和修炼数据后, 需要手动点击重新计算按钮</p>
+                <p>下方的所有菜谱列表中的总分数包含了规则加成, 修炼加成, 装饰加成.</p>
+                <p>黑色字体的总时间都不包含厨师厨具的加成, 最终时间看上方的蓝色字体总时间</p>
                 <br>
-                <p class="text-danger">开放计算器是因为主线支线计算器没人更新维护. 限时和厨神计算器都有人做, 我就不做了</p>
-                <p class="text-danger">如需要其他支线计算器或发现计算结果与游戏不符可以联系我</p>
+                <p>开放计算器是因为主线支线计算器没人更新维护. 限时和厨神计算器都有人做, 我就不做了</p>
+                <p>如需要其他支线计算器或发现计算结果与游戏不符可以联系我</p>
                 <br>
                 <h4>
                     <span class="label label-info">个人数据</span>
                 </h4>
                 <p>个人数据保存在浏览器端, 正常情况下下次打开网站时数据不会丢失.</p>
                 <p>如需要更换设备或防止浏览器缓存被清空等情况, 可使用个人数据备份功能.</p>
-                <p>导出数据 - 点击按钮会生成个人数据, 可拷贝复制到其他地方用于备份.</p>
-                <p>导入数据 - 将备份的个人数据复制到文本框内, 点击按钮可以导入个人数据.</p>
+                <p>备份 - 手动复制版:</p>
+                <p>生成个人数据 - 点击按钮会在文本框内生成个人数据, 可拷贝复制到其他地方用于备份.</p>
+                <p>导入个人数据 - 将备份的个人数据复制到文本框内, 点击按钮可以导入个人数据.</p>
+                <p>备份 - 文件版: (有的浏览器不支持)</p>
+                <p>下载个人数据文件 - 生成个人数据文件并下载.</p>
+                <p>导入个人数据文件 - 选择个人数据文件并导入.</p>
                 <br>
                 <p>难免有数据缺失或错误, 敬请谅解. 如想纠错或补充数据可以联系我, 官方1群或2群 L</p>
                 <hr>
