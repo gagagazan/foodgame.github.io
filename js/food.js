@@ -2690,9 +2690,17 @@ function calCustomResults(rule, data) {
         $("#pane-cal-self-select .selected-sum").append(" (" + materialsResult.message + ")");
     }
 
-    $("#pane-cal-self-select .selected-sum-2").html("菜谱售价修炼加成：");
-    $("#pane-cal-self-select .selected-sum-2").append("3星" + (ultimate3 || "无") + " ");
-    $("#pane-cal-self-select .selected-sum-2").append("4星" + (ultimate4 || "无") + " ");
+    $("#pane-cal-self-select .selected-sum-2").html("当前菜谱使用菜谱售价修炼加成：");
+    if (ultimate3 || ultimate4) {
+        if (ultimate3) {
+            $("#pane-cal-self-select .selected-sum-2").append("3星" + ultimate3 + " ");
+        }
+        if (ultimate4) {
+            $("#pane-cal-self-select .selected-sum-2").append("4星" + ultimate4 + " ");
+        }
+    } else {
+        $("#pane-cal-self-select .selected-sum-2").append("无");
+    }
 
     rule["rest"] = materialsResult.materials;
     initCalCustomOptions(rule, data);
