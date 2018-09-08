@@ -3489,6 +3489,7 @@ function initCalResultsTable(data) {
             var calChefsData = $('#cal-chefs-table').DataTable().rows({ selected: true }).data().toArray();
             var calEquipsData = $('#cal-equips-table').DataTable().rows({ selected: true }).data().toArray();
             var calMaterialsData = $('#cal-materials-table').DataTable().rows({ selected: true }).data().toArray();
+            var noEquips = $('#chk-cal-results-no-equips').prop("checked");
             var autoEquips = $('#chk-cal-results-equips').prop("checked");
             var changeEquips = $('#chk-cal-results-equips-change').prop("checked");
 
@@ -3500,9 +3501,20 @@ function initCalResultsTable(data) {
                 "equips": calEquipsData,
                 "materials": calMaterialsData,
                 "odata": data,
+                "noEquips": noEquips,
                 "autoEquips": autoEquips,
                 "changeEquips": changeEquips
             });
+        });
+
+        $('#btn-cal-set-custom').click(function () {
+            if (!currentRule) {
+                alert("请加载规则");
+                return;
+            }
+
+            $('#cal-self-select-table').DataTable().clear().rows.add($("#cal-optimal-results-table").DataTable().data());
+            calCustomResults(currentRule, data);
         });
     }
 
