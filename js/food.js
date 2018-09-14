@@ -1820,7 +1820,7 @@ function initCalTables(data) {
     initCalResultsTable(data);
     initCalRules(data);
 
-    if (private) {
+    if (cal) {
         $("#pane-cal").addClass("admin");
 
         initCalRecipesTable(data);
@@ -2451,7 +2451,7 @@ function loadRule(data, rule) {
     $("#pane-cal-self-select .selected-sum").html("请选择");
     $("#pane-cal-self-select .selected-sum-2").html("");
 
-    if (private) {
+    if (cal) {
         $('#cal-recipes-table').DataTable().clear().rows.add(recipes).draw();
         $('#cal-recipes-table').DataTable().rows().select();
 
