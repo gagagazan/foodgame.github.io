@@ -68,7 +68,7 @@ function initFunction() {
 
 function initTables(data, person) {
 
-    updateMenu(data, person);
+    updateMenu(person);
 
     initRecipeTable(data);
 
@@ -88,6 +88,8 @@ function initTables(data, person) {
     }
 
     initInfo(data);
+
+    initVersionTip(person);
 
     $('.loading').addClass("hidden");
     $('.main-function').removeClass("hidden");
@@ -1571,7 +1573,7 @@ function importData(data, input) {
     }
     $("#select-cal-rule").append(options).selectpicker('refresh');
 
-    updateMenu(data, person);
+    updateMenu(person);
 
     if (person.decorationEffect) {
         data.decorationEffect = person.decorationEffect;
@@ -1661,6 +1663,24 @@ function updateDecorationLocalData() {
     }
 
     person["decorationEffect"] = Number($("#input-cal-decoration").val());
+
+    try {
+        localStorage.setItem('data', JSON.stringify(person));
+    } catch (e) { }
+}
+
+function updateVersionLocalData() {
+    var person;
+    try {
+        var localData = localStorage.getItem('data');
+        person = JSON.parse(localData);
+    } catch (e) { }
+
+    if (!person) {
+        person = new Object();
+    }
+
+    person["version"] = Number($("#alert-version").attr("data-version"));
 
     try {
         localStorage.setItem('data', JSON.stringify(person));
@@ -1760,7 +1780,7 @@ function generateMenuExportData() {
     return exportData;
 }
 
-function updateMenu(data, person) {
+function updateMenu(person) {
     if (person && person.menu) {
         var recipeMenu = person.menu.recipe;
         if (recipeMenu) {
@@ -4725,6 +4745,24 @@ function historyTemplate(data) {
     });
     html += "</table>"
     return html;
+}
+
+function initVersionTip(person) {
+    if ($("#alert-version").attr("data-show") == "true"){
+        var showTip = true;
+        if (person && person.version) {
+            if (Number(person.version) == Number($("#alert-version").attr("data-version"))) {
+                showTip = false;
+            }
+        }
+        if (showTip) {
+            $("#alert-version").removeClass("hidden");
+        }
+    
+        $('#alert-version').on('close.bs.alert', function () {
+            updateVersionLocalData();
+        })
+    }
 }
 
 $.fn.dataTable.Api.register('MakeCellsEditable()', function (settings) {

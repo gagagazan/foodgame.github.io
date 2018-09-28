@@ -415,3 +415,10 @@ table.history-table tr td.history-dt {
     border-radius: 4px;
     margin-left: 10px;
 }
+
+#alert-version {
+    position: absolute;
+    right: 5px;
+    top: 0;
+    padding: 8px 30px 8px 20px;
+}

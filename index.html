@@ -8,9 +8,9 @@
     <link rel="stylesheet" type="text/css" href="css/style.min.css?v=3" />
     <script type="text/javascript" src="js/script.min.js?v=9"></script>
     <script type="text/javascript" src="js/common.min.js?v=26"></script>
-    <link rel="stylesheet" type="text/css" href="css/food.min.css?v=26" />
-    <script type="text/javascript" src="js/food.min.js?v=101"></script>
-    <link rel="stylesheet" type="text/css" href="css/image.css?v=5" />
+    <link rel="stylesheet" type="text/css" href="css/food.min.css?v=27" />
+    <script type="text/javascript" src="js/food.min.js?v=102"></script>
+    <link rel="stylesheet" type="text/css" href="css/image.css?v=6" />
 </head>
 
 <body>
@@ -21,6 +21,9 @@
     <div class="loading loading-bg"></div>
 
     <div class="main-function hidden">
+        <div id="alert-version" class="alert alert-info alert-dismissible hidden" data-version="1" data-show="false">
+            <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+        </div>
         <ul class="nav nav-tabs">
             <li class="active">
                 <a href="#pane-recipes" data-toggle="tab">菜谱</a>
@@ -821,7 +824,6 @@
                     </ul>
                     <div class="tab-content">
                         <div id="pane-cal-rules" class="tab-pane active">
-                            <!--<div class="alert alert-info">本周厨神规则明确, 特例提供非御前计算器.</div>-->
                             <div>
                                 <div class="box form-inline">
                                     <select id="select-cal-rule" class="selectpicker" data-live-search='true' data-width='auto'
