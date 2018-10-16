@@ -818,7 +818,7 @@ function initChefTable(data) {
         var chkFemale = $('#chk-chef-gender-female').prop("checked");
         var gender = data[15];  // gender
 
-        if (chkMale && gender == "男" || chkFemale && gender == "女") {
+        if (chkMale && gender == "男" || chkFemale && gender == "女" || chkMale && chkFemale) {
             return true;
         }
         else {
@@ -4748,7 +4748,7 @@ function historyTemplate(data) {
 }
 
 function initVersionTip(person) {
-    if ($("#alert-version").attr("data-show") == "true"){
+    if ($("#alert-version").attr("data-show") == "true") {
         var showTip = true;
         if (person && person.version) {
             if (Number(person.version) == Number($("#alert-version").attr("data-version"))) {
@@ -4758,7 +4758,7 @@ function initVersionTip(person) {
         if (showTip) {
             $("#alert-version").removeClass("hidden");
         }
-    
+
         $('#alert-version').on('close.bs.alert', function () {
             updateVersionLocalData();
         })
