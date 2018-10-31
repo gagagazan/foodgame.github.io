@@ -422,3 +422,26 @@ table.history-table tr td.history-dt {
     top: 0;
     padding: 8px 30px 8px 20px;
 }
+
+#material-table th {
+    text-align: center;
+    border-bottom-width: 1px;
+}
+
+#material-table td {
+    text-align: center;
+}
+
+#material-table tbody tr:last-child {
+    background: #eee;
+    font-weight: bold;
+    color: #337ab7;
+}
+
+#input-material-skill {
+    width: 60px;
+}
+
+#input-material-addition {
+    width: 60px;
+}

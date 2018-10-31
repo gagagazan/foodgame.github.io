@@ -76,6 +76,8 @@ function initTables(data, person) {
 
     initEquipTable(data);
 
+    initMaterialTable(data);
+
     initQuestTable(data);
 
     initImportExport(data);
@@ -1364,6 +1366,85 @@ function initEquipTable(data) {
     }
 
     initEquipShow();
+}
+
+function initMaterialTable(data) {
+
+    for (var i in data.maps) {
+        $("#select-material-origin").append("<option value='" + data.maps[i].name + "'>" + data.maps[i].name + "</option>");
+    }
+
+    reInitMaterialTable(data);
+
+    $('#select-material-origin').change(function () {
+        reInitMaterialTable(data);
+    });
+
+    $("#chk-material-season").click(function () {
+        var materialsData = getMaterialsData(data);
+        $('#material-table').DataTable().clear().rows.add(materialsData).draw();
+    });
+
+    $("#input-material-addition, #input-material-skill").keyup(function () {
+        var materialsData = getMaterialsData(data);
+        $('#material-table').DataTable().clear().rows.add(materialsData).draw();
+    });
+}
+
+function reInitMaterialTable(data) {
+    var materialColumns = [
+        {
+            "data": "name"
+        },
+        {
+            "data": "skill",
+            "defaultContent": ""
+        }
+    ];
+
+    if ($.fn.DataTable.isDataTable('#material-table')) {
+        $('#material-table').DataTable().destroy();
+    };
+
+    var origin = $('#select-material-origin').val();
+
+    var map;
+    for (var i in data.maps) {
+        if (origin == data.maps[i].name) {
+            map = data.maps[i];
+            break;
+        }
+    }
+
+    $('#material-table thead tr').first().html("").append("<th rowspan='2'>食材</th><th rowspan='2'>点数</th>");
+    $('#material-table thead tr').last().html("");
+    for (var i in map.time) {
+        $('#material-table thead tr').first().append("<th colspan='2'>" + secondsToTime(map.time[i]) + "</th>");
+        $('#material-table thead tr').last().append("<th>最小</th><th>最大</th>");
+
+        materialColumns.push({
+            "data": "time." + i + ".0"
+        });
+
+        materialColumns.push({
+            "data": "time." + i + ".1"
+        });
+    }
+
+    var materialsData = getMaterialsData(data, map);
+
+    var materialTable = $('#material-table').DataTable({
+        data: materialsData,
+        columns: materialColumns,
+        dom: "<'row'<'col-sm-12'tr>>",
+        paging: false,
+        ordering: false,
+        info: false,
+        deferRender: true,
+        autoWidth: false
+    });
+
+    materialTable.draw();
 }
 
 function initQuestTable(data) {
@@ -3837,6 +3918,8 @@ function generateData(json, json2, person) {
         json.activities = json.activities.concat(json2.activities);
     }
 
+    retData["maps"] = json.maps;
+
     retData["activities"] = json.activities;
 
     retData["guests"] = json.guests;
@@ -4160,6 +4243,67 @@ function getQuestsData(quests, type) {
             retData.push(quests[i]);
         }
     }
+    return retData;
+}
+
+function getMaterialsData(data, map) {
+    if (!map) {
+        var origin = $('#select-material-origin').val();
+        for (var i in data.maps) {
+            if (origin == data.maps[i].name) {
+                map = data.maps[i];
+                break;
+            }
+        }
+    }
+
+    var materials = map.materials;
+    var retData = new Array();
+    var isSeason = $("#chk-material-season").prop("checked");
+    var addition = Number($("#input-material-addition").val());
+    var skill = $("#input-material-skill").val();
+    for (var i in materials) {
+        var materialData = new Object();
+        materialData["name"] = materials[i].name;
+        materialData["skill"] = materials[i].skill;
+        materialData["time"] = new Array();
+
+        for (var j in materials[i].quantity) {
+            var min = 0;
+            var max = 0;
+            if (skill == "" || Number(skill) >= materials[i].skill) {
+                min = materials[i].quantity[j][0];
+                max = materials[i].quantity[j][1];
+                if (isSeason) {
+                    min += materials[i].season[j];
+                    max += materials[i].season[j];
+                }
+                if (addition) {
+                    min = Math.ceil(+(min * (1 + addition / 100)).toFixed(2));
+                    max = Math.ceil(+(max * (1 + addition / 100)).toFixed(2));
+                }
+            }
+            materialData["time"].push([min, max]);
+        }
+
+        retData.push(materialData);
+    }
+
+    var sumData = new Object();
+    sumData["name"] = "总计";
+    sumData["time"] = new Array();
+    for (var i in map.time) {
+        var min = 0;
+        var max = 0;
+        for (var j in retData) {
+            min += retData[j]["time"][i][0];
+            max += retData[j]["time"][i][1];
+        }
+        sumData["time"].push([min, max]);
+    }
+
+    retData.push(sumData);
+
     return retData;
 }
 

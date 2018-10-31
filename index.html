@@ -8,8 +8,8 @@
     <link rel="stylesheet" type="text/css" href="css/style.min.css?v=3" />
     <script type="text/javascript" src="js/script.min.js?v=9"></script>
     <script type="text/javascript" src="js/common.min.js?v=26"></script>
-    <link rel="stylesheet" type="text/css" href="css/food.min.css?v=27" />
-    <script type="text/javascript" src="js/food.min.js?v=102"></script>
+    <link rel="stylesheet" type="text/css" href="css/food.min.css?v=28" />
+    <script type="text/javascript" src="js/food.min.js?v=103"></script>
     <link rel="stylesheet" type="text/css" href="css/image.css?v=10" />
 </head>
 
@@ -34,6 +34,9 @@
             </li>
             <li>
                 <a href="#pane-equips" data-toggle="tab">厨具</a>
+            </li>
+            <li>
+                <a href="#pane-materials" data-toggle="tab">采集</a>
             </li>
             <li>
                 <a href="#pane-quest" data-toggle="tab">任务</a>
@@ -750,6 +753,35 @@
                                 <th>技能</th>
                                 <th>来源</th>
                             </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            <div id="pane-materials" class="tab-pane">
+                <div>
+                    <div class="box1 form-inline">
+                        <select id="select-material-origin" class="form-control"></select>
+                        <label class="btn btn-default">
+                            <input type="checkbox" id="chk-material-season">
+                            <i class="fa fa-check glyphicon glyphicon-ok"></i>
+                            季节加成
+                        </label>
+                        <div class="input-group">
+                            <div class="input-group-addon">技能加成</div>
+                            <input type="text" class="form-control" id="input-material-addition" placeholder="0">
+                            <div class="input-group-addon">%</div>
+                        </div>
+                        <div class="input-group">
+                            <div class="input-group-addon">采集点数</div>
+                            <input type="text" class="form-control" id="input-material-skill" placeholder="不限">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <table id="material-table" class="table table-hover table-bordered" width="100%">
+                        <thead>
+                            <tr></tr>
+                            <tr></tr>
                         </thead>
                     </table>
                 </div>
@@ -1567,6 +1599,11 @@
                 <p>可以选择类别进行筛选.</p>
                 <br>
                 <h4>
+                    <span class="label label-info">采集</span>
+                </h4>
+                <p>计算短时间采集, 输入采集点数, 以过滤掉并采集不到的材料</p>
+                <br>
+                <h4>
                     <span class="label label-info">任务图鉴</span>
                 </h4>
                 <p>主线任务更新到580/600, 每隔一段时间会更新.</p>
@@ -1584,7 +1621,6 @@
                 <p>下方的所有菜谱列表中的总分数包含了规则加成, 修炼加成, 装饰加成.</p>
                 <p>黑色字体的总时间都不包含厨师厨具的加成, 最终时间看上方的蓝色字体总时间</p>
                 <br>
-                <p>开放计算器是因为主线支线计算器没人更新维护. 限时和厨神计算器都有人做, 我就不做了</p>
                 <p>如需要其他支线计算器或发现计算结果与游戏不符可以联系我</p>
                 <br>
                 <h4>
