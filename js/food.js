@@ -76,6 +76,8 @@ function initTables(data, person) {
 
     initEquipTable(data);
 
+    initDecorationTable(data);
+
     initMaterialTable(data);
 
     initQuestTable(data);
@@ -1368,6 +1370,207 @@ function initEquipTable(data) {
     initEquipShow();
 }
 
+function initDecorationTable(data) {
+    var decorationColumns = [
+        {
+            "data": "id",
+            "width": "1px"
+        },
+        {
+            "data": "icon",
+            "className": "td-equip-icon",
+            "orderable": false,
+            "searchable": false
+        },
+        {
+            "data": "name"
+        },
+        {
+            "data": "gold"
+        },
+        {
+            "data": "tipMin"
+        },
+        {
+            "data": "tipMax"
+        },
+        {
+            "data": {
+                "_": "tipTime",
+                "display": "tipTimeDisp"
+            }
+        },
+        {
+            "data": "minEff",
+            "defaultContent": ""
+        },
+        {
+            "data": "maxEff",
+            "defaultContent": ""
+        },
+        {
+            "data": "avgEff",
+            "defaultContent": ""
+        },
+        {
+            "data": "position"
+        },
+        {
+            "data": "suit"
+        },
+        {
+            "data": "suitGold"
+        },
+        {
+            "data": "origin"
+        }
+    ];
+
+    var decorationTable = $('#decoration-table').DataTable({
+        data: data.decorations,
+        columns: decorationColumns,
+        language: {
+            search: "查找:",
+            lengthMenu: "一页显示 _MENU_ 个",
+            zeroRecords: "没有找到",
+            info: "第 _PAGE_ 页 共 _PAGES_ 页 _TOTAL_ 个装饰",
+            infoEmpty: "没有数据",
+            infoFiltered: "(从 _MAX_ 个装饰中过滤)"
+        },
+        pagingType: "numbers",
+        lengthMenu: [[10, 20, 50, 100, -1], [10, 20, 50, 100, "所有"]],
+        pageLength: 20,
+        dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'i><'col-sm-4'<'search-box'>>>" +
+            "<'row'<'col-sm-12'tr>>" +
+            "<'row'<'col-sm-12'p>>",
+        deferRender: true,
+        autoWidth: false
+    });
+
+    $("#pane-decorations div.search-box").html('<label>查找:<input type="search" class="form-control input-sm" placeholder="名字 套装 来源"></label>');
+
+    $.fn.dataTableExt.afnFiltering.push(function (settings, data, dataIndex, rowData, counter) {
+        if (settings.nTable != document.getElementById('decoration-table')) {
+            return true;
+        }
+
+        var position = rowData.position;
+
+        if ($('#chk-decoration-position-1').prop("checked") && position == "1大桌"
+            || $('#chk-decoration-position-2').prop("checked") && position == "1小桌"
+            || $('#chk-decoration-position-3').prop("checked") && position == "2大桌"
+            || $('#chk-decoration-position-4').prop("checked") && position == "2小桌"
+            || $('#chk-decoration-position-5').prop("checked") && position == "3大桌"
+            || $('#chk-decoration-position-6').prop("checked") && position == "3小桌"
+            || $('#chk-decoration-position-7').prop("checked") && position == "1窗"
+            || $('#chk-decoration-position-8').prop("checked") && position == "1装饰"
+            || $('#chk-decoration-position-9').prop("checked") && position == "1门"
+            || $('#chk-decoration-position-10').prop("checked") && position == "1灯"
+            || $('#chk-decoration-position-11').prop("checked") && position == "2装饰"
+            || $('#chk-decoration-position-12').prop("checked") && position == "2门"
+            || $('#chk-decoration-position-13').prop("checked") && position == "2窗"
+            || $('#chk-decoration-position-14').prop("checked") && position == "2屏风"
+            || $('#chk-decoration-position-15').prop("checked") && position == "3灯"
+            || $('#chk-decoration-position-16').prop("checked") && position == "3包间"
+        ) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    });
+
+    $.fn.dataTableExt.afnFiltering.push(function (settings, data, dataIndex, rowData, counter) {
+        if (settings.nTable != document.getElementById('decoration-table')) {
+            return true;
+        }
+
+        var origin = rowData.origin;
+
+        var check = $('#chk-decoration-no-origin').prop("checked");
+
+        if (check || !check && origin) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    });
+
+    $.fn.dataTableExt.afnFiltering.push(function (settings, data, dataIndex) {
+        if (settings.nTable != document.getElementById('decoration-table')) {
+            return true;
+        }
+
+        var value = $.trim($("#pane-decorations .search-box input").val());
+        var searchCols = [2, 11, 13];    // name, suit, origin
+
+        for (var i = 0, len = searchCols.length; i < len; i++) {
+            if (data[searchCols[i]].indexOf(value) !== -1) {
+                return true;
+            }
+        }
+
+        return false;
+    });
+
+    $('.chk-decoration-show').click(function () {
+        initDecorationShow();
+        updateMenuLocalData();
+    });
+
+    $('#chk-decoration-show-all').click(function () {
+        if ($('.chk-decoration-show:checked').length == $('.chk-decoration-show').length) {
+            $('.chk-decoration-show').prop("checked", false);
+        }
+        else {
+            $('.chk-decoration-show').prop("checked", true);
+        }
+        initDecorationShow();
+        updateMenuLocalData();
+    });
+
+    $('.chk-decoration-position').click(function () {
+        if ($(this).prop("checked")) {
+            if ($('#chk-decoration-single-position').prop("checked")) {
+                $(".chk-decoration-position").not(this).prop("checked", false);
+            }
+        }
+        decorationTable.draw();
+    });
+
+    $('#chk-decoration-single-position').change(function () {
+        if ($(this).prop("checked")) {
+            if ($('.chk-decoration-position:checked').length > 1) {
+                $('.chk-decoration-position').prop("checked", false);
+                decorationTable.draw();
+            }
+        }
+    });
+
+    $('#chk-decoration-position-all').click(function () {
+        if ($('#chk-decoration-single-position').prop("checked")) {
+            $('#chk-decoration-single-position').bootstrapToggle('off')
+        }
+        $(".chk-decoration-position").prop("checked", true);
+        decorationTable.draw();
+    });
+
+    $('#chk-decoration-no-origin').click(function () {
+        decorationTable.draw();
+    });
+
+    $('#pane-decorations .search-box input').keyup(function () {
+        decorationTable.draw();
+    });
+
+    if (private) {
+        $('#chk-decoration-no-origin').closest(".box").removeClass('hidden');
+    }
+
+    initDecorationShow();
+}
+
 function initMaterialTable(data) {
 
     for (var i in data.maps) {
@@ -1858,6 +2061,18 @@ function generateMenuExportData() {
     equipMenu["origin"] = $("#chk-equip-show-origin").prop("checked");
     exportData["equip"] = equipMenu;
 
+    var decorationMenu = new Object();
+    decorationMenu["id"] = $("#chk-decoration-show-id").prop("checked");
+    decorationMenu["icon"] = $("#chk-decoration-show-icon").prop("checked");
+    decorationMenu["minEff"] = $("#chk-decoration-show-min-eff").prop("checked");
+    decorationMenu["maxEff"] = $("#chk-decoration-show-max-eff").prop("checked");
+    decorationMenu["avgEff"] = $("#chk-decoration-show-avg-eff").prop("checked");
+    decorationMenu["position"] = $("#chk-decoration-show-position").prop("checked");
+    decorationMenu["suit"] = $("#chk-decoration-show-suit").prop("checked");
+    decorationMenu["suitGold"] = $("#chk-decoration-show-suit-gold").prop("checked");
+    decorationMenu["origin"] = $("#chk-decoration-show-origin").prop("checked");
+    exportData["decoration"] = decorationMenu;
+
     return exportData;
 }
 
@@ -1912,6 +2127,19 @@ function updateMenu(person) {
             $("#chk-equip-show-rarity").prop("checked", equipMenu.rarity || false);
             $("#chk-equip-show-skill").prop("checked", equipMenu.skill || false);
             $("#chk-equip-show-origin").prop("checked", equipMenu.origin || false);
+        }
+
+        var decorationMenu = person.menu.decoration;
+        if (decorationMenu) {
+            $("#chk-decoration-show-id").prop("checked", decorationMenu.id || false);
+            $("#chk-decoration-show-icon").prop("checked", decorationMenu.icon || false);
+            $("#chk-decoration-show-min-eff").prop("checked", decorationMenu.minEff || false);
+            $("#chk-decoration-show-max-eff").prop("checked", decorationMenu.maxEff || false);
+            $("#chk-decoration-show-avg-eff").prop("checked", decorationMenu.avgEff || false);
+            $("#chk-decoration-show-position").prop("checked", decorationMenu.position || false);
+            $("#chk-decoration-show-suit").prop("checked", decorationMenu.suit || false);
+            $("#chk-decoration-show-suit-gold").prop("checked", decorationMenu.suitGold || false);
+            $("#chk-decoration-show-origin").prop("checked", decorationMenu.origin || false);
         }
     }
 }
@@ -2399,7 +2627,7 @@ function loadRule(data, rule) {
     var recipes = new Array();
     for (var i in allRecipes) {
 
-        if (allRecipes[i].ignore) {
+        if (allRecipes[i].hide) {
             continue;
         }
 
@@ -2447,7 +2675,7 @@ function loadRule(data, rule) {
     var chefs = new Array();
     for (var i in allChefs) {
 
-        if (allChefs[i].ignore) {
+        if (allChefs[i].hide) {
             continue;
         }
 
@@ -2490,13 +2718,10 @@ function loadRule(data, rule) {
     var equips = new Array();
     for (var i in allEquips) {
 
-        if (allEquips[i].ignore) {
+        if (allEquips[i].hide) {
             continue;
         }
 
-        if (!allEquips[i].origin) {
-            continue;
-        }
         equips.push(allEquips[i]);
     }
 
@@ -3901,15 +4126,19 @@ function generateData(json, json2, person) {
 
     if (json2) {
         for (var i in json2.equips) {
-            json2.equips[i]["ignore"] = true;
+            json2.equips[i]["hide"] = true;
+        }
+        for (var i in json2.decorations) {
+            json2.decorations[i]["hide"] = true;
         }
         for (var i in json2.recipes) {
-            json2.recipes[i]["ignore"] = true;
+            json2.recipes[i]["hide"] = true;
         }
         for (var i in json2.chefs) {
-            json2.chefs[i]["ignore"] = true;
+            json2.chefs[i]["hide"] = true;
         }
         json.equips = json.equips.concat(json2.equips);
+        json.decorations = json.decorations.concat(json2.decorations);
         json.quests = json.quests.concat(json2.quests);
         json.recipes = json.recipes.concat(json2.recipes);
         json.chefs = json.chefs.concat(json2.chefs);
@@ -3967,15 +4196,37 @@ function generateData(json, json2, person) {
         }
         equip["skillFilter"] = skillFilter;
 
-        if (json.equips[i].origin) {
-            equip["icon"] = "<div class='icon-equip equip_" + json.equips[i].equipId + "'></div>";
-        } else {
+        if (json.equips[i].hide) {
             equip["icon"] = "<div class='icon-equip2 equip_" + json.equips[i].equipId + "'></div>";
+        } else {
+            equip["icon"] = "<div class='icon-equip equip_" + json.equips[i].equipId + "'></div>";
         }
 
         equipsData.push(equip);
     }
     retData["equips"] = equipsData;
+
+    var decorationsData = new Array();
+    for (var i in json.decorations) {
+        var decoration = json.decorations[i];
+        decoration.tipMin = decoration.tipMin || "";
+        decoration.tipMax = decoration.tipMax || "";
+        decoration["tipTimeDisp"] = secondsToTime(decoration.tipTime);
+        if (decoration.tipTime) {
+            decoration["minEff"] = Math.floor(decoration.tipMin * 3600 * 24 / decoration.tipTime);
+            decoration["maxEff"] = Math.floor(decoration.tipMax * 3600 * 24 / decoration.tipTime);
+            decoration["avgEff"] = Math.floor((decoration.tipMin + decoration.tipMax) / 2 * 3600 * 24 / decoration.tipTime);
+        }
+
+        if (json.decorations[i].hide) {
+            decoration.icon = "<div class='icon-decoration2 decoration_" + decoration.icon + "'></div>";
+        } else {
+            decoration.icon = "<div class='icon-decoration decoration_" + decoration.icon + "'></div>";
+        }
+
+        decorationsData.push(decoration);
+    }
+    retData["decorations"] = decorationsData;
 
     var questsData = new Array();
     for (var i in json.quests) {
@@ -4021,10 +4272,10 @@ function generateData(json, json2, person) {
 
         chefData["rarityDisp"] = getRarityDisp(json.chefs[i].rarity);
 
-        if (json.chefs[i].origin) {
-            chefData["icon"] = "<div class='icon-chef chef_" + json.chefs[i].chefId + "'></div>";
-        } else {
+        if (json.chefs[i].hide) {
             chefData["icon"] = "<div class='icon-chef2 chef_" + json.chefs[i].chefId + "'></div>";
+        } else {
+            chefData["icon"] = "<div class='icon-chef chef_" + json.chefs[i].chefId + "'></div>";
         }
 
         var skillInfo = getSkillInfo(json.skills, json.chefs[i].skill);
@@ -4097,12 +4348,6 @@ function generateData(json, json2, person) {
             continue;
         }
 
-        if (!json.recipes[i].origin) {
-            if (!cal) {
-                continue;
-            }
-        }
-
         var recipeData = new Object();
         recipeData = json.recipes[i];
 
@@ -4119,10 +4364,10 @@ function generateData(json, json2, person) {
         recipeData["timeDisp"] = secondsToTime(json.recipes[i].time);
         recipeData["rarityDisp"] = getRarityDisp(json.recipes[i].rarity);
 
-        if (json.recipes[i].origin) {
-            recipeData["icon"] = "<div class='icon-recipe recipe_" + json.recipes[i].recipeId + "'></div>";
-        } else {
+        if (json.recipes[i].hide) {
             recipeData["icon"] = "<div class='icon-recipe2 recipe_" + json.recipes[i].recipeId + "'></div>";
+        } else {
+            recipeData["icon"] = "<div class='icon-recipe recipe_" + json.recipes[i].recipeId + "'></div>";
         }
 
         recipeData["tags"] = json.recipes[i].tags || {};
@@ -4454,7 +4699,7 @@ function getUltimateData(chefs, person, skills, useUltimate, usePerson) {
                         }
                     }
                 } else {
-                    if (chefs[i].origin) {
+                    if (!chefs[i].hide) {
                         valid = true;
                     }
                 }
@@ -4750,6 +4995,22 @@ function initEquipShow() {
     equipTable.column(5).visible($('#chk-equip-show-origin').prop("checked"), false);
 
     equipTable.columns.adjust().draw(false);
+}
+
+function initDecorationShow() {
+    var decorationTable = $('#decoration-table').DataTable();
+
+    decorationTable.column(0).visible($('#chk-decoration-show-id').prop("checked"), false);
+    decorationTable.column(1).visible($('#chk-decoration-show-icon').prop("checked"), false);
+    decorationTable.column(7).visible($('#chk-decoration-show-min-eff').prop("checked"), false);
+    decorationTable.column(8).visible($('#chk-decoration-show-max-eff').prop("checked"), false);
+    decorationTable.column(9).visible($('#chk-decoration-show-avg-eff').prop("checked"), false);
+    decorationTable.column(10).visible($('#chk-decoration-show-position').prop("checked"), false);
+    decorationTable.column(11).visible($('#chk-decoration-show-suit').prop("checked"), false);
+    decorationTable.column(12).visible($('#chk-decoration-show-suit-gold').prop("checked"), false);
+    decorationTable.column(13).visible($('#chk-decoration-show-origin').prop("checked"), false);
+
+    decorationTable.columns.adjust().draw(false);
 }
 
 function initQuestShow(questTable) {

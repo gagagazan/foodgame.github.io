@@ -8,9 +8,9 @@
     <link rel="stylesheet" type="text/css" href="css/style.min.css?v=3" />
     <script type="text/javascript" src="js/script.min.js?v=9"></script>
     <script type="text/javascript" src="js/common.min.js?v=26"></script>
-    <link rel="stylesheet" type="text/css" href="css/food.min.css?v=28" />
-    <script type="text/javascript" src="js/food.js?v=103"></script>
-    <link rel="stylesheet" type="text/css" href="css/image.css?v=10" />
+    <link rel="stylesheet" type="text/css" href="css/food.min.css?v=29" />
+    <script type="text/javascript" src="js/food.min.js?v=104"></script>
+    <link rel="stylesheet" type="text/css" href="css/image.css?v=11" />
 </head>
 
 <body>
@@ -767,9 +767,29 @@
                             全选
                         </a>
                         <label class="btn btn-default">
+                            <input type="checkbox" id="chk-decoration-show-id" class="chk-decoration-show">
+                            <i class="fa fa-check glyphicon glyphicon-ok"></i>
+                            编号
+                        </label>
+                        <label class="btn btn-default">
                             <input type="checkbox" id="chk-decoration-show-icon" class="chk-decoration-show">
                             <i class="fa fa-check glyphicon glyphicon-ok"></i>
                             图
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="checkbox" id="chk-decoration-show-min-eff" class="chk-decoration-show">
+                            <i class="fa fa-check glyphicon glyphicon-ok"></i>
+                            最小玉璧/天
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="checkbox" id="chk-decoration-show-max-eff" class="chk-decoration-show">
+                            <i class="fa fa-check glyphicon glyphicon-ok"></i>
+                            最大玉璧/天
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="checkbox" id="chk-decoration-show-avg-eff" class="chk-decoration-show" checked>
+                            <i class="fa fa-check glyphicon glyphicon-ok"></i>
+                            平均玉璧/天
                         </label>
                         <label class="btn btn-default">
                             <input type="checkbox" id="chk-decoration-show-position" class="chk-decoration-show">
@@ -784,7 +804,7 @@
                         <label class="btn btn-default">
                             <input type="checkbox" id="chk-decoration-show-suit-gold" class="chk-decoration-show" checked>
                             <i class="fa fa-check glyphicon glyphicon-ok"></i>
-                            套装效果
+                            套装加成
                         </label>
                         <label class="btn btn-default">
                             <input type="checkbox" id="chk-decoration-show-origin" class="chk-decoration-show">
@@ -798,11 +818,85 @@
                         <label class="btn btn-default">
                             <input type="checkbox" id="chk-decoration-position-1" class="chk-decoration-position" checked>
                             <i class="fa fa-check glyphicon glyphicon-ok"></i>
-                            位置1
+                            1大桌
                         </label>
-
-                        <input type="checkbox" id="chk-decoration-single-position" data-toggle="toggle" data-on="单选" data-off="多选" data-onstyle="default"
-                            data-width="67px">
+                        <label class="btn btn-default">
+                            <input type="checkbox" id="chk-decoration-position-2" class="chk-decoration-position" checked>
+                            <i class="fa fa-check glyphicon glyphicon-ok"></i>
+                            1小桌
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="checkbox" id="chk-decoration-position-3" class="chk-decoration-position" checked>
+                            <i class="fa fa-check glyphicon glyphicon-ok"></i>
+                            2大桌
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="checkbox" id="chk-decoration-position-4" class="chk-decoration-position" checked>
+                            <i class="fa fa-check glyphicon glyphicon-ok"></i>
+                            2小桌
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="checkbox" id="chk-decoration-position-5" class="chk-decoration-position" checked>
+                            <i class="fa fa-check glyphicon glyphicon-ok"></i>
+                            3大桌
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="checkbox" id="chk-decoration-position-6" class="chk-decoration-position" checked>
+                            <i class="fa fa-check glyphicon glyphicon-ok"></i>
+                            3小桌
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="checkbox" id="chk-decoration-position-7" class="chk-decoration-position" checked>
+                            <i class="fa fa-check glyphicon glyphicon-ok"></i>
+                            1窗
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="checkbox" id="chk-decoration-position-8" class="chk-decoration-position" checked>
+                            <i class="fa fa-check glyphicon glyphicon-ok"></i>
+                            1装饰
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="checkbox" id="chk-decoration-position-9" class="chk-decoration-position" checked>
+                            <i class="fa fa-check glyphicon glyphicon-ok"></i>
+                            1门
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="checkbox" id="chk-decoration-position-10" class="chk-decoration-position" checked>
+                            <i class="fa fa-check glyphicon glyphicon-ok"></i>
+                            1灯
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="checkbox" id="chk-decoration-position-11" class="chk-decoration-position" checked>
+                            <i class="fa fa-check glyphicon glyphicon-ok"></i>
+                            2装饰
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="checkbox" id="chk-decoration-position-12" class="chk-decoration-position" checked>
+                            <i class="fa fa-check glyphicon glyphicon-ok"></i>
+                            2门
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="checkbox" id="chk-decoration-position-13" class="chk-decoration-position" checked>
+                            <i class="fa fa-check glyphicon glyphicon-ok"></i>
+                            2窗
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="checkbox" id="chk-decoration-position-14" class="chk-decoration-position" checked>
+                            <i class="fa fa-check glyphicon glyphicon-ok"></i>
+                            2屏风
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="checkbox" id="chk-decoration-position-15" class="chk-decoration-position" checked>
+                            <i class="fa fa-check glyphicon glyphicon-ok"></i>
+                            3灯
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="checkbox" id="chk-decoration-position-16" class="chk-decoration-position" checked>
+                            <i class="fa fa-check glyphicon glyphicon-ok"></i>
+                            3包间
+                        </label>
+                        <input type="checkbox" id="chk-decoration-single-position" data-toggle="toggle" data-on="单选" data-off="多选"
+                            data-onstyle="default" data-width="67px">
                         <a id="chk-decoration-position-all" class="btn btn-default">
                             全选
                         </a>
@@ -819,15 +913,19 @@
                     <table id="decoration-table" class="table table-hover table-bordered" width="100%">
                         <thead>
                             <tr>
+                                <th>No.</th>
                                 <th></th>
                                 <th>名字</th>
+                                <th>收入加成</th>
                                 <th>最小玉璧</th>
                                 <th>最大玉璧</th>
                                 <th>冷却时间</th>
-                                <th>收入加成</th>
+                                <th>最小玉璧/天</th>
+                                <th>最大玉璧/天</th>
+                                <th>平均玉璧/天</th>
                                 <th>位置</th>
                                 <th>套装</th>
-                                <th>套装效果</th>
+                                <th>套装加成</th>
                                 <th>来源</th>
                             </tr>
                         </thead>
@@ -1676,9 +1774,14 @@
                 <p>可以选择类别进行筛选.</p>
                 <br>
                 <h4>
-                    <span class="label label-info">采集</span>
+                    <span class="label label-info">装修图签</span>
                 </h4>
-                <p>计算短时间采集, 输入采集点数, 以过滤掉并采集不到的材料</p>
+                <p>假设玉壁值是均匀分布, 计算的平均玉壁/天(24小时)</p>
+                <br>
+                <h4>
+                    <span class="label label-info">采集计算器</span>
+                </h4>
+                <p>需要时可输入采集点数, 以过滤掉并采集不到的材料</p>
                 <br>
                 <h4>
                     <span class="label label-info">任务图鉴</span>

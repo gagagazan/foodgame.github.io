@@ -373,6 +373,11 @@ td.td-equip-icon {
     height: 35px;
 }
 
+td.td-decoration-icon {
+    width: 64px;
+    height: 64px;
+}
+
 table.history-table tr td {
     border: 0px;
 }
