@@ -9,7 +9,7 @@
     <script type="text/javascript" src="js/script.min.js?v=9"></script>
     <script type="text/javascript" src="js/common.min.js?v=26"></script>
     <link rel="stylesheet" type="text/css" href="css/food.min.css?v=28" />
-    <script type="text/javascript" src="js/food.min.js?v=103"></script>
+    <script type="text/javascript" src="js/food.js?v=103"></script>
     <link rel="stylesheet" type="text/css" href="css/image.css?v=10" />
 </head>
 
@@ -34,6 +34,9 @@
             </li>
             <li>
                 <a href="#pane-equips" data-toggle="tab">厨具</a>
+            </li>
+            <li>
+                <a href="#pane-decorations" data-toggle="tab">装修</a>
             </li>
             <li>
                 <a href="#pane-materials" data-toggle="tab">采集</a>
@@ -64,7 +67,7 @@
                             编号
                         </label>
                         <label class="btn btn-default">
-                            <input type="checkbox" id="chk-recipe-show-icon" class="chk-recipe-show" checked>
+                            <input type="checkbox" id="chk-recipe-show-icon" class="chk-recipe-show">
                             <i class="fa fa-check glyphicon glyphicon-ok"></i>
                             图
                         </label>
@@ -354,7 +357,7 @@
                             编号
                         </label>
                         <label class="btn btn-default">
-                            <input type="checkbox" id="chk-chef-show-icon" class="chk-chef-show" checked>
+                            <input type="checkbox" id="chk-chef-show-icon" class="chk-chef-show">
                             <i class="fa fa-check glyphicon glyphicon-ok"></i>
                             图
                         </label>
@@ -575,7 +578,7 @@
                             编号
                         </label>
                         <label class="btn btn-default">
-                            <input type="checkbox" id="chk-equip-show-icon" class="chk-equip-show" checked>
+                            <input type="checkbox" id="chk-equip-show-icon" class="chk-equip-show">
                             <i class="fa fa-check glyphicon glyphicon-ok"></i>
                             图
                         </label>
@@ -751,6 +754,80 @@
                                 <th>名字</th>
                                 <th>星</th>
                                 <th>技能</th>
+                                <th>来源</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            <div id="pane-decorations" class="tab-pane">
+                <div>
+                    <div class="box">
+                        <a id="chk-decoration-show-all" class="btn btn-default">
+                            全选
+                        </a>
+                        <label class="btn btn-default">
+                            <input type="checkbox" id="chk-decoration-show-icon" class="chk-decoration-show">
+                            <i class="fa fa-check glyphicon glyphicon-ok"></i>
+                            图
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="checkbox" id="chk-decoration-show-position" class="chk-decoration-show">
+                            <i class="fa fa-check glyphicon glyphicon-ok"></i>
+                            位置
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="checkbox" id="chk-decoration-show-suit" class="chk-decoration-show" checked>
+                            <i class="fa fa-check glyphicon glyphicon-ok"></i>
+                            套装
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="checkbox" id="chk-decoration-show-suit-gold" class="chk-decoration-show" checked>
+                            <i class="fa fa-check glyphicon glyphicon-ok"></i>
+                            套装效果
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="checkbox" id="chk-decoration-show-origin" class="chk-decoration-show">
+                            <i class="fa fa-check glyphicon glyphicon-ok"></i>
+                            来源
+                        </label>
+                    </div>
+                </div>
+                <div>
+                    <div class="box">
+                        <label class="btn btn-default">
+                            <input type="checkbox" id="chk-decoration-position-1" class="chk-decoration-position" checked>
+                            <i class="fa fa-check glyphicon glyphicon-ok"></i>
+                            位置1
+                        </label>
+
+                        <input type="checkbox" id="chk-decoration-single-position" data-toggle="toggle" data-on="单选" data-off="多选" data-onstyle="default"
+                            data-width="67px">
+                        <a id="chk-decoration-position-all" class="btn btn-default">
+                            全选
+                        </a>
+                    </div>
+                    <div class="box hidden">
+                        <label class="btn btn-default">
+                            <input type="checkbox" id="chk-decoration-no-origin">
+                            <i class="fa fa-check glyphicon glyphicon-ok"></i>
+                            未出
+                        </label>
+                    </div>
+                </div>
+                <div>
+                    <table id="decoration-table" class="table table-hover table-bordered" width="100%">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>名字</th>
+                                <th>最小玉璧</th>
+                                <th>最大玉璧</th>
+                                <th>冷却时间</th>
+                                <th>收入加成</th>
+                                <th>位置</th>
+                                <th>套装</th>
+                                <th>套装效果</th>
                                 <th>来源</th>
                             </tr>
                         </thead>
