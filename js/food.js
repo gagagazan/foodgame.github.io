@@ -4213,9 +4213,9 @@ function generateData(json, json2, person) {
         decoration.tipMax = decoration.tipMax || "";
         decoration["tipTimeDisp"] = secondsToTime(decoration.tipTime);
         if (decoration.tipTime) {
-            decoration["minEff"] = Math.floor(decoration.tipMin * 3600 * 24 / decoration.tipTime);
-            decoration["maxEff"] = Math.floor(decoration.tipMax * 3600 * 24 / decoration.tipTime);
-            decoration["avgEff"] = Math.floor((decoration.tipMin + decoration.tipMax) / 2 * 3600 * 24 / decoration.tipTime);
+            decoration["minEff"] = +(decoration.tipMin * 3600 * 24 / decoration.tipTime).toFixed(1);
+            decoration["maxEff"] = +(decoration.tipMax * 3600 * 24 / decoration.tipTime).toFixed(1);
+            decoration["avgEff"] = +((decoration.tipMin + decoration.tipMax) / 2 * 3600 * 24 / decoration.tipTime).toFixed(1);
         }
 
         if (json.decorations[i].hide) {
