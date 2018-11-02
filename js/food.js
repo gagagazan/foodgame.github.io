@@ -1684,15 +1684,20 @@ function updateDecorationSum(data) {
     var selectedData = $('#decoration-table').DataTable().rows({ selected: true }).data().toArray();
     var eff = 0;
     var gold = 0;
-    var suitGold = 0;
+    var suits = new Array();
     for (var i in selectedData) {
-        if (selectedData[i].suit && suitGold == 0) {
-            suitGold = getSuitGold(data, selectedData, i);;
+        if (selectedData[i].suit && suits.indexOf(selectedData[i].suit) < 0) {
+            suits.push(selectedData[i].suit);
         }
         if (selectedData[i].avgEff) {
             eff += selectedData[i].avgEff;
         }
         gold += selectedData[i].gold;
+    }
+
+    var suitGold = 0;
+    for (var i in suits){
+        suitGold += getSuitGold(data, selectedData, suits[i]);
     }
 
     var sum = "";
@@ -1702,9 +1707,9 @@ function updateDecorationSum(data) {
     $("#decoration-sum").html(sum);
 }
 
-function getSuitGold(data, selected, index) {
+function getSuitGold(data, selected, suit) {
     for (var i in data.suits) {
-        if (data.suits[i].name == selected[index].suit) {
+        if (data.suits[i].name == suit) {
             for (var j in data.suits[i].decorations) {
                 var exist = false;
                 for (var k in selected) {
@@ -1717,7 +1722,7 @@ function getSuitGold(data, selected, index) {
                     return 0;
                 }
             }
-            return selected[index].suitGold;
+            return data.suits[i].gold;
         }
     }
     return 0;
@@ -4438,6 +4443,7 @@ function generateData(json, json2, person) {
             if (!exist) {
                 var suitData = new Object();
                 suitData["name"] = decoration.suit;
+                suitData["gold"] = decoration.suitGold;
                 suitData["decorations"] = new Array();
                 suitData.decorations.push(decoration.id);
                 suitsData.push(suitData);
