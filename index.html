@@ -8,8 +8,8 @@
     <link rel="stylesheet" type="text/css" href="css/style.min.css?v=3" />
     <script type="text/javascript" src="js/script.min.js?v=9"></script>
     <script type="text/javascript" src="js/common.min.js?v=26"></script>
-    <link rel="stylesheet" type="text/css" href="css/food.min.css?v=29" />
-    <script type="text/javascript" src="js/food.min.js?v=105"></script>
+    <link rel="stylesheet" type="text/css" href="css/food.min.css?v=30" />
+    <script type="text/javascript" src="js/food.min.js?v=106"></script>
     <link rel="stylesheet" type="text/css" href="css/image.css?v=11" />
 </head>
 
@@ -767,6 +767,11 @@
                             全选
                         </a>
                         <label class="btn btn-default">
+                            <input type="checkbox" id="chk-decoration-show-select" class="chk-decoration-show" checked>
+                            <i class="fa fa-check glyphicon glyphicon-ok"></i>
+                            选择
+                        </label>
+                        <label class="btn btn-default">
                             <input type="checkbox" id="chk-decoration-show-id" class="chk-decoration-show">
                             <i class="fa fa-check glyphicon glyphicon-ok"></i>
                             编号
@@ -909,10 +914,22 @@
                         </label>
                     </div>
                 </div>
+                <div class="relative">
+                    <div class="box">
+                        <a id="btn-decoration-deselect-all" class="btn btn-default">
+                            清空选择
+                        </a>
+                        <select id="select-decoration-suit" class="selectpicker" data-live-search='false' data-width='auto'
+                            data-dropdown-align-right='auto' data-live-search-placeholder='查找' data-none-results-text='没有找到'
+                            data-none-selected-text='选择套装'></select>
+                    </div>
+                    <div id="decoration-sum"></div>
+                </div>
                 <div>
                     <table id="decoration-table" class="table table-hover table-bordered" width="100%">
                         <thead>
                             <tr>
+                                <th></th>
                                 <th>No.</th>
                                 <th></th>
                                 <th>名字</th>

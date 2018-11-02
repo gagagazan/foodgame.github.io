@@ -412,7 +412,7 @@ table.history-table tr td.history-dt {
 }
 
 .import-msg {
-    color: #31708f;
+    color: #337ab7;
     background-color: #d9edf7;
     border-color: #bce8f1;
     padding: 6px 20px;
@@ -449,4 +449,18 @@ table.history-table tr td.history-dt {
 
 #input-material-addition {
     width: 60px;
+}
+
+.relative {
+    position: relative;
+}
+
+#decoration-sum {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #337ab7;
+    font-size: 18px;
+    font-weight: bold;
 }

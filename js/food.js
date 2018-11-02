@@ -91,6 +91,12 @@ function initTables(data, person) {
         $('#chk-chef-show-tags').parent(".btn").removeClass('hidden');
     }
 
+    $.fn.dataTable.ext.order['dom-selected'] = function (settings, col) {
+        return this.api().column(col, { order: 'index' }).nodes().map(function (td, i) {
+            return $(td).parent("tr").hasClass("selected") ? '1' : '0';
+        });
+    }
+
     initInfo(data);
 
     initVersionTip(person);
@@ -410,25 +416,32 @@ function reInitRecipeTable(data) {
             "data": {
                 "_": "rarity",
                 "display": "rarityDisp"
-            }
+            },
+            "orderSequence": ["desc", "asc"]
         },
         {
-            "data": "stirfry"
+            "data": "stirfry",
+            "orderSequence": ["desc", "asc"]
         },
         {
-            "data": "boil"
+            "data": "boil",
+            "orderSequence": ["desc", "asc"]
         },
         {
-            "data": "knife"
+            "data": "knife",
+            "orderSequence": ["desc", "asc"]
         },
         {
-            "data": "fry"
+            "data": "fry",
+            "orderSequence": ["desc", "asc"]
         },
         {
-            "data": "bake"
+            "data": "bake",
+            "orderSequence": ["desc", "asc"]
         },
         {
-            "data": "steam"
+            "data": "steam",
+            "orderSequence": ["desc", "asc"]
         },
         {
             "data": {
@@ -437,7 +450,8 @@ function reInitRecipeTable(data) {
             }
         },
         {
-            "data": "price"
+            "data": "price",
+            "orderSequence": ["desc", "asc"]
         },
         {
             "data": {
@@ -446,10 +460,12 @@ function reInitRecipeTable(data) {
             }
         },
         {
-            "data": "limitVal"
+            "data": "limitVal",
+            "orderSequence": ["desc", "asc"]
         },
         {
-            "data": "totalPrice"
+            "data": "totalPrice",
+            "orderSequence": ["desc", "asc"]
         },
         {
             "data": {
@@ -458,10 +474,12 @@ function reInitRecipeTable(data) {
             }
         },
         {
-            "data": "efficiency"
+            "data": "efficiency",
+            "orderSequence": ["desc", "asc"]
         },
         {
-            "data": "allMaterialsEff"
+            "data": "allMaterialsEff",
+            "orderSequence": ["desc", "asc"]
         },
         {
             "data": "origin"
@@ -515,7 +533,8 @@ function reInitRecipeTable(data) {
             if (chkMaterials[i] == data.materials[j].materialId) {
                 $('#recipe-table thead tr').append("<th>" + data.materials[j].name + "/小时</th>");
                 recipeColumns.push({
-                    "data": "materialsEff." + i
+                    "data": "materialsEff." + i,
+                    "orderSequence": ["desc", "asc"]
                 });
                 break;
             }
@@ -536,7 +555,8 @@ function reInitRecipeTable(data) {
                     "data": {
                         "_": "chefs." + i + ".rankVal",
                         "display": "chefs." + i + ".rankDisp"
-                    }
+                    },
+                    "orderSequence": ["desc", "asc"]
                 });
                 if (chkSkillDiff) {
                     recipeColumns.push({
@@ -547,7 +567,8 @@ function reInitRecipeTable(data) {
                     });
                 }
                 recipeColumns.push({
-                    "data": "chefs." + i + ".efficiency"
+                    "data": "chefs." + i + ".efficiency",
+                    "orderSequence": ["desc", "asc"]
                 });
                 break;
             }
@@ -973,43 +994,50 @@ function reInitChefTable(data) {
             "data": {
                 "_": "rarity",
                 "display": "rarityDisp"
-            }
+            },
+            "orderSequence": ["desc", "asc"]
         },
         {
             "data": {
                 "_": "stirfryVal",
                 "display": "stirfryDisp"
-            }
+            },
+            "orderSequence": ["desc", "asc"]
         },
         {
             "data": {
                 "_": "boilVal",
                 "display": "boilDisp"
-            }
+            },
+            "orderSequence": ["desc", "asc"]
         },
         {
             "data": {
                 "_": "knifeVal",
                 "display": "knifeDisp"
-            }
+            },
+            "orderSequence": ["desc", "asc"]
         },
         {
             "data": {
                 "_": "fryVal",
                 "display": "fryDisp"
-            }
+            },
+            "orderSequence": ["desc", "asc"]
         },
         {
             "data": {
                 "_": "bakeVal",
                 "display": "bakeDisp"
-            }
+            },
+            "orderSequence": ["desc", "asc"]
         },
         {
             "data": {
                 "_": "steamVal",
                 "display": "steamDisp"
-            }
+            },
+            "orderSequence": ["desc", "asc"]
         },
         {
             "data": "specialSkillDisp"
@@ -1018,25 +1046,29 @@ function reInitChefTable(data) {
             "data": {
                 "_": "meatVal",
                 "display": "meatDisp"
-            }
+            },
+            "orderSequence": ["desc", "asc"]
         },
         {
             "data": {
                 "_": "creationVal",
                 "display": "creationDisp"
-            }
+            },
+            "orderSequence": ["desc", "asc"]
         },
         {
             "data": {
                 "_": "vegVal",
                 "display": "vegDisp"
-            }
+            },
+            "orderSequence": ["desc", "asc"]
         },
         {
             "data": {
                 "_": "fishVal",
                 "display": "fishDisp"
-            }
+            },
+            "orderSequence": ["desc", "asc"]
         },
         {
             "data": "gender"
@@ -1094,10 +1126,12 @@ function reInitChefTable(data) {
                     "data": {
                         "_": "recipes." + i + ".rankVal",
                         "display": "recipes." + i + ".rankDisp"
-                    }
+                    },
+                    "orderSequence": ["desc", "asc"]
                 });
                 chefColumns.push({
-                    "data": "recipes." + i + ".efficiency"
+                    "data": "recipes." + i + ".efficiency",
+                    "orderSequence": ["desc", "asc"]
                 });
                 break;
             }
@@ -1201,7 +1235,8 @@ function initEquipTable(data) {
             "data": {
                 "_": "rarity",
                 "display": "rarityDisp"
-            }
+            },
+            "orderSequence": ["desc", "asc"]
         },
         {
             "data": "skillDisp"
@@ -1373,6 +1408,14 @@ function initEquipTable(data) {
 function initDecorationTable(data) {
     var decorationColumns = [
         {
+            "data": undefined,
+            "defaultContent": "",
+            "className": 'select-checkbox',
+            "orderDataType": "dom-selected",
+            "orderSequence": ["desc", "asc"],
+            "width": "30px"
+        },
+        {
             "data": "id",
             "width": "1px"
         },
@@ -1386,40 +1429,55 @@ function initDecorationTable(data) {
             "data": "name"
         },
         {
-            "data": "gold"
+            "data": {
+                "_": "gold",
+                "display": "goldDisp"
+            },
+            "orderSequence": ["desc", "asc"]
         },
         {
-            "data": "tipMin"
+            "data": "tipMin",
+            "orderSequence": ["desc", "asc"]
         },
         {
-            "data": "tipMax"
+            "data": "tipMax",
+            "orderSequence": ["desc", "asc"]
         },
         {
             "data": {
                 "_": "tipTime",
                 "display": "tipTimeDisp"
-            }
+            },
+            "orderSequence": ["desc", "asc"]
         },
         {
             "data": "minEff",
-            "defaultContent": ""
+            "defaultContent": "",
+            "orderSequence": ["desc", "asc"]
         },
         {
             "data": "maxEff",
-            "defaultContent": ""
+            "defaultContent": "",
+            "orderSequence": ["desc", "asc"]
         },
         {
             "data": "avgEff",
-            "defaultContent": ""
+            "defaultContent": "",
+            "orderSequence": ["desc", "asc"]
         },
         {
             "data": "position"
         },
         {
-            "data": "suit"
+            "data": "suit",
+            "orderSequence": ["desc", "asc"]
         },
         {
-            "data": "suitGold"
+            "data": {
+                "_": "suitGold",
+                "display": "suitGoldDisp"
+            },
+            "orderSequence": ["desc", "asc"]
         },
         {
             "data": "origin"
@@ -1435,7 +1493,14 @@ function initDecorationTable(data) {
             zeroRecords: "没有找到",
             info: "第 _PAGE_ 页 共 _PAGES_ 页 _TOTAL_ 个装饰",
             infoEmpty: "没有数据",
-            infoFiltered: "(从 _MAX_ 个装饰中过滤)"
+            infoFiltered: "(从 _MAX_ 个装饰中过滤)",
+            select: {
+                rows: {
+                    _: "选择了 %d 个装饰",
+                    0: "",
+                    1: "选择了 %d 个装饰"
+                }
+            }
         },
         pagingType: "numbers",
         lengthMenu: [[10, 20, 50, 100, -1], [10, 20, 50, 100, "所有"]],
@@ -1443,7 +1508,12 @@ function initDecorationTable(data) {
         dom: "<'row'<'col-sm-4'l><'col-sm-4 text-center'i><'col-sm-4'<'search-box'>>>" +
             "<'row'<'col-sm-12'tr>>" +
             "<'row'<'col-sm-12'p>>",
-        deferRender: true,
+        select: {
+            style: 'multi',
+            selector: 'td.select-checkbox'
+        },
+        order: [[0, "desc"], [10, "desc"]],  //avg eff
+        deferRender: false, // for select
         autoWidth: false
     });
 
@@ -1503,7 +1573,7 @@ function initDecorationTable(data) {
         }
 
         var value = $.trim($("#pane-decorations .search-box input").val());
-        var searchCols = [2, 11, 13];    // name, suit, origin
+        var searchCols = [3, 12, 14];    // name, suit, origin
 
         for (var i = 0, len = searchCols.length; i < len; i++) {
             if (data[searchCols[i]].indexOf(value) !== -1) {
@@ -1564,11 +1634,95 @@ function initDecorationTable(data) {
         decorationTable.draw();
     });
 
+    var options = "<option></option>";
+    for (var i in data.suits) {
+        options += "<option value='" + data.suits[i].name + "'>" + data.suits[i].name + "</option>";
+    }
+    $("#select-decoration-suit").append(options).selectpicker('refresh').change(function () {
+        var suit = $("#select-decoration-suit").val();
+        $("#select-decoration-suit").selectpicker('val', '');
+        decorationTable.rows().deselect();
+        decorationTable.rows().every(function (rowIdx, tableLoop, rowLoop) {
+            if (this.data().suit == suit) {
+                this.select();
+            }
+        });
+        decorationTable.draw();
+    });
+
+    $('#btn-decoration-deselect-all').click(function () {
+        $("#select-decoration-suit").selectpicker('val', '');
+        decorationTable.rows().deselect();
+    });
+
+    decorationTable.on('user-select', function (e, dt, type, cell, originalEvent) {
+        var rowIndex = cell.index().row;
+        var rowData = decorationTable.rows(rowIndex).data()[0];
+        decorationTable.rows({ selected: true }).every(function (rowIdx, tableLoop, rowLoop) {
+            if (this.data().position == rowData.position && this.data().id != rowData.id) {
+                this.deselect();
+            }
+        });
+    });
+
+    decorationTable.on('select', function (e, dt, type, indexes) {
+        updateDecorationSum(data);
+    });
+
+    decorationTable.on('deselect', function (e, dt, type, indexes) {
+        updateDecorationSum(data);
+    });
+
     if (private) {
         $('#chk-decoration-no-origin').closest(".box").removeClass('hidden');
     }
 
     initDecorationShow();
+}
+
+function updateDecorationSum(data) {
+    var selectedData = $('#decoration-table').DataTable().rows({ selected: true }).data().toArray();
+    var eff = 0;
+    var gold = 0;
+    var suit = "";
+    var suitGold = 0;
+    for (var i in selectedData) {
+        if (selectedData[i].suit) {
+            suit = selectedData[i].suit;
+            suitGold = selectedData[i].suitGold;
+        }
+        if (selectedData[i].avgEff) {
+            eff += selectedData[i].avgEff;
+        }
+        gold += selectedData[i].gold;
+    }
+
+    if (suit) {
+        for (var i in data.suits) {
+            if (data.suits[i].name == suit) {
+                for (var j in data.suits[i].decorations) {
+                    var exist = false;
+                    for (var k in selectedData) {
+                        if (data.suits[i].decorations[j] == selectedData[k].id) {
+                            exist = true;
+                            break;
+                        }
+                    }
+                    if (!exist) {
+                        suitGold = 0;
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+    }
+
+    var sum = "";
+    if (selectedData.length) {
+        sum = "平均玉璧/天:" + (+eff.toFixed(1)) + " 收入加成: " + getPercentDisp(+((gold + suitGold) * 100).toFixed(2));
+    }
+    $("#decoration-sum").html(sum);
 }
 
 function initMaterialTable(data) {
@@ -2156,12 +2310,6 @@ function initCalTables(data) {
         initCalChefsTable(data);
         initCalEquipsTable(data);
         initCalMaterialsTable(data);
-
-        $.fn.dataTable.ext.order['dom-selected'] = function (settings, col) {
-            return this.api().column(col, { order: 'index' }).nodes().map(function (td, i) {
-                return $(td).parent("tr").hasClass("selected") ? '1' : '0';
-            });
-        }
     }
 }
 
@@ -3171,6 +3319,7 @@ function initCalRecipesTable(data) {
             "defaultContent": "",
             "className": 'select-checkbox',
             "orderDataType": "dom-selected",
+            "orderSequence": ["desc", "asc"],
             "width": "30px"
         },
         {
@@ -3184,25 +3333,32 @@ function initCalRecipesTable(data) {
             "data": {
                 "_": "rarity",
                 "display": "rarityDisp"
-            }
+            },
+            "orderSequence": ["desc", "asc"]
         },
         {
-            "data": "stirfry"
+            "data": "stirfry",
+            "orderSequence": ["desc", "asc"]
         },
         {
-            "data": "boil"
+            "data": "boil",
+            "orderSequence": ["desc", "asc"]
         },
         {
-            "data": "knife"
+            "data": "knife",
+            "orderSequence": ["desc", "asc"]
         },
         {
-            "data": "fry"
+            "data": "fry",
+            "orderSequence": ["desc", "asc"]
         },
         {
-            "data": "bake"
+            "data": "bake",
+            "orderSequence": ["desc", "asc"]
         },
         {
-            "data": "steam"
+            "data": "steam",
+            "orderSequence": ["desc", "asc"]
         },
         {
             "data": {
@@ -3211,13 +3367,16 @@ function initCalRecipesTable(data) {
             }
         },
         {
-            "data": "price"
+            "data": "price",
+            "orderSequence": ["desc", "asc"]
         },
         {
-            "data": "limitVal"
+            "data": "limitVal",
+            "orderSequence": ["desc", "asc"]
         },
         {
-            "data": "totalPrice"
+            "data": "totalPrice",
+            "orderSequence": ["desc", "asc"]
         },
         {
             "data": "origin"
@@ -3229,12 +3388,14 @@ function initCalRecipesTable(data) {
         {
             "data": "addition",
             "className": "cal-td-input-addition",
+            "orderSequence": ["desc", "asc"],
             "width": "38px"
         },
         {
             "data": "customLimit",
             "className": "cal-td-input-quantity",
             "defaultContent": "",
+            "orderSequence": ["desc", "asc"],
             "width": "38px"
         }
     ];
@@ -3333,6 +3494,7 @@ function initCalChefsTable(data) {
             "defaultContent": "",
             "className": 'select-checkbox',
             "orderDataType": "dom-selected",
+            "orderSequence": ["desc", "asc"],
             "width": "30px"
         },
         {
@@ -3346,43 +3508,50 @@ function initCalChefsTable(data) {
             "data": {
                 "_": "rarity",
                 "display": "rarityDisp"
-            }
+            },
+            "orderSequence": ["desc", "asc"]
         },
         {
             "data": {
                 "_": "stirfryVal",
                 "display": "stirfryDisp"
-            }
+            },
+            "orderSequence": ["desc", "asc"]
         },
         {
             "data": {
                 "_": "boilVal",
                 "display": "boilDisp"
-            }
+            },
+            "orderSequence": ["desc", "asc"]
         },
         {
             "data": {
                 "_": "knifeVal",
                 "display": "knifeDisp"
-            }
+            },
+            "orderSequence": ["desc", "asc"]
         },
         {
             "data": {
                 "_": "fryVal",
                 "display": "fryDisp"
-            }
+            },
+            "orderSequence": ["desc", "asc"]
         },
         {
             "data": {
                 "_": "bakeVal",
                 "display": "bakeDisp"
-            }
+            },
+            "orderSequence": ["desc", "asc"]
         },
         {
             "data": {
                 "_": "steamVal",
                 "display": "steamDisp"
-            }
+            },
+            "orderSequence": ["desc", "asc"]
         },
         {
             "data": "specialSkillDisp"
@@ -3400,6 +3569,7 @@ function initCalChefsTable(data) {
         {
             "data": "addition",
             "className": "cal-td-input-addition",
+            "orderSequence": ["desc", "asc"],
             "width": "38px"
         },
         {
@@ -3519,6 +3689,7 @@ function initCalEquipsTable(data) {
             "defaultContent": "",
             "className": 'select-checkbox',
             "orderDataType": "dom-selected",
+            "orderSequence": ["desc", "asc"],
             "width": "30px"
         },
         {
@@ -3532,7 +3703,8 @@ function initCalEquipsTable(data) {
             "data": {
                 "_": "rarity",
                 "display": "rarityDisp"
-            }
+            },
+            "orderSequence": ["desc", "asc"]
         },
         {
             "data": "skillDisp"
@@ -3633,6 +3805,7 @@ function initCalMaterialsTable(data) {
             "defaultContent": "",
             "className": 'select-checkbox',
             "orderDataType": "dom-selected",
+            "orderSequence": ["desc", "asc"],
             "width": "30px"
         },
         {
@@ -3648,11 +3821,13 @@ function initCalMaterialsTable(data) {
         {
             "data": "quantity",
             "className": "cal-td-input-quantity",
+            "orderSequence": ["desc", "asc"],
             "width": "38px"
         },
         {
             "data": "addition",
             "className": "cal-td-input-addition",
+            "orderSequence": ["desc", "asc"],
             "width": "38px"
         }
     ];
@@ -3890,36 +4065,43 @@ function initCalResultTableCommon(mode, panel, data) {
                 "display": "recipe.data.rarityDisp"
             },
             "defaultContent": "",
+            "orderSequence": ["desc", "asc"],
             "width": "60px"
         },
         {
             "data": "recipe.data.stirfry",
             "defaultContent": "",
+            "orderSequence": ["desc", "asc"],
             "width": "25px"
         },
         {
             "data": "recipe.data.boil",
             "defaultContent": "",
+            "orderSequence": ["desc", "asc"],
             "width": "25px"
         },
         {
             "data": "recipe.data.knife",
             "defaultContent": "",
+            "orderSequence": ["desc", "asc"],
             "width": "25px"
         },
         {
             "data": "recipe.data.fry",
             "defaultContent": "",
+            "orderSequence": ["desc", "asc"],
             "width": "25px"
         },
         {
             "data": "recipe.data.bake",
             "defaultContent": "",
+            "orderSequence": ["desc", "asc"],
             "width": "25px"
         },
         {
             "data": "recipe.data.steam",
             "defaultContent": "",
+            "orderSequence": ["desc", "asc"],
             "width": "25px"
         },
         {
@@ -3939,21 +4121,25 @@ function initCalResultTableCommon(mode, panel, data) {
             "data": "recipe.quantity",
             "className": "cal-td-quantity",
             "defaultContent": "",
+            "orderSequence": ["desc", "asc"],
             "width": "38px"
         },
         {
             "data": "recipe.available",
             "defaultContent": "",
+            "orderSequence": ["desc", "asc"],
             "width": "60px"
         },
         {
             "data": "recipe.max",
             "defaultContent": "",
+            "orderSequence": ["desc", "asc"],
             "width": "60px"
         },
         {
             "data": "recipe.data.price",
             "defaultContent": "",
+            "orderSequence": ["desc", "asc"],
             "width": "32px"
         },
         {
@@ -3962,53 +4148,64 @@ function initCalResultTableCommon(mode, panel, data) {
                 "display": "recipe.rankDisp"
             },
             "defaultContent": "",
+            "orderSequence": ["desc", "asc"],
             "width": "30px"
         },
         {
             "data": "recipe.rankAdditionDisp",
             "defaultContent": "",
+            "orderSequence": ["desc", "asc"],
             "width": "60px"
         },
         {
             "data": "recipe.chefSkillAdditionDisp",
             "defaultContent": "",
+            "orderSequence": ["desc", "asc"],
             "width": "60px"
         },
         {
             "data": "recipe.equipSkillAdditionDisp",
             "defaultContent": "",
+            "orderSequence": ["desc", "asc"],
             "width": "60px"
         },
         {
             "data": "recipe.bonusAdditionDisp",
             "defaultContent": "",
+            "orderSequence": ["desc", "asc"],
             "width": "60px"
         },
         {
             "data": "recipe.data.ultimateAdditionDisp",
             "defaultContent": "",
+            "orderSequence": ["desc", "asc"],
             "width": "60px"
         },
         {
             "data": "recipe.decorationAdditionDisp",
             "defaultContent": "",
+            "orderSequence": ["desc", "asc"],
             "width": "60px"
         },
         {
             "data": "recipe.totalPrice",
-            "defaultContent": ""
+            "defaultContent": "",
+            "orderSequence": ["desc", "asc"]
         },
         {
             "data": "recipe.totalRealPrice",
-            "defaultContent": ""
+            "defaultContent": "",
+            "orderSequence": ["desc", "asc"]
         },
         {
             "data": "recipe.totalBonusScore",
-            "defaultContent": ""
+            "defaultContent": "",
+            "orderSequence": ["desc", "asc"]
         },
         {
             "data": "recipe.totalScore",
-            "defaultContent": ""
+            "defaultContent": "",
+            "orderSequence": ["desc", "asc"]
         },
         {
             "data": {
@@ -4019,7 +4216,8 @@ function initCalResultTableCommon(mode, panel, data) {
         },
         {
             "data": "recipe.efficiency",
-            "defaultContent": ""
+            "defaultContent": "",
+            "orderSequence": ["desc", "asc"]
         }
     ];
 
@@ -4206,6 +4404,7 @@ function generateData(json, json2, person) {
     }
     retData["equips"] = equipsData;
 
+    var suitsData = new Array();
     var decorationsData = new Array();
     for (var i in json.decorations) {
         var decoration = json.decorations[i];
@@ -4218,6 +4417,9 @@ function generateData(json, json2, person) {
             decoration["avgEff"] = +((decoration.tipMin + decoration.tipMax) / 2 * 3600 * 24 / decoration.tipTime).toFixed(1);
         }
 
+        decoration["goldDisp"] = getPercentDisp(+(decoration.gold * 100).toFixed(2));
+        decoration["suitGoldDisp"] = getPercentDisp(+(decoration.suitGold * 100).toFixed(2));
+
         if (json.decorations[i].hide) {
             decoration.icon = "<div class='icon-decoration2 decoration_" + decoration.icon + "'></div>";
         } else {
@@ -4225,8 +4427,28 @@ function generateData(json, json2, person) {
         }
 
         decorationsData.push(decoration);
+
+        if (decoration.suit) {
+            var exist = false;
+            for (var j in suitsData) {
+                if (suitsData[j].name == decoration.suit) {
+                    suitsData[j].decorations.push(decoration.id);
+                    exist = true;
+                    break;
+                }
+            }
+            if (!exist) {
+                var suitData = new Object();
+                suitData["name"] = decoration.suit;
+                suitData["decorations"] = new Array();
+                suitData.decorations.push(decoration.id);
+                suitsData.push(suitData);
+            }
+        }
+
     }
     retData["decorations"] = decorationsData;
+    retData["suits"] = suitsData;
 
     var questsData = new Array();
     for (var i in json.quests) {
@@ -5000,15 +5222,16 @@ function initEquipShow() {
 function initDecorationShow() {
     var decorationTable = $('#decoration-table').DataTable();
 
-    decorationTable.column(0).visible($('#chk-decoration-show-id').prop("checked"), false);
-    decorationTable.column(1).visible($('#chk-decoration-show-icon').prop("checked"), false);
-    decorationTable.column(7).visible($('#chk-decoration-show-min-eff').prop("checked"), false);
-    decorationTable.column(8).visible($('#chk-decoration-show-max-eff').prop("checked"), false);
-    decorationTable.column(9).visible($('#chk-decoration-show-avg-eff').prop("checked"), false);
-    decorationTable.column(10).visible($('#chk-decoration-show-position').prop("checked"), false);
-    decorationTable.column(11).visible($('#chk-decoration-show-suit').prop("checked"), false);
-    decorationTable.column(12).visible($('#chk-decoration-show-suit-gold').prop("checked"), false);
-    decorationTable.column(13).visible($('#chk-decoration-show-origin').prop("checked"), false);
+    decorationTable.column(0).visible($('#chk-decoration-show-select').prop("checked"), false);
+    decorationTable.column(1).visible($('#chk-decoration-show-id').prop("checked"), false);
+    decorationTable.column(2).visible($('#chk-decoration-show-icon').prop("checked"), false);
+    decorationTable.column(8).visible($('#chk-decoration-show-min-eff').prop("checked"), false);
+    decorationTable.column(9).visible($('#chk-decoration-show-max-eff').prop("checked"), false);
+    decorationTable.column(10).visible($('#chk-decoration-show-avg-eff').prop("checked"), false);
+    decorationTable.column(11).visible($('#chk-decoration-show-position').prop("checked"), false);
+    decorationTable.column(12).visible($('#chk-decoration-show-suit').prop("checked"), false);
+    decorationTable.column(13).visible($('#chk-decoration-show-suit-gold').prop("checked"), false);
+    decorationTable.column(14).visible($('#chk-decoration-show-origin').prop("checked"), false);
 
     decorationTable.columns.adjust().draw(false);
 }
