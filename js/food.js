@@ -1687,9 +1687,8 @@ function updateDecorationSum(data) {
     var suit = "";
     var suitGold = 0;
     for (var i in selectedData) {
-        if (selectedData[i].suit) {
-            suit = selectedData[i].suit;
-            suitGold = selectedData[i].suitGold;
+        if (selectedData[i].suit && suitGold == 0) {
+            suitGold = getSuitGold(data, selectedData, i);;
         }
         if (selectedData[i].avgEff) {
             eff += selectedData[i].avgEff;
@@ -1697,32 +1696,32 @@ function updateDecorationSum(data) {
         gold += selectedData[i].gold;
     }
 
-    if (suit) {
-        for (var i in data.suits) {
-            if (data.suits[i].name == suit) {
-                for (var j in data.suits[i].decorations) {
-                    var exist = false;
-                    for (var k in selectedData) {
-                        if (data.suits[i].decorations[j] == selectedData[k].id) {
-                            exist = true;
-                            break;
-                        }
-                    }
-                    if (!exist) {
-                        suitGold = 0;
-                        break;
-                    }
-                }
-                break;
-            }
-        }
-    }
-
     var sum = "";
     if (selectedData.length) {
         sum = "平均玉璧/天:" + (+eff.toFixed(1)) + " 收入加成: " + getPercentDisp(+((gold + suitGold) * 100).toFixed(2));
     }
     $("#decoration-sum").html(sum);
+}
+
+function getSuitGold(data, selected, index) {
+    for (var i in data.suits) {
+        if (data.suits[i].name == selected[index].suit) {
+            for (var j in data.suits[i].decorations) {
+                var exist = false;
+                for (var k in selected) {
+                    if (data.suits[i].decorations[j] == selected[k].id) {
+                        exist = true;
+                        break;
+                    }
+                }
+                if (!exist) {
+                    return 0;
+                }
+            }
+            return selected[index].suitGold;
+        }
+    }
+    return 0;
 }
 
 function initMaterialTable(data) {
