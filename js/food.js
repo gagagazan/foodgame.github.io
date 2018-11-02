@@ -1684,7 +1684,6 @@ function updateDecorationSum(data) {
     var selectedData = $('#decoration-table').DataTable().rows({ selected: true }).data().toArray();
     var eff = 0;
     var gold = 0;
-    var suit = "";
     var suitGold = 0;
     for (var i in selectedData) {
         if (selectedData[i].suit && suitGold == 0) {
