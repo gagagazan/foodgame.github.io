@@ -1696,7 +1696,7 @@ function updateDecorationSum(data) {
     }
 
     var suitGold = 0;
-    for (var i in suits){
+    for (var i in suits) {
         suitGold += getSuitGold(data, selectedData, suits[i]);
     }
 
@@ -4898,7 +4898,7 @@ function getRankGuestInfo(recipe, rank) {
         }
 
         rankGuestsDisp += rankDisp + "-" + recipe.guests[i].guest + "<br>";
-        rankGuestsVal += recipe.guests[i].guest;
+        rankGuestsVal += recipe.guests[i].guest + " ";
     }
 
     var retData = new Object();
