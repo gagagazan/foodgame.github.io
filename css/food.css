@@ -465,7 +465,7 @@ table.history-table tr td.history-dt {
     font-weight: bold;
 }
 
-#partial-warning {
+.partial-warning {
     color: #fff;
     border-radius: .15em;
     padding: 4px 8px 5px;

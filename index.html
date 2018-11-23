@@ -8,8 +8,8 @@
     <link rel="stylesheet" type="text/css" href="css/style.min.css?v=3" />
     <script type="text/javascript" src="js/script.min.js?v=9"></script>
     <script type="text/javascript" src="js/common.min.js?v=27"></script>
-    <link rel="stylesheet" type="text/css" href="css/food.min.css?v=31" />
-    <script type="text/javascript" src="js/food.min.js?v=110"></script>
+    <link rel="stylesheet" type="text/css" href="css/food.min.css?v=32" />
+    <script type="text/javascript" src="js/food.min.js?v=111"></script>
     <link rel="stylesheet" type="text/css" href="css/image.css?v=12" />
 </head>
 
@@ -309,7 +309,7 @@
                     </div>
                 </div>
                 <div class="text-center">
-                    <span id="partial-warning" class="hidden">额外在场技能使用中</span>
+                    <span class="partial-warning hidden">额外在场技能使用中</span>
                 </div>
                 <div>
                     <table id="recipe-table" class="table table-hover table-bordered" width="100%">
@@ -524,7 +524,7 @@
                             <input type="checkbox" id="chk-chef-apply-ultimate-person" data-toggle="toggle" data-on="已修炼" data-off="全修炼"
                                 data-onstyle="default" data-width="80px" checked>
                         </span>
-                        <span class="chef-apply-ultimate hidden">
+                        <span class="chef-apply-ultimate">
                             <select id="chk-chef-partial-ultimate" multiple data-live-search="false" data-width="auto"
                                 data-dropdown-align-right='auto' data-none-selected-text="额外使用在场类技能" data-selected-text-format="count > 0"
                                 data-count-selected-text="额外使用在场类技能 {0}" data-actions-box="true" data-deselect-all-text="清空"></select>
@@ -539,6 +539,9 @@
                             重新计算
                         </a>
                     </div>
+                </div>
+                <div class="text-center">
+                    <span class="partial-warning hidden">额外在场技能使用中</span>
                 </div>
                 <div>
                     <table id="chef-table" class="table table-hover table-bordered" width="100%">
@@ -1179,11 +1182,9 @@
                                         <input type="text" class="form-control" id="input-cal-ultimate-4-price">
                                         <div class="input-group-addon">%</div>
                                     </div>
-                                    <span class="hidden">
-                                        <select id="chk-cal-partial-ultimate" multiple data-live-search="false" data-width="auto"
-                                            data-dropdown-align-right='auto' data-none-selected-text="在场类技能已修炼 0" data-selected-text-format="count > 0"
-                                            data-count-selected-text="在场类技能已修炼 {0}" data-actions-box="true" data-deselect-all-text="清空"></select>
-                                    </span>
+                                    <select id="chk-cal-partial-ultimate" multiple data-live-search="false" data-width="auto"
+                                        data-dropdown-align-right='auto' data-none-selected-text="在场类技能已修炼 0" data-selected-text-format="count > 0"
+                                        data-count-selected-text="在场类技能已修炼 {0}" data-actions-box="true" data-deselect-all-text="清空"></select>
                                     <button id="btn-cal-load-ultimate" class="btn btn-default" type="button">
                                         读取已修炼
                                     </button>
@@ -1796,6 +1797,7 @@
                 <p>筛选按钮 已有 - 只显示已有厨师.</p>
                 <p>开关 修炼技能开/关 - 修炼技能开时, 图鉴数据会使用修炼技能加成.</p>
                 <p>开关 已修炼/全修炼 - 图鉴数据会使用已修炼,或者全修炼技能加成.</p>
+                <p>额外使用在场类技能 - 选择后其他厨师也会得到额外的技能加成.</p>
                 <p>开关 厨具技能开/关 - 厨具技能开时, 图鉴数据会使用厨具技能加成.</p>
                 <p>按钮 重新计算 - 基于效率考虑, 编辑已修炼列或厨具列后, 图鉴数据不会自动重新计算, 需要手动点击该按钮.</p>
                 <br>

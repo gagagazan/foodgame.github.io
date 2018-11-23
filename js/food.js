@@ -952,8 +952,14 @@ function initChefTable(data) {
     $('#chk-chef-apply-ultimate').change(function () {
         if ($(this).prop("checked")) {
             $('.chef-apply-ultimate').show();
+            if ($('#chk-chef-partial-ultimate').val().length) {
+                $(".partial-warning").removeClass("hidden");
+            } else {
+                $(".partial-warning").addClass("hidden");
+            }
         } else {
             $('.chef-apply-ultimate').hide();
+            $(".partial-warning").addClass("hidden");
         }
         updateRecipeChefTable(data);
     });
@@ -964,9 +970,9 @@ function initChefTable(data) {
 
     $('#chk-chef-partial-ultimate').selectpicker().on('changed.bs.select', function () {
         if ($(this).val().length) {
-            $("#partial-warning").removeClass("hidden");
+            $(".partial-warning").removeClass("hidden");
         } else {
-            $("#partial-warning").addClass("hidden");
+            $(".partial-warning").addClass("hidden");
         }
         updateRecipeChefTable(data);
     });
