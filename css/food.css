@@ -464,3 +464,12 @@ table.history-table tr td.history-dt {
     font-size: 18px;
     font-weight: bold;
 }
+
+#partial-warning {
+    color: #fff;
+    border-radius: .15em;
+    padding: 4px 8px 5px;
+    display: inline-block;
+    background-color: #ff5353;
+    font-weight: bold;
+}

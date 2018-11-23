@@ -7,10 +7,10 @@
     <link rel="shortcut icon" href="favicon.ico?v=1" type="image/x-icon" />
     <link rel="stylesheet" type="text/css" href="css/style.min.css?v=3" />
     <script type="text/javascript" src="js/script.min.js?v=9"></script>
-    <script type="text/javascript" src="js/common.min.js?v=26"></script>
-    <link rel="stylesheet" type="text/css" href="css/food.min.css?v=30" />
-    <script type="text/javascript" src="js/food.min.js?v=109"></script>
-    <link rel="stylesheet" type="text/css" href="css/image.css?v=11" />
+    <script type="text/javascript" src="js/common.min.js?v=27"></script>
+    <link rel="stylesheet" type="text/css" href="css/food.min.css?v=31" />
+    <script type="text/javascript" src="js/food.min.js?v=110"></script>
+    <link rel="stylesheet" type="text/css" href="css/image.css?v=12" />
 </head>
 
 <body>
@@ -308,6 +308,9 @@
                         </div>
                     </div>
                 </div>
+                <div class="text-center">
+                    <span id="partial-warning" class="hidden">额外在场技能使用中</span>
+                </div>
                 <div>
                     <table id="recipe-table" class="table table-hover table-bordered" width="100%">
                     </table>
@@ -520,6 +523,11 @@
                         <span class="chef-apply-ultimate">
                             <input type="checkbox" id="chk-chef-apply-ultimate-person" data-toggle="toggle" data-on="已修炼" data-off="全修炼"
                                 data-onstyle="default" data-width="80px" checked>
+                        </span>
+                        <span class="chef-apply-ultimate hidden">
+                            <select id="chk-chef-partial-ultimate" multiple data-live-search="false" data-width="auto"
+                                data-dropdown-align-right='auto' data-none-selected-text="额外使用在场类技能" data-selected-text-format="count > 0"
+                                data-count-selected-text="额外使用在场类技能 {0}" data-actions-box="true" data-deselect-all-text="清空"></select>
                         </span>
                     </div>
                     <div class="box">
@@ -1170,6 +1178,11 @@
                                         <input type="text" class="form-control" id="input-cal-ultimate-4-price">
                                         <div class="input-group-addon">%</div>
                                     </div>
+                                    <span class="hidden">
+                                        <select id="chk-cal-partial-ultimate" multiple data-live-search="false" data-width="auto"
+                                            data-dropdown-align-right='auto' data-none-selected-text="在场类技能已修炼 0" data-selected-text-format="count > 0"
+                                            data-count-selected-text="在场类技能已修炼 {0}" data-actions-box="true" data-deselect-all-text="清空"></select>
+                                    </span>
                                     <button id="btn-cal-load-ultimate" class="btn btn-default" type="button">
                                         读取已修炼
                                     </button>

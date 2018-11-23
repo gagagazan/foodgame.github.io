@@ -21,7 +21,7 @@ function getRankInfo(recipe, chef) {
         times = Math.min(times, chef.steamVal / recipe.steam);
     }
 
-    var rankInfo = new Object();
+    var rankInfo = {};
 
     var rankAddition = 0;
     var rankDisp = "-";
@@ -186,7 +186,7 @@ function getRecipeQuantity(recipe, materials, rule) {
 
 function getRecipeResult(chef, equip, recipe, quantity, maxQuantity, materials, rule, decoration) {
 
-    var resultData = new Object();
+    var resultData = {};
 
     var rankAddition = 0;
     var chefSkillAddition = 0;
@@ -326,7 +326,7 @@ function getEquipInfo(equipName, equips) {
     if (equipName) {
         for (var j in equips) {
             if (equipName == equips[j].name) {
-                info = [];
+                info = {};
                 info["name"] = equips[j].name;
                 info["effect"] = equips[j].effect;
                 info["disp"] = equips[j].name + "<br><small>" + equips[j].skillDisp + "</small>";
@@ -337,7 +337,7 @@ function getEquipInfo(equipName, equips) {
     return info;
 }
 
-function setDataForChef(chef, equip, useEquip, ultimateEffect) {
+function setDataForChef(chef, equip, useEquip, globalUltimateEffect, selfPartialUltimateData, otherPartialUltimateData) {
 
     var stirfryAddition = new Addition();
     var boilAddition = new Addition();
@@ -351,14 +351,30 @@ function setDataForChef(chef, equip, useEquip, ultimateEffect) {
     var vegAddition = 0;
     var fishAddition = 0;
 
-    var effects = ultimateEffect;
+    var effects = globalUltimateEffect;
 
-    if (useEquip && equip) {
+    if (useEquip && equip && equip.effect) {
         effects = effects.concat(equip.effect);
     }
 
-    if (chef.ultimateSelfEffect) {
-        effects = effects.concat(chef.ultimateSelfEffect);
+    var selfPartialAdded = false;
+    if (selfPartialUltimateData) {
+        for (var i in selfPartialUltimateData) {
+            if (chef.chefId == selfPartialUltimateData[i].chefId) {
+                effects = effects.concat(selfPartialUltimateData[i].effect);
+                selfPartialAdded = true;
+                break;
+            }
+        }
+    }
+
+    if (otherPartialUltimateData) {
+        for (var i in otherPartialUltimateData) {
+            if (chef.chefId == otherPartialUltimateData[i].chefId && selfPartialAdded) {
+                continue;
+            }
+            effects = effects.concat(otherPartialUltimateData[i].effect);
+        }
     }
 
     for (var i in effects) {
@@ -473,4 +489,35 @@ function getChefAtrributeDisp(final, origin) {
 
 function isNumeric(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+function getPartialUltimateData(chefs, skills, useUltimate, ids) {
+    var result = [];
+    if (useUltimate) {
+        for (var i in ids) {
+            for (var j in chefs) {
+                if (ids[i] == chefs[j].chefId) {
+                    for (var k in skills) {
+                        if (chefs[j].ultimateSkill == skills[k].skillId) {
+                            var tempEffect = [];
+                            for (var m in skills[k].effect) {
+                                if (skills[k].effect[m].condition == "Partial") {
+                                    tempEffect.push(skills[k].effect[m]);
+                                }
+                            }
+                            if (tempEffect.length) {
+                                var partialData = {};
+                                partialData["chefId"] = chefs[j].chefId;
+                                partialData["effect"] = tempEffect;
+                                result.push(partialData);
+                            }
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+    }
+    return result;
 }
